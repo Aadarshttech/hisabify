@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "298957259547",
+    "project_id": "flatsplit-b3837",
+    "storage_bucket": "flatsplit-b3837.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298957259547:android:35aaf20cfd7cde6d2189be",
+        "android_client_info": {
+          "package_name": "com.flatsplit.flatsplit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0LolEC6XNEOxMFMrgKZH_uwZlwGbfb8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

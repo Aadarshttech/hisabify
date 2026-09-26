@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hisabify — Shared Expenses, Made Easy</title>
+    <meta name="description" content="Track, split and settle your expenses with friends, roommates and group. No more awkward money talks! Built for Nepal, India and the world.">
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Outfit for friendly rounded modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/logo_icon_clean.png">
+</head>
+<body>
+
+    <!-- Botanical Corner Accents -->
+    <img src="assets/leaves_top_clean.png" alt="" class="botanical-accent leaf-top" aria-hidden="true">
+    <img src="assets/leaves_bottom_clean.png" alt="" class="botanical-accent leaf-bottom" aria-hidden="true">
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar" id="topNav">
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                <img src="assets/logo_icon_clean.png" alt="Hisabify Wallet Logo" class="brand-icon">
+                <span class="brand-name">Hisabify</span>
+            </a>
+
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#download" class="nav-link">Mobile App</a>
+                <a href="#developer" class="nav-link">About</a>
+            </div>
+
+            <div class="nav-actions">
+                <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-primary-pill" target="_blank" rel="noopener">
+                    Get Started <span class="arrow-icon">→</span>
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (EXACT AS MOCKUP) -->
+    <header class="hero-section" id="home">
+        <div class="hero-container">
+            <!-- Left Hero Content -->
+            <div class="hero-left">
+                <div class="hero-tagline">
+                    <span>SIMPLE</span>
+                    <span class="dot">•</span>
+                    <span>FAIR</span>
+                    <span class="dot">•</span>
+                    <span>TOGETHER</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Shared Expenses,<br>
+                    <span class="highlight-orange">Made Easy</span>
+                </h1>
+
+                <p class="hero-description">
+                    Track, split and settle your expenses with your friends, roommates and group. No more awkward money talks!
+                </p>
+
+                <div class="hero-cta-group">
+                    <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-cta-orange" target="_blank" rel="noopener">
+                        Get Started Free <span>→</span>
+                    </a>
+                    <button class="btn-cta-video" id="openVideoModal">
+                        <span class="play-circle">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </span>
+                        Watch Video
+                    </button>
+                </div>
+
+                <div class="hero-social-proof">
+                    <div class="avatar-stack">
+                        <img src="assets/user_avatars.png" alt="Happy users" class="avatars-img">
+                    </div>
+                    <p class="social-proof-text">
+                        Join <strong>10,000+</strong> happy users<br>managing their expenses
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Hero Artwork (Phone Mockup + Friends Illustration) -->
+            <div class="hero-right">
+                <div class="hero-art-wrapper">
+                    <img src="assets/hero_art_faded.png" alt="Hisabify app showing live balance and happy friends sharing expenses" class="hero-art-image">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 4 Feature Badges Bar (Exact from bottom of Mockup) -->
+    <section class="features-bar-section" id="features">
+        <div class="features-bar-container">
+            <!-- Item 1: Split Expenses -->
+            <div class="feature-bar-col">
+                <div class="feature-bar-icon-wrap icon-split-bg">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2F6D58" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="feature-bar-text">
+                    <h3>Split Expenses</h3>
+                    <p>Divide costs fairly with your group.</p>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="feature-divider"></div>
+
+            <!-- Item 2: Track Payments -->
+            <div class="feature-bar-col">
+                <div class="feature-bar-icon-wrap icon-track-bg">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2B746E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                        <circle cx="16" cy="15" r="1.5" fill="#2B746E"></circle>
+                    </svg>
+                </div>
+                <div class="feature-bar-text">
+                    <h3>Track Payments</h3>
+                    <p>See who owes what, all in one place.</p>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="feature-divider"></div>
+
+            <!-- Item 3: Stay Organized -->
+            <div class="feature-bar-col">
+                <div class="feature-bar-icon-wrap icon-organize-bg">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#9A6517" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                        <polyline points="4 8 10 3 16 7 20 2"></polyline>
+                    </svg>
+                </div>
+                <div class="feature-bar-text">
+                    <h3>Stay Organized</h3>
+                    <p>Keep your finances in check.</p>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="feature-divider"></div>
+
+            <!-- Item 4: No Awkward Talks -->
+            <div class="feature-bar-col">
+                <div class="feature-bar-icon-wrap icon-awkward-bg">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#256E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <polyline points="9 12 11 14 15 10"></polyline>
+                    </svg>
+                </div>
+                <div class="feature-bar-text">
+                    <h3>No Awkward Talks</h3>
+                    <p>Let the app handle it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section" id="how-it-works">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">EFFORTLESS 3 STEPS</span>
+                <h2>How Hisabify Works For You</h2>
+                <p>Designed for flatmates, trips, and friends so no one feels cheated or burdened.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon-circle">🏠</div>
+                    <h3>Create Your Flat or Group</h3>
+                    <p>Set up a space for your apartment, road trip, or hangout club. Share the join code with your friends.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon-circle">📝</div>
+                    <h3>Add Expenses On The Go</h3>
+                    <p>Groceries, electricity, or dinner? Add who paid, who was involved, and choose equal or custom split.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon-circle">🤝</div>
+                    <h3>Settle In One Tap</h3>
+                    <p>Hisabify calculates the minimal number of payments needed. Settle balances cleanly without any guesswork.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Available Soon on Play Store / App Store Section -->
+    <section class="download-section" id="download">
+        <div class="section-container">
+            <div class="download-card">
+                <div class="download-content">
+                    <span class="launch-pill">
+                        <span class="pulse-dot"></span> LAUNCHING SOON ON MOBILE
+                    </span>
+                    <h2>Take Hisabify In Your Pocket</h2>
+                    <p class="download-desc">
+                        Our native Android and iOS apps are currently being polished for Google Play and the App Store. Want to test it first or get notified?
+                    </p>
+
+                    <!-- Store Badges Grid -->
+                    <div class="store-badges-grid">
+                        <!-- Google Play Card -->
+                        <div class="store-badge-card coming-soon-badge">
+                            <div class="badge-status-tag">COMING SOON</div>
+                            <div class="badge-inner">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+                                    <path d="M3.6 1.8c-.3.3-.4.8-.4 1.4v17.6c0 .6.1 1.1.4 1.4l.1.1 9.8-9.8v-.2L3.7 1.7l-.1.1z" fill="#4285F4"/>
+                                    <path d="M16.8 15.5l-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-3.9 2.2-.1-.1z" fill="#FBBC05"/>
+                                    <path d="M13.5 12.2L3.6 22.1c.4.4 1 .4 1.7 0l11.5-6.6-3.3-3.3z" fill="#EA4335"/>
+                                    <path d="M13.5 11.8l3.3-3.3L5.3 1.9c-.7-.4-1.3-.4-1.7 0l9.9 9.9z" fill="#34A853"/>
+                                </svg>
+                                <div class="badge-text">
+                                    <span class="subtext">GET IT ON</span>
+                                    <span class="maintext">Google Play</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- App Store Card -->
+                        <div class="store-badge-card coming-soon-badge">
+                            <div class="badge-status-tag">COMING SOON</div>
+                            <div class="badge-inner">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.78 1.06-1.85.94-2.93-.93.04-2.03.63-2.68 1.41-.58.68-1.09 1.77-.95 2.83 1.03.08 2.07-.55 2.69-1.31z"/>
+                                </svg>
+                                <div class="badge-text">
+                                    <span class="subtext">Download on the</span>
+                                    <span class="maintext">App Store</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Instant Web App Card -->
+                        <a href="https://app.hisabify.aadarshapandit.com.np" class="store-badge-card web-ready-badge" target="_blank" rel="noopener">
+                            <div class="badge-status-tag live-tag">LIVE NOW</div>
+                            <div class="badge-inner">
+                                <div class="web-icon">🌐</div>
+                                <div class="badge-text">
+                                    <span class="subtext">USE RIGHT IN BROWSER</span>
+                                    <span class="maintext">Launch Web App →</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Email Notification Box -->
+                    <div class="notify-box">
+                        <form id="notifyForm" class="notify-form" onsubmit="event.preventDefault(); document.getElementById('notifyMsg').style.display='block'; this.reset();">
+                            <input type="email" placeholder="Enter your email for Play Store invite..." required class="notify-input">
+                            <button type="submit" class="notify-btn">Notify Me</button>
+                        </form>
+                        <p id="notifyMsg" class="notify-success" style="display:none;">
+                            🎉 You're on the VIP list! We will notify you the moment Hisabify hits the stores.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet The Developer Section -->
+    <section class="developer-section" id="developer">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">HEART & CODE</span>
+                <h2>Meet the Developer</h2>
+                <p>Built with care by a developer who knows the pain of shared flat finances firsthand.</p>
+            </div>
+
+            <div class="developer-card">
+                <div class="developer-avatar-wrapper">
+                    <div class="avatar-ring">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Aadarsha Pandit" class="developer-avatar" onerror="this.onerror=null; this.src='assets/logo_icon_clean.png';">
+                    </div>
+                    <div class="status-indicator">
+                        <span class="status-dot"></span> Building in Public
+                    </div>
+                </div>
+
+                <div class="developer-details">
+                    <div class="dev-header">
+                        <div>
+                            <h3 class="dev-name">Aadarsha Pandit</h3>
+                            <p class="dev-role">Software Engineer & Flutter Creator • Kathmandu, Nepal 🇳🇵</p>
+                        </div>
+                        <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener" class="dev-portfolio-link">
+                            Portfolio ↗
+                        </a>
+                    </div>
+
+                    <blockquote class="dev-quote">
+                        "Living with flatmates taught me that tracking money doesn't have to be complicated, stressful, or awkward. I created <strong>Hisabify</strong> to replace messy WhatsApp notes and endless calculator math with a warm, reliable experience tailored for Nepal, India, and beyond."
+                    </blockquote>
+
+                    <!-- Tech stack chips -->
+                    <div class="tech-stack-row">
+                        <span class="tech-chip">Flutter</span>
+                        <span class="tech-chip">Dart</span>
+                        <span class="tech-chip">Firebase</span>
+                        <span class="tech-chip">Cloud Firestore</span>
+                        <span class="tech-chip">Vercel</span>
+                    </div>
+
+                    <div class="dev-socials">
+                        <a href="https://github.com/aadarshapandit" target="_blank" rel="noopener" class="social-btn">
+                            GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/aadarshapandit" target="_blank" rel="noopener" class="social-btn">
+                            LinkedIn
+                        </a>
+                        <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener" class="social-btn">
+                            Website
+                        </a>
+                        <a href="mailto:contact@aadarshapandit.com.np" class="social-btn highlight">
+                            Say Hello 👋
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Preview Modal -->
+    <div class="modal-overlay" id="videoModal">
+        <div class="modal-window">
+            <button class="modal-close" id="closeVideoModal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h3>Hisabify App Walkthrough</h3>
+                <p>See how effortlessly you can track shared flat expenses.</p>
+            </div>
+            <div class="modal-body">
+                <div class="video-placeholder">
+                    <img src="assets/hero_reference.jpg" alt="Hisabify App Preview" class="modal-preview-img">
+                    <div class="video-play-overlay">
+                        <div class="modal-play-btn">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                        <p class="modal-play-text">Interactive Demo Ready on Web</p>
+                        <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-primary-pill" target="_blank" rel="noopener" style="margin-top: 1rem;">
+                            Test Live App Now →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="brand-logo">
+                    <img src="assets/logo_icon_clean.png" alt="Hisabify Logo" class="brand-icon">
+                    <span class="brand-name">Hisabify</span>
+                </div>
+                <p class="footer-tagline">
+                    Simple • Fair • Together. Your modern companion for shared flat finances and group expenses.
+                </p>
+            </div>
+
+            <div class="footer-links-col">
+                <h4>Navigation</h4>
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#download">Mobile App</a>
+                <a href="#developer">Meet Developer</a>
+            </div>
+
+            <div class="footer-links-col">
+                <h4>Live Web App</h4>
+                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank">Sign In / Register</a>
+                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank">Create Flat</a>
+                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank">Join Flat</a>
+            </div>
+
+            <div class="footer-links-col">
+                <h4>Connect</h4>
+                <a href="https://aadarshapandit.com.np" target="_blank">Aadarsha's Website</a>
+                <a href="https://github.com/aadarshapandit" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/aadarshapandit" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Hisabify. Crafted with ❤️ by <a href="https://aadarshapandit.com.np" target="_blank">Aadarsha Pandit</a>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Modal functionality
+        const videoModal = document.getElementById('videoModal');
+        const openBtn = document.getElementById('openVideoModal');
+        const closeBtn = document.getElementById('closeVideoModal');
+
+        if (openBtn) {
+            openBtn.addEventListener('click', () => {
+                videoModal.classList.add('active');
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                videoModal.classList.remove('active');
+            });
+        }
+
+        window.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                videoModal.classList.remove('active');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('open');
+            });
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
