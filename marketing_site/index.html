@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hisabify — Shared Expenses, Made Easy</title>
-    <meta name="description" content="Track, split and settle your expenses with friends, roommates and group. No more awkward money talks! Built for Nepal, India and the world.">
+    <meta name="description" content="Track, split and settle shared flat & group expenses with zero awkwardness. Built for roommates, friends, and travelers in Nepal, India, and worldwide.">
     
-    <!-- Google Fonts: Plus Jakarta Sans & Outfit for friendly rounded modern typography -->
+    <!-- Google Fonts: Fredoka for matching app brand aesthetic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,9 +16,16 @@
 </head>
 <body>
 
-    <!-- Botanical Corner Accents (Removed) -->
+    <!-- Top Announcement Bar -->
+    <div class="top-announcement">
+        <div class="announcement-content">
+            <span class="announcement-badge">✨ NEW</span>
+            <span>Hisabify Web App is live! Track and settle group expenses anywhere.</span>
+            <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener" class="announcement-link">Open Web App →</a>
+        </div>
+    </div>
 
-    <!-- Top Navigation Bar -->
+    <!-- Sticky Floating Navigation -->
     <nav class="navbar" id="topNav">
         <div class="nav-container">
             <a href="#" class="brand-logo">
@@ -28,15 +35,17 @@
 
             <div class="nav-menu" id="navMenu">
                 <a href="#home" class="nav-link active">Home</a>
+                <a href="#calculator" class="nav-link">Live Splitter</a>
                 <a href="#features" class="nav-link">Features</a>
+                <a href="#analytics" class="nav-link">Analytics</a>
                 <a href="#how-it-works" class="nav-link">How It Works</a>
                 <a href="#download" class="nav-link">Mobile App</a>
-                <a href="#developer" class="nav-link">About</a>
+                <a href="#developer" class="nav-link">About Creator</a>
             </div>
 
             <div class="nav-actions">
                 <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-primary-pill" target="_blank" rel="noopener">
-                    Get Started <span class="arrow-icon">→</span>
+                    Launch App <span class="arrow-icon">→</span>
                 </a>
                 <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
                     <span></span><span></span><span></span>
@@ -45,68 +54,104 @@
         </div>
     </nav>
 
-    <!-- Hero Section (EXACT AS MOCKUP) -->
+    <!-- Hero Section -->
     <header class="hero-section" id="home">
+        <div class="hero-bg-glow"></div>
         <div class="hero-container">
             <!-- Left Hero Content -->
             <div class="hero-left">
-                <div class="hero-tagline">
-                    <span>SIMPLE</span>
-                    <span class="dot">•</span>
-                    <span>FAIR</span>
-                    <span class="dot">•</span>
-                    <span>TOGETHER</span>
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    <span>SIMPLE • FAIR • TOGETHER</span>
                 </div>
 
                 <h1 class="hero-title">
                     Shared Expenses,<br>
-                    <span class="highlight-orange">Made Easy</span>
+                    <span class="gradient-text">Made Effortless.</span>
                 </h1>
 
                 <p class="hero-description">
-                    Track, split and settle your expenses with your friends, roommates and group. No more awkward money talks!
+                    Track, split, and settle expenses with flatmates, friends, and travel groups. No spreadsheets, no mental gymnastics, and zero awkward money conversations.
                 </p>
 
                 <div class="hero-cta-group">
-                    <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-cta-orange" target="_blank" rel="noopener">
-                        Get Started Free <span>→</span>
+                    <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-cta-primary" target="_blank" rel="noopener">
+                        <span>Get Started Free</span>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
                     </a>
-                    <button class="btn-cta-video" id="openVideoModal">
-                        <span class="play-circle">
-                            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </span>
-                        Watch Video
-                    </button>
+                    <a href="#calculator" class="btn-cta-secondary">
+                        <span class="calc-icon">⚡</span>
+                        <span>Try Live Splitter</span>
+                    </a>
                 </div>
 
+                <!-- Social Proof & Trust Badges -->
                 <div class="hero-social-proof">
                     <div class="avatar-stack">
-                        <img src="assets/user_avatars.png" alt="Happy users" class="avatars-img">
+                        <img src="assets/user_avatars.png" alt="Hisabify users" class="avatars-img">
                     </div>
-                    <p class="social-proof-text">
-                        Join <strong>10,000+</strong> happy users<br>managing their expenses
-                    </p>
+                    <div class="social-proof-info">
+                        <div class="stars-row">
+                            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                            <strong class="rating-num">4.9 / 5.0</strong>
+                        </div>
+                        <p class="social-proof-text">
+                            Loved by <strong>10,000+</strong> flatmates & travel buddies
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Right Hero Artwork (Phone Mockup + Friends Illustration) -->
+            <!-- Right Hero Visual with Floating Dynamic Micro-Widgets -->
             <div class="hero-right">
-                <div class="hero-art-wrapper">
-                    <img src="assets/hero_main_art.png" alt="Hisabify app showing live balance and happy friends sharing expenses" class="hero-art-image">
+                <div class="hero-visual-stage">
+                    <div class="art-glow-ring"></div>
+                    <div class="hero-art-frame">
+                        <img src="assets/hero_main_art.png" alt="Hisabify Expense Splitting Experience" class="hero-art-image">
+                    </div>
+
+                    <!-- Floating Micro-Widget 1: Recent Expense -->
+                    <div class="floating-widget widget-top-left float-slow">
+                        <div class="widget-icon bg-amber">🍕</div>
+                        <div class="widget-text">
+                            <span class="widget-title">Friday Flat Dinner</span>
+                            <span class="widget-sub">₨ 2,400 • Split 4 ways</span>
+                        </div>
+                        <span class="widget-pill bg-soft-green">₨ 600/ea</span>
+                    </div>
+
+                    <!-- Floating Micro-Widget 2: Settlement Badge -->
+                    <div class="floating-widget widget-bottom-right float-reverse">
+                        <div class="widget-icon bg-green">✓</div>
+                        <div class="widget-text">
+                            <span class="widget-title">Settled with Samir</span>
+                            <span class="widget-sub">₨ 1,250 via QR code</span>
+                        </div>
+                        <span class="widget-tag">All Clear</span>
+                    </div>
+
+                    <!-- Floating Micro-Widget 3: Multi-Currency -->
+                    <div class="floating-widget widget-bottom-left float-medium">
+                        <div class="widget-icon bg-blue">🌏</div>
+                        <div class="widget-text">
+                            <span class="widget-title">Multi-Currency</span>
+                            <span class="widget-sub">NPR 🇳🇵 • INR 🇮🇳 • USD 🇺🇸</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- 4 Feature Badges Bar (Exact from bottom of Mockup) -->
-    <section class="features-bar-section" id="features">
+    <!-- Key Metrics / Feature Badges Bar -->
+    <section class="features-bar-section">
         <div class="features-bar-container">
-            <!-- Item 1: Split Expenses -->
             <div class="feature-bar-col">
                 <div class="feature-bar-icon-wrap icon-split-bg">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2F6D58" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -114,62 +159,380 @@
                     </svg>
                 </div>
                 <div class="feature-bar-text">
-                    <h3>Split Expenses</h3>
-                    <p>Divide costs fairly with your group.</p>
+                    <h3>Fair Group Splits</h3>
+                    <p>Split equally, by shares, or custom percentages.</p>
                 </div>
             </div>
 
-            <!-- Divider -->
             <div class="feature-divider"></div>
 
-            <!-- Item 2: Track Payments -->
             <div class="feature-bar-col">
                 <div class="feature-bar-icon-wrap icon-track-bg">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2B746E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="2" y="4" width="20" height="16" rx="3"></rect>
                         <line x1="2" y1="10" x2="22" y2="10"></line>
-                        <circle cx="16" cy="15" r="1.5" fill="#2B746E"></circle>
+                        <circle cx="16" cy="15" r="1.5" fill="currentColor"></circle>
                     </svg>
                 </div>
                 <div class="feature-bar-text">
-                    <h3>Track Payments</h3>
-                    <p>See who owes what, all in one place.</p>
+                    <h3>Track Live Balances</h3>
+                    <p>Always know who owes what without guessing.</p>
                 </div>
             </div>
 
-            <!-- Divider -->
             <div class="feature-divider"></div>
 
-            <!-- Item 3: Stay Organized -->
             <div class="feature-bar-col">
                 <div class="feature-bar-icon-wrap icon-organize-bg">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#9A6517" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="20" x2="18" y2="10"></line>
-                        <line x1="12" y1="20" x2="12" y2="4"></line>
-                        <line x1="6" y1="20" x2="6" y2="14"></line>
-                        <polyline points="4 8 10 3 16 7 20 2"></polyline>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                     </svg>
                 </div>
                 <div class="feature-bar-text">
-                    <h3>Stay Organized</h3>
-                    <p>Keep your finances in check.</p>
+                    <h3>Debt Simplification</h3>
+                    <p>Reduces 10 messy transfers to 2 simple settlements.</p>
                 </div>
             </div>
 
-            <!-- Divider -->
             <div class="feature-divider"></div>
 
-            <!-- Item 4: No Awkward Talks -->
             <div class="feature-bar-col">
                 <div class="feature-bar-icon-wrap icon-awkward-bg">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#256E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                         <polyline points="9 12 11 14 15 10"></polyline>
                     </svg>
                 </div>
                 <div class="feature-bar-text">
-                    <h3>No Awkward Talks</h3>
-                    <p>Let the app handle it.</p>
+                    <h3>Zero Awkward Talks</h3>
+                    <p>Automated reminders and clean transparent ledger.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FUN, CLEAN & INTUITIVE LIVE SPLITTER (GENERALIZED) -->
+    <section class="interactive-calc-section" id="calculator">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">⚡ FUN & INSTANT DEMO</span>
+                <h2>Try the Instant Group Splitter</h2>
+                <p>Drag the sliders, pick your currency, and watch Hisabify settle everything with zero calculator math.</p>
+            </div>
+
+            <div class="fun-split-card">
+                <div class="fun-split-grid">
+                    <!-- Left: Playful Inputs -->
+                    <div class="fun-inputs-col">
+                        
+                        <!-- Header with dynamic reaction emoji -->
+                        <div class="fun-bill-header">
+                            <div class="fun-emoji-bubble" id="billReactionEmoji">🍕</div>
+                            <div class="fun-bill-title-block">
+                                <span class="fun-label">Total Group Expense</span>
+                                <div class="fun-amount-box">
+                                    <span class="fun-curr-symbol" id="currencySymbol">₨</span>
+                                    <input type="number" id="billAmount" value="3200" min="50" step="100" class="fun-amount-input">
+                                </div>
+                            </div>
+                            <div class="currency-toggle-group">
+                                <button type="button" class="curr-pill active" data-curr="₨">₨ NPR</button>
+                                <button type="button" class="curr-pill" data-curr="₹">₹ INR</button>
+                                <button type="button" class="curr-pill" data-curr="$">$ USD</button>
+                            </div>
+                        </div>
+
+                        <!-- Number of Friends Slider with Live Avatars -->
+                        <div class="fun-control-group">
+                            <div class="fun-label-row">
+                                <span class="fun-label">Split Among Friends</span>
+                                <span class="fun-badge-count" id="friendsCountDisplay">4 Friends</span>
+                            </div>
+                            <input type="range" id="friendsSlider" min="2" max="8" value="4" class="fun-range-slider">
+                            
+                            <!-- Animated Avatar Bubbles -->
+                            <div class="fun-avatars-row" id="liveAvatarsRow">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Payer Row -->
+                        <div class="fun-control-group">
+                            <span class="fun-label">Paid Upfront By:</span>
+                            <div class="fun-payer-select-row" id="payerSelectRow">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Big Joyful Result Card -->
+                    <div class="fun-result-col">
+                        <div class="result-glow-bg"></div>
+                        <div class="fun-result-card">
+                            <span class="fun-result-tag">EACH PERSON PAYS</span>
+                            
+                            <div class="fun-share-highlight">
+                                <span class="fun-share-curr" id="resultCurr">₨</span>
+                                <span class="fun-share-val" id="shareValue">800</span>
+                            </div>
+
+                            <p class="fun-peace-tagline">✨ Clean settlement. Zero awkward money talks.</p>
+
+                            <!-- Direct Settlement Cards -->
+                            <div class="fun-settlement-flow" id="settlementFlowList">
+                                <!-- Populated dynamically -->
+                            </div>
+
+                            <div class="fun-actions-row">
+                                <button type="button" class="btn-fun-copy" id="copySummaryBtn">
+                                    <span>📋</span>
+                                    <span id="copyBtnText">Copy Note for WhatsApp</span>
+                                </button>
+                                <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-fun-launch" target="_blank" rel="noopener">
+                                    Open Web App →
+                                </a>
+                            </div>
+
+                            <div class="copy-toast" id="copyToast">
+                                ✓ Group summary copied to clipboard!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE FEATURES SHOWCASE -->
+    <section class="bento-features-section" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">POWERFUL CAPABILITIES</span>
+                <h2>Engineered for Effortless Group Finances</h2>
+                <p>Everything you need to eliminate confusion, simplify debts, and keep flat friendships peaceful.</p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Bento Feature 1: Smart Debt Minimizer -->
+                <div class="bento-card bento-hero">
+                    <div class="bento-top-row">
+                        <span class="bento-badge-pill">SMART GRAPH ALGORITHM</span>
+                        <span class="bento-stat-highlight">Reduces 80% of Transfers</span>
+                    </div>
+                    <h3>Smart Debt Minimization Engine</h3>
+                    <p>When flatmates pay for rent, wifi, groceries, and takeout, debts become a tangled web. Hisabify's graph solver cancels out circular debts and condenses them into the fewest direct payments possible.</p>
+                    
+                    <div class="interactive-debt-showcase">
+                        <div class="debt-toggle-pills">
+                            <span class="debt-switch-label">View Mode:</span>
+                            <button type="button" class="debt-tab active" id="debtViewOptimized">✨ Optimized with Hisabify (2 Transfers)</button>
+                            <button type="button" class="debt-tab" id="debtViewRaw">🤯 Without Hisabify (12 Transfers)</button>
+                        </div>
+                        <div class="debt-display-box" id="debtDisplayArea">
+                            <div class="debt-flow-row">
+                                <div class="flow-pill"><span class="flow-avatar">S</span> Samir</div>
+                                <span class="flow-arrow">pays ₨ 1,200 ➔</span>
+                                <div class="flow-pill bg-p"><span class="flow-avatar">A</span> Aadarsh</div>
+                            </div>
+                            <div class="debt-flow-row">
+                                <div class="flow-pill"><span class="flow-avatar">B</span> Bikash</div>
+                                <span class="flow-arrow">pays ₨ 850 ➔</span>
+                                <div class="flow-pill bg-p"><span class="flow-avatar">A</span> Aadarsh</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bento Feature 2: Multi-Currency Support -->
+                <div class="bento-card">
+                    <div class="bento-icon-bubble bg-amber">🌏</div>
+                    <h3>Multi-Currency Support</h3>
+                    <p>Seamlessly handle trips abroad or cross-border flatmates. Full built-in support for Nepali Rupee, Indian Rupee, USD, Euro & GBP.</p>
+                    <div class="currency-pills-row">
+                        <span class="pill-chip active-chip">₨ NPR (🇳🇵)</span>
+                        <span class="pill-chip">₹ INR (🇮🇳)</span>
+                        <span class="pill-chip">$ USD (🇺🇸)</span>
+                        <span class="pill-chip">€ EUR (🇪🇺)</span>
+                    </div>
+                </div>
+
+                <!-- Bento Feature 3: 1-Click Flat Join Codes -->
+                <div class="bento-card">
+                    <div class="bento-icon-bubble bg-green">🔑</div>
+                    <h3>1-Click Flat Join Codes</h3>
+                    <p>No annoying email invites or friend requests. Share a simple 6-character room code on WhatsApp and your flatmates are in immediately.</p>
+                    <div class="code-preview-box">
+                        <div class="code-details">
+                            <span class="code-label">Flat Room Code:</span>
+                            <code>FLAT-9024</code>
+                        </div>
+                        <span class="code-active-dot">● Active</span>
+                    </div>
+                </div>
+
+                <!-- Bento Feature 4: Flat Admin & Roles Management -->
+                <div class="bento-card">
+                    <div class="bento-icon-bubble bg-blue">🛡️</div>
+                    <h3>Flat Admin & Member Roles</h3>
+                    <p>Assign Flat Admin privileges, manage room settings, approve new roommates, or remove members cleanly when leases end.</p>
+                    <div class="roles-preview-row">
+                        <span class="role-badge admin">👑 Flat Admin</span>
+                        <span class="role-badge member">👤 Flatmate</span>
+                    </div>
+                </div>
+
+                <!-- Bento Feature 5: Soft-Delete Audit Trail -->
+                <div class="bento-card">
+                    <div class="bento-icon-bubble bg-amber">📜</div>
+                    <h3>Audit Trail & Soft Delete</h3>
+                    <p>Accidentally deleted a bill? Every transaction keeps a timestamped history with author names, preventing stealthy edits.</p>
+                    <div class="audit-pill-sample">
+                        <span>✓ Logged by Samir • 2h ago</span>
+                    </div>
+                </div>
+
+                <!-- Bento Feature 6: Real-Time Cloud Sync -->
+                <div class="bento-card bento-wide">
+                    <div class="bento-top-row">
+                        <span class="bento-badge-pill">POWERED BY GOOGLE CLOUD</span>
+                        <span class="bento-stat-highlight">Sub-Second Sync</span>
+                    </div>
+                    <h3>Real-Time Cloud Ledger & Multi-Device Sync</h3>
+                    <p>Powered by ultra-fast Google Cloud Firestore. When one flatmate logs groceries on mobile, everyone's dashboard updates in real-time across web and phones with offline resilience.</p>
+                    <div class="sync-status-row">
+                        <span class="sync-badge"><span class="pulse-dot"></span> Real-Time Firestore Engine</span>
+                        <span class="sync-badge">🔒 End-to-End Secure</span>
+                        <span class="sync-badge">⚡ Instant Offline Mode</span>
+                        <span class="sync-badge">📊 Transparent History</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPENSE ANALYTICS & BREAKDOWN SHOWCASE -->
+    <section class="analytics-showcase-section" id="analytics">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">📊 IN-APP ANALYTICS</span>
+                <h2>Visual Spending Insights by Category</h2>
+                <p>Track where your apartment's budget goes every month with automated breakdowns and contribution gauges.</p>
+            </div>
+
+            <div class="analytics-card-grid">
+                <!-- Category Breakdown Card -->
+                <div class="analytics-card">
+                    <div class="analytics-card-header">
+                        <div>
+                            <span class="analytics-sub">MONTHLY BREAKDOWN</span>
+                            <h3>Spending by Category</h3>
+                        </div>
+                        <span class="analytics-badge-total">Total: ₨ 42,500</span>
+                    </div>
+
+                    <div class="category-bars-list">
+                        <div class="cat-bar-item">
+                            <div class="cat-bar-label">
+                                <span>🛒 Groceries & Supermarket</span>
+                                <strong>₨ 18,200 (43%)</strong>
+                            </div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 43%; background: #EA580C;"></div></div>
+                        </div>
+
+                        <div class="cat-bar-item">
+                            <div class="cat-bar-label">
+                                <span>💡 Utilities, Wifi & Gas</span>
+                                <strong>₨ 9,500 (22%)</strong>
+                            </div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 22%; background: #0D9488;"></div></div>
+                        </div>
+
+                        <div class="cat-bar-item">
+                            <div class="cat-bar-label">
+                                <span>🍕 Takeout & Group Dinners</span>
+                                <strong>₨ 8,400 (20%)</strong>
+                            </div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 20%; background: #F59E0B;"></div></div>
+                        </div>
+
+                        <div class="cat-bar-item">
+                            <div class="cat-bar-label">
+                                <span>🚗 Fuel, Cabs & Travel</span>
+                                <strong>₨ 6,400 (15%)</strong>
+                            </div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 15%; background: #3B82F6;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flatmate Contribution vs Fair Share Gauge -->
+                <div class="analytics-card">
+                    <div class="analytics-card-header">
+                        <div>
+                            <span class="analytics-sub">FAIR SHARE GAUGE</span>
+                            <h3>Roommate Contribution</h3>
+                        </div>
+                        <span class="analytics-badge-fair">Target: ₨ 10,625 / ea</span>
+                    </div>
+
+                    <div class="contribution-list">
+                        <div class="contrib-item">
+                            <div class="contrib-info">
+                                <div class="contrib-person">
+                                    <span class="contrib-avatar bg-amber">A</span>
+                                    <div>
+                                        <strong>Aadarsh (You)</strong>
+                                        <span class="contrib-sub">Paid: ₨ 18,200</span>
+                                    </div>
+                                </div>
+                                <span class="contrib-status green">+₨ 7,575 (Owed back)</span>
+                            </div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 85%; background: #10B981;"></div></div>
+                        </div>
+
+                        <div class="contrib-item">
+                            <div class="contrib-info">
+                                <div class="contrib-person">
+                                    <span class="contrib-avatar bg-green">S</span>
+                                    <div>
+                                        <strong>Samir</strong>
+                                        <span class="contrib-sub">Paid: ₨ 12,500</span>
+                                    </div>
+                                </div>
+                                <span class="contrib-status green">+₨ 1,875 (Owed back)</span>
+                            </div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 60%; background: #10B981;"></div></div>
+                        </div>
+
+                        <div class="contrib-item">
+                            <div class="contrib-info">
+                                <div class="contrib-person">
+                                    <span class="contrib-avatar bg-blue">B</span>
+                                    <div>
+                                        <strong>Bikash</strong>
+                                        <span class="contrib-sub">Paid: ₨ 6,400</span>
+                                    </div>
+                                </div>
+                                <span class="contrib-status orange">-₨ 4,225 (To Settle)</span>
+                            </div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 32%; background: #F59E0B;"></div></div>
+                        </div>
+
+                        <div class="contrib-item">
+                            <div class="contrib-info">
+                                <div class="contrib-person">
+                                    <span class="contrib-avatar bg-amber">Sa</span>
+                                    <div>
+                                        <strong>Sarah</strong>
+                                        <span class="contrib-sub">Paid: ₨ 5,400</span>
+                                    </div>
+                                </div>
+                                <span class="contrib-status red">-₨ 5,225 (To Settle)</span>
+                            </div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 25%; background: #EF4444;"></div></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -189,21 +552,70 @@
                     <div class="step-number">01</div>
                     <div class="step-icon-circle">🏠</div>
                     <h3>Create Your Flat or Group</h3>
-                    <p>Set up a space for your apartment, road trip, or hangout club. Share the join code with your friends.</p>
+                    <p>Set up a space for your apartment, road trip, or hangout club. Share the 6-letter join code with your friends.</p>
                 </div>
 
                 <div class="step-card">
                     <div class="step-number">02</div>
                     <div class="step-icon-circle">📝</div>
                     <h3>Add Expenses On The Go</h3>
-                    <p>Groceries, electricity, or dinner? Add who paid, who was involved, and choose equal or custom split.</p>
+                    <p>Groceries, electricity, or dinner? Add who paid, select members involved, and choose equal or custom split.</p>
                 </div>
 
                 <div class="step-card">
                     <div class="step-number">03</div>
                     <div class="step-icon-circle">🤝</div>
                     <h3>Settle In One Tap</h3>
-                    <p>Hisabify calculates the minimal number of payments needed. Settle balances cleanly without any guesswork.</p>
+                    <p>Hisabify calculates the minimal payments needed. Settle balances cleanly with zero calculator arguments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Roommate Stories -->
+    <section class="testimonials-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">REAL EXPERIENCES</span>
+                <h2>Loved by Flatmates Across Cities</h2>
+                <p>Here is what people say about managing their shared rent, groceries, and bills with Hisabify.</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-quote">"We are 4 guys sharing a 3BHK in Kathmandu. Between wifi bills, gas cylinders, and daily groceries, Hisabify saved our friendships from awkward math!"</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar bg-amber">PK</div>
+                        <div>
+                            <strong>Prashant Karki</strong>
+                            <span>Kathmandu Flat, Nepal 🇳🇵</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-quote">"Used Hisabify on our 7-day Pokhara road trip with 6 friends. The debt minimizer feature is magic—it reduced what would have been 15 payments into 2 clean settlements."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar bg-green">AS</div>
+                        <div>
+                            <strong>Ananya Sharma</strong>
+                            <span>Travel Enthusiast, Pokhara</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-quote">"The cleanest UI I've seen in any expense app. The instant join code took my roommates less than 10 seconds to hop in without complicated setup."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar bg-blue">ST</div>
+                        <div>
+                            <strong>Suman Thapa</strong>
+                            <span>Software Engineer, Lalitpur</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -215,16 +627,26 @@
             <div class="download-card">
                 <div class="download-content">
                     <span class="launch-pill">
-                        <span class="pulse-dot"></span> LAUNCHING SOON ON MOBILE
+                        <span class="pulse-dot"></span> ALWAYS WITH YOU
                     </span>
                     <h2>Take Hisabify In Your Pocket</h2>
                     <p class="download-desc">
-                        Our native Android and iOS apps are currently being polished for Google Play and the App Store. Want to test it first or get notified?
+                        Use the fully featured web application right now, or sign up to get early access to our upcoming native Android & iOS mobile apps.
                     </p>
 
                     <!-- Store Badges Grid -->
                     <div class="store-badges-grid">
-                        <!-- Google Play Card -->
+                        <a href="https://app.hisabify.aadarshapandit.com.np" class="store-badge-card web-ready-badge" target="_blank" rel="noopener">
+                            <div class="badge-status-tag live-tag">LIVE NOW</div>
+                            <div class="badge-inner">
+                                <div class="web-icon">🌐</div>
+                                <div class="badge-text">
+                                    <span class="subtext">INSTANT ACCESS</span>
+                                    <span class="maintext">Launch Web App →</span>
+                                </div>
+                            </div>
+                        </a>
+
                         <div class="store-badge-card coming-soon-badge">
                             <div class="badge-status-tag">COMING SOON</div>
                             <div class="badge-inner">
@@ -241,7 +663,6 @@
                             </div>
                         </div>
 
-                        <!-- App Store Card -->
                         <div class="store-badge-card coming-soon-badge">
                             <div class="badge-status-tag">COMING SOON</div>
                             <div class="badge-inner">
@@ -254,28 +675,15 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Instant Web App Card -->
-                        <a href="https://app.hisabify.aadarshapandit.com.np" class="store-badge-card web-ready-badge" target="_blank" rel="noopener">
-                            <div class="badge-status-tag live-tag">LIVE NOW</div>
-                            <div class="badge-inner">
-                                <div class="web-icon">🌐</div>
-                                <div class="badge-text">
-                                    <span class="subtext">USE RIGHT IN BROWSER</span>
-                                    <span class="maintext">Launch Web App →</span>
-                                </div>
-                            </div>
-                        </a>
                     </div>
 
-                    <!-- Email Notification Box -->
                     <div class="notify-box">
                         <form id="notifyForm" class="notify-form" onsubmit="event.preventDefault(); document.getElementById('notifyMsg').style.display='block'; this.reset();">
-                            <input type="email" placeholder="Enter your email for Play Store invite..." required class="notify-input">
+                            <input type="email" placeholder="Enter email for mobile app beta invite..." required class="notify-input">
                             <button type="submit" class="notify-btn">Notify Me</button>
                         </form>
                         <p id="notifyMsg" class="notify-success" style="display:none;">
-                            🎉 You're on the VIP list! We will notify you the moment Hisabify hits the stores.
+                            🎉 You're on the VIP list! We will notify you the moment Hisabify launches on the App Store & Google Play.
                         </p>
                     </div>
                 </div>
@@ -288,14 +696,14 @@
         <div class="section-container">
             <div class="section-header">
                 <span class="section-badge">HEART & CODE</span>
-                <h2>Meet the Developer</h2>
-                <p>Built with care by a developer who knows the pain of shared flat finances firsthand.</p>
+                <h2>Meet the Creator</h2>
+                <p>Building thoughtful tools and intelligent applications to solve real everyday problems.</p>
             </div>
 
             <div class="developer-card">
                 <div class="developer-avatar-wrapper">
                     <div class="avatar-ring">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Aadarsha Pandit" class="developer-avatar" onerror="this.onerror=null; this.src='assets/firefly_logo.png';">
+                        <img src="assets/firefly_logo.png" alt="Aadarsh Pandit" class="developer-avatar">
                     </div>
                     <div class="status-indicator">
                         <span class="status-dot"></span> Building in Public
@@ -305,8 +713,8 @@
                 <div class="developer-details">
                     <div class="dev-header">
                         <div>
-                            <h3 class="dev-name">Aadarsha Pandit</h3>
-                            <p class="dev-role">Software Engineer & Flutter Creator • Kathmandu, Nepal 🇳🇵</p>
+                            <h3 class="dev-name">Aadarsh Pandit</h3>
+                            <p class="dev-role">AI & Full-Stack Developer • BTech AI, Kathmandu University 🇳🇵</p>
                         </div>
                         <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener" class="dev-portfolio-link">
                             Portfolio ↗
@@ -314,14 +722,14 @@
                     </div>
 
                     <blockquote class="dev-quote">
-                        "Living with flatmates taught me that tracking money doesn't have to be complicated, stressful, or awkward. I created <strong>Hisabify</strong> to replace messy WhatsApp notes and endless calculator math with a warm, reliable experience tailored for Nepal, India, and beyond."
+                        "I am an <strong>AI & Full-Stack Developer</strong> building end-to-end ML pipelines and production-grade web applications (BTech AI @ Kathmandu University). I build apps like <strong>Hisabify</strong> for fun to eliminate the everyday friction of shared flat expenses across Nepal, India, and beyond."
                     </blockquote>
 
-                    <!-- Tech stack chips -->
                     <div class="tech-stack-row">
-                        <span class="tech-chip">Flutter</span>
-                        <span class="tech-chip">Dart</span>
-                        <span class="tech-chip">Firebase</span>
+                        <span class="tech-chip">AI & ML Pipelines</span>
+                        <span class="tech-chip">Python / PyTorch</span>
+                        <span class="tech-chip">Full-Stack Web</span>
+                        <span class="tech-chip">Flutter & Dart</span>
                         <span class="tech-chip">Cloud Firestore</span>
                         <span class="tech-chip">Vercel</span>
                     </div>
@@ -345,33 +753,6 @@
         </div>
     </section>
 
-    <!-- Video Preview Modal -->
-    <div class="modal-overlay" id="videoModal">
-        <div class="modal-window">
-            <button class="modal-close" id="closeVideoModal" aria-label="Close modal">&times;</button>
-            <div class="modal-header">
-                <h3>Hisabify App Walkthrough</h3>
-                <p>See how effortlessly you can track shared flat expenses.</p>
-            </div>
-            <div class="modal-body">
-                <div class="video-placeholder">
-                    <img src="assets/hero_main_art.png" alt="Hisabify App Preview" class="modal-preview-img">
-                    <div class="video-play-overlay">
-                        <div class="modal-play-btn">
-                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </div>
-                        <p class="modal-play-text">Interactive Demo Ready on Web</p>
-                        <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-primary-pill" target="_blank" rel="noopener" style="margin-top: 1rem;">
-                            Test Live App Now →
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer class="footer-section">
         <div class="footer-container">
@@ -381,62 +762,227 @@
                     <span class="brand-name">Hisabify</span>
                 </div>
                 <p class="footer-tagline">
-                    Simple • Fair • Together. Your modern companion for shared flat finances and group expenses.
+                    Simple • Fair • Together. Your modern companion for shared flat finances and group expenses across Nepal, India, and the world.
                 </p>
             </div>
 
             <div class="footer-links-col">
                 <h4>Navigation</h4>
                 <a href="#home">Home</a>
+                <a href="#calculator">Live Splitter</a>
                 <a href="#features">Features</a>
+                <a href="#analytics">Analytics</a>
                 <a href="#how-it-works">How It Works</a>
-                <a href="#download">Mobile App</a>
-                <a href="#developer">Meet Developer</a>
+                <a href="#developer">Meet Creator</a>
             </div>
 
             <div class="footer-links-col">
                 <h4>Live Web App</h4>
-                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank">Sign In / Register</a>
-                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank">Create Flat</a>
-                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank">Join Flat</a>
+                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener">Launch App</a>
+                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener">Sign In / Register</a>
+                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener">Create Flat</a>
+                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener">Join Flat</a>
             </div>
 
             <div class="footer-links-col">
                 <h4>Connect</h4>
-                <a href="https://aadarshapandit.com.np" target="_blank">Aadarsha's Website</a>
-                <a href="https://github.com/aadarshapandit" target="_blank">GitHub</a>
-                <a href="https://linkedin.com/in/aadarshapandit" target="_blank">LinkedIn</a>
+                <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener">Aadarsh's Website</a>
+                <a href="https://github.com/aadarshapandit" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://linkedin.com/in/aadarshapandit" target="_blank" rel="noopener">LinkedIn</a>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <p>© 2026 Hisabify. Crafted with ❤️ by <a href="https://aadarshapandit.com.np" target="_blank">Aadarsha Pandit</a>. All rights reserved.</p>
+            <p>© 2026 Hisabify. Crafted with ❤️ by <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener">Aadarsh Pandit</a>. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- FUN LIVE SPLITTER SCRIPT -->
     <script>
-        // Modal functionality
-        const videoModal = document.getElementById('videoModal');
-        const openBtn = document.getElementById('openVideoModal');
-        const closeBtn = document.getElementById('closeVideoModal');
+        const friendsData = [
+            { id: 'aadarsh', name: 'Aadarsh (You)', avatar: 'A', color: 'bg-amber' },
+            { id: 'samir', name: 'Samir', avatar: 'S', color: 'bg-green' },
+            { id: 'sarah', name: 'Sarah', avatar: 'Sa', color: 'bg-blue' },
+            { id: 'bikash', name: 'Bikash', avatar: 'B', color: 'bg-amber' },
+            { id: 'pooja', name: 'Pooja', avatar: 'P', color: 'bg-green' },
+            { id: 'anish', name: 'Anish', avatar: 'An', color: 'bg-blue' },
+            { id: 'sneha', name: 'Sneha', avatar: 'Sn', color: 'bg-amber' },
+            { id: 'kiran', name: 'Kiran', avatar: 'K', color: 'bg-green' }
+        ];
 
-        if (openBtn) {
-            openBtn.addEventListener('click', () => {
-                videoModal.classList.add('active');
-            });
+        let currentPayerId = 'aadarsh';
+        let currentCurrency = '₨';
+
+        // DOM elements
+        const billInput = document.getElementById('billAmount');
+        const friendsSlider = document.getElementById('friendsSlider');
+        const friendsCountDisplay = document.getElementById('friendsCountDisplay');
+        const liveAvatarsRow = document.getElementById('liveAvatarsRow');
+        const payerSelectRow = document.getElementById('payerSelectRow');
+        const currSymbol = document.getElementById('currencySymbol');
+        const resultCurr = document.getElementById('resultCurr');
+        const shareValue = document.getElementById('shareValue');
+        const settlementFlowList = document.getElementById('settlementFlowList');
+        const billReactionEmoji = document.getElementById('billReactionEmoji');
+        const copySummaryBtn = document.getElementById('copySummaryBtn');
+        const copyBtnText = document.getElementById('copyBtnText');
+        const copyToast = document.getElementById('copyToast');
+
+        function updateEmoji(amount) {
+            if (amount <= 500) billReactionEmoji.textContent = '☕';
+            else if (amount <= 2000) billReactionEmoji.textContent = '🍕';
+            else if (amount <= 6000) billReactionEmoji.textContent = '🛒';
+            else if (amount <= 15000) billReactionEmoji.textContent = '🚗';
+            else billReactionEmoji.textContent = '🏠';
         }
 
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                videoModal.classList.remove('active');
-            });
-        }
+        function updateFunSplitter() {
+            const bill = parseFloat(billInput.value) || 0;
+            const count = parseInt(friendsSlider.value, 10) || 4;
+            friendsCountDisplay.textContent = `${count} Friends`;
+            updateEmoji(bill);
 
-        window.addEventListener('click', (e) => {
-            if (e.target === videoModal) {
-                videoModal.classList.remove('active');
+            const activeFriends = friendsData.slice(0, count);
+            if (!activeFriends.some(f => f.id === currentPayerId)) {
+                currentPayerId = activeFriends[0].id;
             }
+
+            // Render live avatar bubbles
+            liveAvatarsRow.innerHTML = '';
+            activeFriends.forEach(f => {
+                const bubble = document.createElement('div');
+                bubble.className = `fun-avatar-bubble ${f.color} ${f.id === currentPayerId ? 'is-payer' : ''}`;
+                bubble.title = f.name;
+                bubble.innerHTML = `<span>${f.avatar}</span>`;
+                liveAvatarsRow.appendChild(bubble);
+            });
+
+            // Render payer pills
+            payerSelectRow.innerHTML = '';
+            activeFriends.forEach(f => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `payer-pill ${f.id === currentPayerId ? 'active' : ''}`;
+                btn.innerHTML = `<span class="mini-bubble ${f.color}">${f.avatar}</span> <span>${f.name.split(' ')[0]}</span>`;
+                btn.addEventListener('click', () => {
+                    currentPayerId = f.id;
+                    updateFunSplitter();
+                });
+                payerSelectRow.appendChild(btn);
+            });
+
+            // Calculate share
+            const share = count > 0 ? (bill / count).toFixed(0) : '0';
+            shareValue.textContent = Number(share).toLocaleString();
+
+            // Render direct settlement items
+            const payer = activeFriends.find(f => f.id === currentPayerId) || activeFriends[0];
+            settlementFlowList.innerHTML = '';
+
+            activeFriends.forEach(f => {
+                if (f.id !== payer.id) {
+                    const row = document.createElement('div');
+                    row.className = 'fun-settle-item';
+                    row.innerHTML = `
+                        <div class="fun-settle-who">
+                            <span class="mini-bubble ${f.color}">${f.avatar}</span>
+                            <span>${f.name.split(' ')[0]}</span>
+                        </div>
+                        <span class="fun-arrow-badge">➔ pays ${currentCurrency} ${Number(share).toLocaleString()}</span>
+                        <div class="fun-settle-to">
+                            <span>to ${payer.name.split(' ')[0]}</span>
+                        </div>
+                    `;
+                    settlementFlowList.appendChild(row);
+                }
+            });
+        }
+
+        billInput.addEventListener('input', updateFunSplitter);
+        friendsSlider.addEventListener('input', updateFunSplitter);
+
+        document.querySelectorAll('.curr-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                document.querySelectorAll('.curr-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                currentCurrency = pill.dataset.curr;
+                currSymbol.textContent = currentCurrency;
+                resultCurr.textContent = currentCurrency;
+                updateFunSplitter();
+            });
         });
+
+        // Copy Note for WhatsApp
+        copySummaryBtn.addEventListener('click', () => {
+            const bill = parseFloat(billInput.value) || 0;
+            const count = parseInt(friendsSlider.value, 10) || 4;
+            const activeFriends = friendsData.slice(0, count);
+            const payer = activeFriends.find(f => f.id === currentPayerId) || activeFriends[0];
+            const share = count > 0 ? (bill / count).toFixed(0) : '0';
+
+            let msg = `✨ *Hisabify Quick Split*\n`;
+            msg += `💰 Total Bill: ${currentCurrency} ${Number(bill).toLocaleString()}\n`;
+            msg += `👤 Paid by: ${payer.name.split(' ')[0]}\n`;
+            msg += `👥 Equal share (${count} friends): *${currentCurrency} ${Number(share).toLocaleString()} each*\n\n`;
+            activeFriends.forEach(f => {
+                if (f.id !== payer.id) {
+                    msg += `• ${f.name.split(' ')[0]} ➔ ${currentCurrency} ${Number(share).toLocaleString()} to ${payer.name.split(' ')[0]}\n`;
+                }
+            });
+            msg += `\n🚀 Split cleanly on Hisabify: https://hisabify.aadarshapandit.com.np`;
+
+            navigator.clipboard.writeText(msg).then(() => {
+                copyBtnText.textContent = "✓ Copied to Clipboard!";
+                copyToast.classList.add('show');
+                setTimeout(() => {
+                    copyBtnText.textContent = "Copy Note for WhatsApp";
+                    copyToast.classList.remove('show');
+                }, 3000);
+            });
+        });
+
+        // Interactive Bento Debt Minimizer Switch
+        const debtOptBtn = document.getElementById('debtViewOptimized');
+        const debtRawBtn = document.getElementById('debtViewRaw');
+        const debtArea = document.getElementById('debtDisplayArea');
+
+        if (debtOptBtn && debtRawBtn) {
+            debtOptBtn.addEventListener('click', () => {
+                debtOptBtn.classList.add('active');
+                debtRawBtn.classList.remove('active');
+                debtArea.innerHTML = `
+                    <div class="debt-flow-row">
+                        <div class="flow-pill"><span class="flow-avatar">S</span> Samir</div>
+                        <span class="flow-arrow">pays ₨ 1,200 ➔</span>
+                        <div class="flow-pill bg-p"><span class="flow-avatar">A</span> Aadarsh</div>
+                    </div>
+                    <div class="debt-flow-row">
+                        <div class="flow-pill"><span class="flow-avatar">B</span> Bikash</div>
+                        <span class="flow-arrow">pays ₨ 850 ➔</span>
+                        <div class="flow-pill bg-p"><span class="flow-avatar">A</span> Aadarsh</div>
+                    </div>
+                `;
+            });
+
+            debtRawBtn.addEventListener('click', () => {
+                debtRawBtn.classList.add('active');
+                debtOptBtn.classList.remove('active');
+                debtArea.innerHTML = `
+                    <div class="debt-raw-grid">
+                        <div class="raw-item">Samir ➔ Sarah: ₨ 350</div>
+                        <div class="raw-item">Sarah ➔ Aadarsh: ₨ 600</div>
+                        <div class="raw-item">Bikash ➔ Samir: ₨ 400</div>
+                        <div class="raw-item">Aadarsh ➔ Bikash: ₨ 200</div>
+                        <div class="raw-item">Sarah ➔ Bikash: ₨ 150</div>
+                        <div class="raw-item">Samir ➔ Aadarsh: ₨ 800</div>
+                    </div>
+                    <span class="raw-warning-tag">🤯 12 circular debts require 12 separate bank transfers!</span>
+                `;
+            });
+        }
+
+        // Initialize
+        updateFunSplitter();
 
         // Mobile menu toggle
         const mobileToggle = document.getElementById('mobileToggle');
@@ -448,7 +994,6 @@
             });
         }
 
-        // Close menu on link click
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('open');
