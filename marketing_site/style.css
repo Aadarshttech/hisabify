@@ -4,22 +4,26 @@
    ========================================================================== */
 
 :root {
-    /* Palette sampled directly from reference mockup */
-    --bg-cream: #FAF5E4;
-    --bg-cream-light: #FCF8EC;
-    --bg-card: #FFFFFF;
-    --text-headline: #1F2A33;
-    --text-body: #576571;
-    --text-muted: #819098;
+    /* Premium Glassmorphic Theme */
+    --bg-glass: rgba(10, 15, 25, 0.6);
+    --bg-glass-hover: rgba(10, 15, 25, 0.8);
+    --border-glass: rgba(255, 255, 255, 0.1);
+    
+    --bg-cream: transparent;
+    --bg-cream-light: rgba(10, 15, 25, 0.4);
+    --bg-card: rgba(10, 15, 25, 0.55);
+    --text-headline: #FFFFFF;
+    --text-body: #E2E8F0;
+    --text-muted: #94A3B8;
     --primary-orange: #EE9825;
     --primary-orange-hover: #D98517;
-    --primary-orange-light: rgba(238, 152, 37, 0.12);
-    --primary-orange-glow: rgba(238, 152, 37, 0.35);
+    --primary-orange-light: rgba(238, 152, 37, 0.2);
+    --primary-orange-glow: rgba(238, 152, 37, 0.5);
     
-    --accent-sage: #758882;
-    --accent-green: #2E7259;
-    --border-warm: #E6DECA;
-    --border-light: rgba(215, 203, 180, 0.45);
+    --accent-sage: #CBD5E1;
+    --accent-green: #10B981;
+    --border-warm: rgba(255, 255, 255, 0.15);
+    --border-light: rgba(255, 255, 255, 0.05);
     
     /* Font stacks */
     --font-heading: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -29,8 +33,8 @@
     --radius-card: 24px;
     --radius-sm: 14px;
     
-    --shadow-soft: 0 10px 30px rgba(50, 40, 20, 0.05);
-    --shadow-card: 0 16px 40px rgba(50, 40, 20, 0.08);
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.4);
     --shadow-btn: 0 6px 18px var(--primary-orange-glow);
 }
 
@@ -47,25 +51,18 @@ html {
 }
 
 body {
-    background-color: var(--bg-cream);
+    background: url('assets/bg.png') center/cover no-repeat fixed;
+    background-color: #0B1121;
     color: var(--text-body);
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
-    /* Soft corner glow matching the artwork aesthetic */
-    background-image: 
-        radial-gradient(circle at top left, rgba(252, 232, 182, 0.6) 0%, transparent 40%),
-        radial-gradient(circle at bottom right, rgba(252, 235, 195, 0.4) 0%, transparent 40%);
-    background-repeat: no-repeat;
 }
 
 /* Corner Botanical Leaves */
 .botanical-accent {
-    position: absolute;
-    pointer-events: none;
-    z-index: 1;
-    user-select: none;
+    display: none;
 }
 
 .leaf-top {
@@ -87,9 +84,15 @@ body {
    ========================================================================== */
 .navbar {
     width: 100%;
-    position: relative;
-    z-index: 100;
-    padding: 1.5rem 5% 0.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 1rem 5%;
+    background-color: rgba(10, 15, 25, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .nav-container {
@@ -210,7 +213,7 @@ body {
    HERO SECTION (Exact as Paste)
    ========================================================================== */
 .hero-section {
-    padding: 2.5rem 5% 3rem;
+    padding: 8rem 5% 3rem;
     position: relative;
     z-index: 10;
 }
@@ -303,8 +306,10 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    background-color: var(--bg-cream-light);
-    border: 1.5px solid var(--border-warm);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
     color: var(--text-headline);
     font-family: var(--font-body);
     font-weight: 600;
@@ -316,15 +321,15 @@ body {
 }
 
 .btn-cta-video:hover {
-    background-color: #FFFFFF;
-    border-color: #D6CCA8;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
     transform: translateY(-1px);
 }
 
 .play-circle {
     width: 26px;
     height: 26px;
-    background-color: var(--text-headline);
+    background-color: var(--primary-orange);
     color: #FFFFFF;
     border-radius: 50%;
     display: flex;
@@ -399,8 +404,12 @@ body {
     grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
     align-items: center;
     gap: 1rem;
-    padding-top: 1.5rem;
-    border-top: 1.5px solid var(--border-light);
+    padding: 2rem;
+    background-color: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-warm);
+    border-radius: 24px;
 }
 
 .feature-bar-col {
@@ -461,7 +470,7 @@ body {
 .feature-divider {
     width: 1px;
     height: 48px;
-    background-color: var(--border-light);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ==========================================================================
@@ -518,6 +527,8 @@ body {
 
 .step-card {
     background-color: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--border-warm);
     border-radius: var(--radius-card);
     padding: 2.5rem 2rem;
@@ -547,7 +558,8 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 18px;
-    background-color: var(--bg-cream);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -579,12 +591,15 @@ body {
 }
 
 .download-card {
-    background: linear-gradient(135deg, #1A242C 0%, #2A3844 100%);
+    background-color: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-warm);
     color: #FFFFFF;
     border-radius: 32px;
     padding: 4.5rem 5%;
     text-align: center;
-    box-shadow: 0 24px 60px rgba(25, 30, 35, 0.25);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -596,7 +611,7 @@ body {
     left: -20%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(238, 152, 37, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(238, 152, 37, 0.3) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -799,6 +814,8 @@ body {
 
 .developer-card {
     background-color: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1.5px solid var(--border-warm);
     border-radius: 32px;
     padding: 3.5rem;
@@ -934,8 +951,8 @@ body {
     font-weight: 600;
     color: var(--text-headline);
     text-decoration: none;
-    background-color: var(--bg-cream-light);
-    border: 1.5px solid var(--border-warm);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
     padding: 0.55rem 1.3rem;
     border-radius: var(--radius-pill);
     transition: all 0.2s ease;
@@ -979,13 +996,16 @@ body {
 }
 
 .modal-window {
-    background-color: #FFFFFF;
+    background-color: var(--bg-card);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--border-warm);
     border-radius: 24px;
     max-width: 780px;
     width: 100%;
     position: relative;
     padding: 2rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     animation: modalSlide 0.3s ease;
 }
 
@@ -1068,7 +1088,9 @@ body {
    FOOTER
    ========================================================================== */
 .footer-section {
-    background-color: var(--bg-cream-light);
+    background-color: rgba(10, 15, 25, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-top: 1.5px solid var(--border-light);
     padding: 4.5rem 5% 2.5rem;
     position: relative;
@@ -1214,8 +1236,10 @@ body {
         top: 100%;
         left: 5%;
         right: 5%;
-        background-color: var(--bg-card);
-        border: 1.5px solid var(--border-warm);
+        background-color: rgba(10, 15, 25, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border-warm);
         border-radius: var(--radius-card);
         padding: 1.5rem;
         flex-direction: column;
