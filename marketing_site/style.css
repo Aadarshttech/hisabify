@@ -53,11 +53,6 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
-    /* Soft corner glow matching the artwork aesthetic */
-    background-image: 
-        radial-gradient(circle at top left, rgba(252, 232, 182, 0.6) 0%, transparent 40%),
-        radial-gradient(circle at bottom right, rgba(252, 235, 195, 0.4) 0%, transparent 40%);
-    background-repeat: no-repeat;
 }
 
 /* Corner Botanical Leaves */
