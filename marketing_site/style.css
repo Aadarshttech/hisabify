@@ -22,8 +22,8 @@
     --border-light: rgba(215, 203, 180, 0.45);
     
     /* Font stacks */
-    --font-heading: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
     
     --radius-pill: 9999px;
     --radius-card: 24px;
