@@ -574,12 +574,13 @@ body {
 }
 
 .download-card {
-    background: linear-gradient(135deg, #1A242C 0%, #2A3844 100%);
-    color: #FFFFFF;
+    background: #FFFFFF;
+    color: var(--text-headline);
     border-radius: 32px;
     padding: 4.5rem 5%;
     text-align: center;
-    box-shadow: 0 24px 60px rgba(25, 30, 35, 0.25);
+    box-shadow: var(--shadow-card);
+    border: 1.5px solid var(--border-warm);
     position: relative;
     overflow: hidden;
 }
@@ -591,7 +592,7 @@ body {
     left: -20%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(238, 152, 37, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(238, 152, 37, 0.12) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -635,14 +636,14 @@ body {
     font-family: var(--font-heading);
     font-size: clamp(2.3rem, 3.8vw, 3.2rem);
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-headline);
     margin-bottom: 1rem;
     letter-spacing: -1px;
 }
 
 .download-desc {
     font-size: 1.15rem;
-    color: #CBD5E1;
+    color: var(--text-body);
     max-width: 600px;
     margin: 0 auto 3rem;
     line-height: 1.65;
@@ -657,21 +658,21 @@ body {
 }
 
 .store-badge-card {
-    background-color: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(10px);
+    background-color: var(--bg-cream-light);
+    border: 1px solid var(--border-warm);
     border-radius: 20px;
     padding: 1.8rem 1.5rem;
     position: relative;
     text-decoration: none;
-    color: #FFFFFF;
+    color: var(--text-headline);
     transition: all 0.3s ease;
 }
 
 .store-badge-card:hover {
-    background-color: rgba(255, 255, 255, 0.12);
+    background-color: #FFFFFF;
     transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.25);
+    border-color: var(--primary-orange);
+    box-shadow: 0 12px 24px rgba(50, 40, 20, 0.08);
 }
 
 .badge-status-tag {
@@ -706,19 +707,19 @@ body {
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #94A3B8;
+    color: var(--text-muted);
 }
 
 .badge-text .maintext {
     font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 700;
-    color: #FFFFFF;
+    color: var(--text-headline);
 }
 
 .web-ready-badge {
-    border-color: rgba(238, 152, 37, 0.4);
-    background: linear-gradient(135deg, rgba(238, 152, 37, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-color: rgba(238, 152, 37, 0.3);
+    background: linear-gradient(135deg, rgba(238, 152, 37, 0.1) 0%, rgba(255, 255, 255, 0.5) 100%);
 }
 
 .web-ready-badge:hover {
@@ -739,8 +740,8 @@ body {
 .notify-form {
     display: flex;
     gap: 0.6rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: var(--bg-cream-light);
+    border: 1.5px solid var(--border-warm);
     border-radius: var(--radius-pill);
     padding: 0.4rem;
 }
@@ -750,14 +751,14 @@ body {
     background: transparent;
     border: none;
     outline: none;
-    color: #FFFFFF;
+    color: var(--text-headline);
     font-family: var(--font-body);
     font-size: 0.95rem;
     padding: 0.6rem 1.4rem;
 }
 
 .notify-input::placeholder {
-    color: #94A3B8;
+    color: var(--text-muted);
 }
 
 .notify-btn {
