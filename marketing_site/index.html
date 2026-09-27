@@ -125,7 +125,7 @@
                     ]
                 },
                 "screenshot": "https://hisabify.aadarshapandit.com.np/assets/web_devices_showcase.png",
-                "featureList": "Fair group expense splitting, Who ate / who was away feature, Debt simplification algorithm, 6-character room codes, Real-time balance tracking, Multi-currency support (NPR/INR/USD), Visual spending analytics, Category-wise expense breakdown"
+                "featureList": "Fair group expense splitting, Who ate / who was away feature, Debt simplification algorithm, 6-character room codes, Real-time balance tracking, Visual spending analytics, Category-wise expense breakdown"
             },
             {
                 "@type": "FAQPage",
@@ -168,14 +168,6 @@
                         "acceptedAnswer": {
                             "@type": "Answer",
                             "text": "Yes, Hisabify is completely free to use. All core features — expense tracking, fair splitting, debt simplification, and room codes — are available at no cost."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Does Hisabify support multiple currencies?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes. Hisabify supports Nepali Rupees (NPR), Indian Rupees (INR), and US Dollars (USD) for splitting expenses."
                         }
                     }
                 ]
@@ -397,12 +389,6 @@
                                 <div class="fun-amount-box">
                                     <span class="fun-curr-symbol" id="currencySymbol">₨</span>
                                     <input type="number" id="billAmount" value="3200" min="50" step="100" class="fun-amount-input">
-                                </div>
-                            </div>
-                            <div class="currency-toggle-group">
-                                <button type="button" class="curr-pill active" data-curr="₨">₨ NPR</button>
-                                <button type="button" class="curr-pill" data-curr="₹">₹ INR</button>
-                                <button type="button" class="curr-pill" data-curr="$">$ USD</button>
                             </div>
                         </div>
 
@@ -1042,15 +1028,6 @@
                     </div>
                 </details>
 
-                <details class="faq-item">
-                    <summary class="faq-question">
-                        <span>What currencies does Hisabify support?</span>
-                        <span class="faq-toggle">+</span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>Hisabify currently supports <strong>Nepali Rupees (NPR ₨)</strong>, <strong>Indian Rupees (INR ₹)</strong>, and <strong>US Dollars (USD $)</strong>. You can switch currencies per expense to match your local context.</p>
-                    </div>
-                </details>
 
                 <details class="faq-item">
                     <summary class="faq-question">
@@ -1348,16 +1325,7 @@
         // Event listeners
         billInput.addEventListener('input', updateFunSplitter);
 
-        document.querySelectorAll('.curr-pill').forEach(pill => {
-            pill.addEventListener('click', () => {
-                document.querySelectorAll('.curr-pill').forEach(p => p.classList.remove('active'));
-                pill.classList.add('active');
-                currentCurrency = pill.dataset.curr;
-                currSymbol.textContent = currentCurrency;
-                resultCurr.textContent = currentCurrency;
-                updateFunSplitter();
-            });
-        });
+
 
         // Interactive Bento Debt Minimizer Switch
         const debtOptBtn = document.getElementById('debtViewOptimized');
