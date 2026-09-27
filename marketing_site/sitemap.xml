@@ -4,68 +4,12 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-    <!-- Homepage / Landing Page -->
+    <!-- Homepage / Landing Page — highest priority -->
     <url>
         <loc>https://hisabify.aadarshapandit.com.np/</loc>
         <lastmod>2026-09-28</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-    </url>
-
-    <!-- Live Splitter Feature (anchor section) -->
-    <url>
-        <loc>https://hisabify.aadarshapandit.com.np/#calculator</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Room Codes & Onboarding (anchor section) -->
-    <url>
-        <loc>https://hisabify.aadarshapandit.com.np/#rooms</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Web App Showcase (anchor section) -->
-    <url>
-        <loc>https://hisabify.aadarshapandit.com.np/#web-app</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Analytics Feature (anchor section) -->
-    <url>
-        <loc>https://hisabify.aadarshapandit.com.np/#analytics</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-
-    <!-- How It Works (anchor section) -->
-    <url>
-        <loc>https://hisabify.aadarshapandit.com.np/#how-it-works</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-
-    <!-- Developer / Creator (anchor section) -->
-    <url>
-        <loc>https://hisabify.aadarshapandit.com.np/#developer</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <!-- Web App (external app subdomain) -->
-    <url>
-        <loc>https://app.hisabify.aadarshapandit.com.np/</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
     </url>
 
 </urlset>
