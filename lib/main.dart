@@ -27,11 +27,11 @@ void main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) => runApp(const HisabMilauApp()));
+  ]).then((_) => runApp(const HisabifyApp()));
 }
 
-class HisabMilauApp extends StatelessWidget {
-  const HisabMilauApp({super.key});
+class HisabifyApp extends StatelessWidget {
+  const HisabifyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class HisabMilauApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Hisab Milau',
+        title: 'Hisabify',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,

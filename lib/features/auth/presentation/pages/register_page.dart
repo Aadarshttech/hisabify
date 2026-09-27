@@ -173,7 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                             // Heading
                             const Text(
-                              'Join Hisab Milau',
+                              'Join Hisabify',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'Fredoka',

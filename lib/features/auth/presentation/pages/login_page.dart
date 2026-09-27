@@ -414,9 +414,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 14),
 
-                    // Clean "Hisab Milau" Title
+                    // Clean "Hisabify" Title
                     const Text(
-                      'Hisab Milau',
+                      'Hisabify',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Fredoka',

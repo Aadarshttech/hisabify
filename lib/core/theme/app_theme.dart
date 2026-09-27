@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
-  // Background & Surfaces (Hisab Milau warm buttery cream canvas & warm card surface)
+  // Background & Surfaces (Hisabify warm buttery cream canvas & warm card surface)
   static const Color background = Color(0xFFFEF9E7);      // Warm buttery cream canvas
   static const Color surface = Color(0xFFFFFDF7);         // Pure warm cream cards
   static const Color surfaceMuted = Color(0xFFFAF2DA);    // Warm cream badge/chip background

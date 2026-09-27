@@ -773,7 +773,7 @@ class _ProfileMenuBottomSheetState extends State<ProfileMenuBottomSheet> {
             // Footer
             Center(
               child: Text(
-                'Hisab Milau • Flat Expense Manager',
+                'Hisabify • Flat Expense Manager',
                 style: TextStyle(
                   fontSize: 11,
                   color: AppTheme.lightText.withValues(alpha: 0.8),

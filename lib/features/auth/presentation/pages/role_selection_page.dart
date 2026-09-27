@@ -88,7 +88,7 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
 
                 // Welcome Header
                 const Text(
-                  'Welcome to Hisab Milau!',
+                  'Welcome to Hisabify!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Fredoka',

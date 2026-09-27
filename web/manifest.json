@@ -1,11 +1,11 @@
 {
-    "name": "Hisab Milau",
-    "short_name": "Hisab Milau",
+    "name": "Hisabify",
+    "short_name": "Hisabify",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#FBBF24",
     "theme_color": "#1E293B",
-    "description": "Hisab Milau - Shared expense management made effortless.",
+    "description": "Hisabify - Shared expense management made effortless.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

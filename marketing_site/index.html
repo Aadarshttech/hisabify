@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
     
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="assets/firefly_logo.png">
@@ -105,42 +106,10 @@
                 </div>
             </div>
 
-            <!-- Right Hero Visual with Floating Dynamic Micro-Widgets -->
+            <!-- Right Hero Visual (Borderless Graphic) -->
             <div class="hero-right">
-                <div class="hero-visual-stage">
-                    <div class="art-glow-ring"></div>
-                    <div class="hero-art-frame">
-                        <img src="assets/hero_main_art.png" alt="Hisabify Expense Splitting Experience" class="hero-art-image">
-                    </div>
-
-                    <!-- Floating Micro-Widget 1: Recent Expense -->
-                    <div class="floating-widget widget-top-left float-slow">
-                        <div class="widget-icon bg-amber">🍕</div>
-                        <div class="widget-text">
-                            <span class="widget-title">Friday Flat Dinner</span>
-                            <span class="widget-sub">₨ 2,400 • Split 4 ways</span>
-                        </div>
-                        <span class="widget-pill bg-soft-green">₨ 600/ea</span>
-                    </div>
-
-                    <!-- Floating Micro-Widget 2: Settlement Badge -->
-                    <div class="floating-widget widget-bottom-right float-reverse">
-                        <div class="widget-icon bg-green">✓</div>
-                        <div class="widget-text">
-                            <span class="widget-title">Settled with Samir</span>
-                            <span class="widget-sub">₨ 1,250 via QR code</span>
-                        </div>
-                        <span class="widget-tag">All Clear</span>
-                    </div>
-
-                    <!-- Floating Micro-Widget 3: Multi-Currency -->
-                    <div class="floating-widget widget-bottom-left float-medium">
-                        <div class="widget-icon bg-blue">🌏</div>
-                        <div class="widget-text">
-                            <span class="widget-title">Multi-Currency</span>
-                            <span class="widget-sub">NPR 🇳🇵 • INR 🇮🇳 • USD 🇺🇸</span>
-                        </div>
-                    </div>
+                <div class="hero-graphic-stage">
+                    <img src="assets/hero_graphics.png" alt="Hisabify App and Flatmates" class="hero-graphic-img">
                 </div>
             </div>
         </div>
@@ -211,13 +180,13 @@
         </div>
     </section>
 
-    <!-- FUN, CLEAN & INTUITIVE LIVE SPLITTER (GENERALIZED) -->
+    <!-- FUN, CLEAN & INTUITIVE LIVE SPLITTER (WHO ATE / WHO WAS AWAY FEATURE) -->
     <section class="interactive-calc-section" id="calculator">
         <div class="section-container">
             <div class="section-header">
-                <span class="section-badge">⚡ FUN & INSTANT DEMO</span>
-                <h2>Try the Instant Group Splitter</h2>
-                <p>Drag the sliders, pick your currency, and watch Hisabify settle everything with zero calculator math.</p>
+                <span class="section-badge">⚡ STANDOUT HISABIFY FEATURE</span>
+                <h2>Who Didn't Eat? They Don't Pay.</h2>
+                <p>Toggle who ate dinner and who was away. Hisabify recalculates the exact fair share instantly — zero manual math, zero awkward roommate friction.</p>
             </div>
 
             <div class="fun-split-card">
@@ -242,17 +211,15 @@
                             </div>
                         </div>
 
-                        <!-- Number of Friends Slider with Live Avatars -->
-                        <div class="fun-control-group">
-                            <div class="fun-label-row">
-                                <span class="fun-label">Split Among Friends</span>
-                                <span class="fun-badge-count" id="friendsCountDisplay">4 Friends</span>
-                            </div>
-                            <input type="range" id="friendsSlider" min="2" max="8" value="4" class="fun-range-slider">
-                            
-                            <!-- Animated Avatar Bubbles -->
-                            <div class="fun-avatars-row" id="liveAvatarsRow">
-                                <!-- Populated dynamically -->
+                        <!-- Expense Category Quick Select -->
+                        <div class="fun-control-group category-select-group">
+                            <span class="fun-label">Expense Type:</span>
+                            <div class="category-pills-row">
+                                <button type="button" class="category-pill active" data-emoji="🍕" data-title="Dinner / Food">🍕 Dinner</button>
+                                <button type="button" class="category-pill" data-emoji="🛒" data-title="Flat Groceries">🛒 Groceries</button>
+                                <button type="button" class="category-pill" data-emoji="⚡" data-title="WiFi & Electricity">⚡ Utilities</button>
+                                <button type="button" class="category-pill" data-emoji="☕" data-title="Cafe & Snacks">☕ Cafe</button>
+                                <button type="button" class="category-pill" data-emoji="🚗" data-title="Cab / Taxi Ride">🚗 Ride</button>
                             </div>
                         </div>
 
@@ -264,20 +231,37 @@
                             </div>
                         </div>
 
+                        <!-- MAIN CORE FEATURE: WHO ATE / SHARED TOGGLE -->
+                        <div class="fun-control-group eaters-control-block">
+                            <div class="fun-label-row">
+                                <span class="fun-label">Split Among (Who Ate / Shared?):</span>
+                                <div class="eaters-actions-wrap">
+                                    <span class="fun-badge-count" id="eatersCountDisplay">3 of 4 Eating</span>
+                                    <button type="button" class="btn-micro-action" id="toggleAllEatersBtn">Select All</button>
+                                </div>
+                            </div>
+                            <p class="eaters-hint-text">💡 Tap any roommate who didn't eat or was away to exclude them (they pay ₨ 0).</p>
+                            
+                            <!-- Interactive Flatmate Eater Cards -->
+                            <div class="fun-eaters-grid" id="eatersSelectGrid">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Right: Big Joyful Result Card -->
                     <div class="fun-result-col">
                         <div class="result-glow-bg"></div>
                         <div class="fun-result-card">
-                            <span class="fun-result-tag">EACH PERSON PAYS</span>
+                            <span class="fun-result-tag">FAIR SHARE PER EATER</span>
                             
                             <div class="fun-share-highlight">
                                 <span class="fun-share-curr" id="resultCurr">₨</span>
-                                <span class="fun-share-val" id="shareValue">800</span>
+                                <span class="fun-share-val" id="shareValue">1,067</span>
                             </div>
 
-                            <p class="fun-peace-tagline">✨ Clean settlement. Zero awkward money talks.</p>
+                            <p class="fun-peace-tagline" id="peaceTagline">✨ 3 eating flatmates share equally. Sarah owes ₨ 0.</p>
 
                             <!-- Direct Settlement Cards -->
                             <div class="fun-settlement-flow" id="settlementFlowList">
@@ -285,18 +269,10 @@
                             </div>
 
                             <div class="fun-actions-row">
-                                <button type="button" class="btn-fun-copy" id="copySummaryBtn">
-                                    <span>📋</span>
-                                    <span id="copyBtnText">Copy Note for WhatsApp</span>
-                                </button>
-                                <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-fun-launch" target="_blank" rel="noopener">
+                                <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-fun-launch" target="_blank" rel="noopener" title="Launch Hisabify web app">
                                     Open Web App →
                                 </a>
                             </div>
-
-                            <div class="copy-toast" id="copyToast">
-                                ✓ Group summary copied to clipboard!
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -304,112 +280,101 @@
         </div>
     </section>
 
-    <!-- CORE FEATURES SHOWCASE -->
-    <section class="bento-features-section" id="features">
+    <!-- DEDICATED SPOTLIGHT SECTION: ZERO-FRICTION ONBOARDING & ROOM CODES -->
+    <section class="onboarding-spotlight-section" id="rooms">
         <div class="section-container">
             <div class="section-header">
-                <span class="section-badge">POWERFUL CAPABILITIES</span>
-                <h2>Engineered for Effortless Group Finances</h2>
-                <p>Everything you need to eliminate confusion, simplify debts, and keep flat friendships peaceful.</p>
+                <span class="section-badge">⚡ ZERO-FRICTION ONBOARDING</span>
+                <h2>Connect Your Entire Flat In Seconds</h2>
+                <p>Skip phone contact syncing, email invites, and friend requests. Share a 6-character code in your group chat to instantly connect your roommates to a synchronized ledger.</p>
             </div>
 
-            <div class="bento-grid">
-                <!-- Bento Feature 1: Smart Debt Minimizer -->
-                <div class="bento-card bento-hero">
-                    <div class="bento-top-row">
-                        <span class="bento-badge-pill">SMART GRAPH ALGORITHM</span>
-                        <span class="bento-stat-highlight">Reduces 80% of Transfers</span>
+            <!-- Native UI Showcase Arena (Creative Layout) -->
+            <div class="showcase-arena">
+                
+                <!-- Showcase Block 1: Onboarding -->
+                <div class="showcase-block reveal-on-scroll">
+                    <div class="showcase-text">
+                        <div class="icon-badge"><span class="material-symbols-rounded">rocket_launch</span></div>
+                        <h3>Zero-Friction Onboarding</h3>
+                        <p>Create or join a flat instantly with 6-letter room codes. No complex setups, no phone number syncing.</p>
                     </div>
-                    <h3>Smart Debt Minimization Engine</h3>
-                    <p>When flatmates pay for rent, wifi, groceries, and takeout, debts become a tangled web. Hisabify's graph solver cancels out circular debts and condenses them into the fewest direct payments possible.</p>
-                    
-                    <div class="interactive-debt-showcase">
-                        <div class="debt-toggle-pills">
-                            <span class="debt-switch-label">View Mode:</span>
-                            <button type="button" class="debt-tab active" id="debtViewOptimized">✨ Optimized with Hisabify (2 Transfers)</button>
-                            <button type="button" class="debt-tab" id="debtViewRaw">🤯 Without Hisabify (12 Transfers)</button>
-                        </div>
-                        <div class="debt-display-box" id="debtDisplayArea">
-                            <div class="debt-flow-row">
-                                <div class="flow-pill"><span class="flow-avatar">S</span> Samir</div>
-                                <span class="flow-arrow">pays ₨ 1,200 ➔</span>
-                                <div class="flow-pill bg-p"><span class="flow-avatar">A</span> Aadarsh</div>
+                    <div class="showcase-visual">
+                        <div class="css-phone-mockup">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <div class="screen-fader">
+                                    <!-- View 1: Create a Flat -->
+                                    <div class="screen-view view-create">
+                                        <div class="app-icon-circle">
+                                            <span class="app-icon">🏢</span>
+                                        </div>
+                                        <div class="app-header-texts">
+                                            <div class="app-title">Create Your Flat</div>
+                                            <div class="app-subtitle">Give your flat a name and share<br>the code with your flatmates</div>
+                                        </div>
+                                        <div class="app-card">
+                                            <div class="app-card-title">Flat Name</div>
+                                            <div class="app-input-mock">
+                                                <span class="app-input-icon">🏢</span>
+                                                <span class="app-input-text">B-Tech AI Flat</span>
+                                            </div>
+                                            <div class="app-btn-mock">
+                                                Create Flat
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- View 2: Join a Flat -->
+                                    <div class="screen-view view-join">
+                                        <div class="app-icon-circle">
+                                            <span class="app-icon">🔑</span>
+                                        </div>
+                                        <div class="app-header-texts">
+                                            <div class="app-title">Join a Flat</div>
+                                            <div class="app-subtitle">Enter the 6-character code<br>shared by your flat admin</div>
+                                        </div>
+                                        <div class="app-card">
+                                            <div class="app-card-title">Flat Code</div>
+                                            <div class="app-input-mock code-input">
+                                                <span>F L A T 9 0</span>
+                                            </div>
+                                            <div class="app-btn-mock">
+                                                Join Flat
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="debt-flow-row">
-                                <div class="flow-pill"><span class="flow-avatar">B</span> Bikash</div>
-                                <span class="flow-arrow">pays ₨ 850 ➔</span>
-                                <div class="flow-pill bg-p"><span class="flow-avatar">A</span> Aadarsh</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Showcase Block 2: Dashboard -->
+                <div class="showcase-block reveal-on-scroll">
+                    <div class="showcase-visual">
+                        <div class="css-phone-mockup">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen-img">
+                                <img src="assets/slide1.jpeg" class="slide active" alt="Dashboard View">
+                                <img src="assets/slide2.jpeg" class="slide" alt="App Features">
+                                <img src="assets/slide3.jpeg" class="slide" alt="Settings View">
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Bento Feature 2: Multi-Currency Support -->
-                <div class="bento-card">
-                    <div class="bento-icon-bubble bg-amber">🌏</div>
-                    <h3>Multi-Currency Support</h3>
-                    <p>Seamlessly handle trips abroad or cross-border flatmates. Full built-in support for Nepali Rupee, Indian Rupee, USD, Euro & GBP.</p>
-                    <div class="currency-pills-row">
-                        <span class="pill-chip active-chip">₨ NPR (🇳🇵)</span>
-                        <span class="pill-chip">₹ INR (🇮🇳)</span>
-                        <span class="pill-chip">$ USD (🇺🇸)</span>
-                        <span class="pill-chip">€ EUR (🇪🇺)</span>
+                    <div class="showcase-text">
+                        <div class="icon-badge"><span class="material-symbols-rounded">monitoring</span></div>
+                        <h3>Real-Time Dashboard</h3>
+                        <p>Track balances, settle debts, and manage expenses seamlessly, exactly as you do in the Hisabify app.</p>
                     </div>
                 </div>
 
-                <!-- Bento Feature 3: 1-Click Flat Join Codes -->
-                <div class="bento-card">
-                    <div class="bento-icon-bubble bg-green">🔑</div>
-                    <h3>1-Click Flat Join Codes</h3>
-                    <p>No annoying email invites or friend requests. Share a simple 6-character room code on WhatsApp and your flatmates are in immediately.</p>
-                    <div class="code-preview-box">
-                        <div class="code-details">
-                            <span class="code-label">Flat Room Code:</span>
-                            <code>FLAT-9024</code>
-                        </div>
-                        <span class="code-active-dot">● Active</span>
-                    </div>
-                </div>
-
-                <!-- Bento Feature 4: Flat Admin & Roles Management -->
-                <div class="bento-card">
-                    <div class="bento-icon-bubble bg-blue">🛡️</div>
-                    <h3>Flat Admin & Member Roles</h3>
-                    <p>Assign Flat Admin privileges, manage room settings, approve new roommates, or remove members cleanly when leases end.</p>
-                    <div class="roles-preview-row">
-                        <span class="role-badge admin">👑 Flat Admin</span>
-                        <span class="role-badge member">👤 Flatmate</span>
-                    </div>
-                </div>
-
-                <!-- Bento Feature 5: Soft-Delete Audit Trail -->
-                <div class="bento-card">
-                    <div class="bento-icon-bubble bg-amber">📜</div>
-                    <h3>Audit Trail & Soft Delete</h3>
-                    <p>Accidentally deleted a bill? Every transaction keeps a timestamped history with author names, preventing stealthy edits.</p>
-                    <div class="audit-pill-sample">
-                        <span>✓ Logged by Samir • 2h ago</span>
-                    </div>
-                </div>
-
-                <!-- Bento Feature 6: Real-Time Cloud Sync -->
-                <div class="bento-card bento-wide">
-                    <div class="bento-top-row">
-                        <span class="bento-badge-pill">POWERED BY GOOGLE CLOUD</span>
-                        <span class="bento-stat-highlight">Sub-Second Sync</span>
-                    </div>
-                    <h3>Real-Time Cloud Ledger & Multi-Device Sync</h3>
-                    <p>Powered by ultra-fast Google Cloud Firestore. When one flatmate logs groceries on mobile, everyone's dashboard updates in real-time across web and phones with offline resilience.</p>
-                    <div class="sync-status-row">
-                        <span class="sync-badge"><span class="pulse-dot"></span> Real-Time Firestore Engine</span>
-                        <span class="sync-badge">🔒 End-to-End Secure</span>
-                        <span class="sync-badge">⚡ Instant Offline Mode</span>
-                        <span class="sync-badge">📊 Transparent History</span>
-                    </div>
-                </div>
             </div>
+
         </div>
     </section>
+
+
 
     <!-- EXPENSE ANALYTICS & BREAKDOWN SHOWCASE -->
     <section class="analytics-showcase-section" id="analytics">
@@ -798,68 +763,57 @@
     </footer>
 
     <!-- FUN LIVE SPLITTER SCRIPT -->
+    <!-- STANDOUT HISABIFY WHO ATE / DIDN'T EAT SPLITTER SCRIPT -->
     <script>
         const friendsData = [
-            { id: 'aadarsh', name: 'Aadarsh (You)', avatar: 'A', color: 'bg-amber' },
-            { id: 'samir', name: 'Samir', avatar: 'S', color: 'bg-green' },
-            { id: 'sarah', name: 'Sarah', avatar: 'Sa', color: 'bg-blue' },
-            { id: 'bikash', name: 'Bikash', avatar: 'B', color: 'bg-amber' },
-            { id: 'pooja', name: 'Pooja', avatar: 'P', color: 'bg-green' },
-            { id: 'anish', name: 'Anish', avatar: 'An', color: 'bg-blue' },
-            { id: 'sneha', name: 'Sneha', avatar: 'Sn', color: 'bg-amber' },
-            { id: 'kiran', name: 'Kiran', avatar: 'K', color: 'bg-green' }
+            { id: 'aadarsh', name: 'Aadarsh (You)', avatar: 'A', color: 'bg-amber', ate: true },
+            { id: 'samir', name: 'Samir', avatar: 'S', color: 'bg-green', ate: true },
+            { id: 'sarah', name: 'Sarah', avatar: 'Sa', color: 'bg-blue', ate: false }, // Demonstrates Away/Didn't Eat right away!
+            { id: 'bikash', name: 'Bikash', avatar: 'B', color: 'bg-amber', ate: true }
         ];
 
         let currentPayerId = 'aadarsh';
         let currentCurrency = '₨';
+        let selectedCategoryTitle = '🍕 Dinner / Food';
+        let selectedCategoryEmoji = '🍕';
 
         // DOM elements
         const billInput = document.getElementById('billAmount');
-        const friendsSlider = document.getElementById('friendsSlider');
-        const friendsCountDisplay = document.getElementById('friendsCountDisplay');
-        const liveAvatarsRow = document.getElementById('liveAvatarsRow');
+        const eatersCountDisplay = document.getElementById('eatersCountDisplay');
+        const eatersSelectGrid = document.getElementById('eatersSelectGrid');
+        const toggleAllEatersBtn = document.getElementById('toggleAllEatersBtn');
         const payerSelectRow = document.getElementById('payerSelectRow');
         const currSymbol = document.getElementById('currencySymbol');
         const resultCurr = document.getElementById('resultCurr');
         const shareValue = document.getElementById('shareValue');
+        const peaceTagline = document.getElementById('peaceTagline');
         const settlementFlowList = document.getElementById('settlementFlowList');
         const billReactionEmoji = document.getElementById('billReactionEmoji');
-        const copySummaryBtn = document.getElementById('copySummaryBtn');
-        const copyBtnText = document.getElementById('copyBtnText');
-        const copyToast = document.getElementById('copyToast');
 
         function updateEmoji(amount) {
-            if (amount <= 500) billReactionEmoji.textContent = '☕';
-            else if (amount <= 2000) billReactionEmoji.textContent = '🍕';
-            else if (amount <= 6000) billReactionEmoji.textContent = '🛒';
-            else if (amount <= 15000) billReactionEmoji.textContent = '🚗';
-            else billReactionEmoji.textContent = '🏠';
+            if (billReactionEmoji) {
+                billReactionEmoji.textContent = selectedCategoryEmoji;
+            }
         }
 
         function updateFunSplitter() {
             const bill = parseFloat(billInput.value) || 0;
-            const count = parseInt(friendsSlider.value, 10) || 4;
-            friendsCountDisplay.textContent = `${count} Friends`;
-            updateEmoji(bill);
+            const eatingFriends = friendsData.filter(f => f.ate);
+            const eatingCount = eatingFriends.length;
+            const awayFriends = friendsData.filter(f => !f.ate);
 
-            const activeFriends = friendsData.slice(0, count);
-            if (!activeFriends.some(f => f.id === currentPayerId)) {
-                currentPayerId = activeFriends[0].id;
+            // Update eaters badge
+            if (eatingCount === friendsData.length) {
+                eatersCountDisplay.textContent = `All ${eatingCount} Eating`;
+            } else {
+                eatersCountDisplay.textContent = `${eatingCount} of ${friendsData.length} Eating (${awayFriends.length} Away • ₨ 0)`;
             }
 
-            // Render live avatar bubbles
-            liveAvatarsRow.innerHTML = '';
-            activeFriends.forEach(f => {
-                const bubble = document.createElement('div');
-                bubble.className = `fun-avatar-bubble ${f.color} ${f.id === currentPayerId ? 'is-payer' : ''}`;
-                bubble.title = f.name;
-                bubble.innerHTML = `<span>${f.avatar}</span>`;
-                liveAvatarsRow.appendChild(bubble);
-            });
+            updateEmoji(bill);
 
             // Render payer pills
             payerSelectRow.innerHTML = '';
-            activeFriends.forEach(f => {
+            friendsData.forEach(f => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = `payer-pill ${f.id === currentPayerId ? 'active' : ''}`;
@@ -871,35 +825,110 @@
                 payerSelectRow.appendChild(btn);
             });
 
+            // Render interactive eater toggle cards
+            eatersSelectGrid.innerHTML = '';
+            friendsData.forEach(f => {
+                const card = document.createElement('div');
+                card.className = `eater-card ${f.ate ? 'included' : 'away'}`;
+                card.title = f.ate ? `Click to mark ${f.name} as Away / Didn't Eat` : `Click to include ${f.name}`;
+                card.innerHTML = `
+                    <div class="eater-card-left">
+                        <span class="mini-bubble ${f.color}">${f.avatar}</span>
+                        <span class="eater-name">${f.name}</span>
+                    </div>
+                    <span class="eater-status-tag">${f.ate ? '🍽️ Ate / Included' : '✈️ Away / ₨ 0'}</span>
+                `;
+                card.addEventListener('click', () => {
+                    // Prevent deselecting all
+                    if (f.ate && eatingCount <= 1) {
+                        alert("At least 1 flatmate must share this expense.");
+                        return;
+                    }
+                    f.ate = !f.ate;
+                    updateFunSplitter();
+                });
+                eatersSelectGrid.appendChild(card);
+            });
+
             // Calculate share
-            const share = count > 0 ? (bill / count).toFixed(0) : '0';
+            const share = eatingCount > 0 ? (bill / eatingCount).toFixed(0) : '0';
             shareValue.textContent = Number(share).toLocaleString();
 
-            // Render direct settlement items
-            const payer = activeFriends.find(f => f.id === currentPayerId) || activeFriends[0];
+            // Dynamic tagline
+            if (eatingCount === friendsData.length) {
+                peaceTagline.textContent = `✨ All ${eatingCount} roommates split equally (${currentCurrency} ${Number(share).toLocaleString()}/ea).`;
+            } else if (eatingCount > 0) {
+                const awayNames = awayFriends.map(f => f.name.split(' ')[0]).join(', ');
+                peaceTagline.textContent = `✨ Split across ${eatingCount} eating roommates. ${awayNames} pays ${currentCurrency} 0 (didn't eat).`;
+            } else {
+                peaceTagline.textContent = `⚠️ Select at least 1 person who ate / shared this bill.`;
+            }
+
+            // Render settlement items
+            const payer = friendsData.find(f => f.id === currentPayerId) || friendsData[0];
             settlementFlowList.innerHTML = '';
 
-            activeFriends.forEach(f => {
+            friendsData.forEach(f => {
                 if (f.id !== payer.id) {
                     const row = document.createElement('div');
-                    row.className = 'fun-settle-item';
-                    row.innerHTML = `
-                        <div class="fun-settle-who">
-                            <span class="mini-bubble ${f.color}">${f.avatar}</span>
-                            <span>${f.name.split(' ')[0]}</span>
-                        </div>
-                        <span class="fun-arrow-badge">➔ pays ${currentCurrency} ${Number(share).toLocaleString()}</span>
-                        <div class="fun-settle-to">
-                            <span>to ${payer.name.split(' ')[0]}</span>
-                        </div>
-                    `;
+                    if (f.ate) {
+                        row.className = 'fun-settle-item';
+                        row.innerHTML = `
+                            <div class="fun-settle-who">
+                                <span class="mini-bubble ${f.color}">${f.avatar}</span>
+                                <span>${f.name.split(' ')[0]}</span>
+                            </div>
+                            <span class="fun-arrow-badge">➔ pays ${currentCurrency} ${Number(share).toLocaleString()}</span>
+                            <div class="fun-settle-to">
+                                <span>to ${payer.name.split(' ')[0]}</span>
+                            </div>
+                        `;
+                    } else {
+                        row.className = 'fun-settle-item is-excluded';
+                        row.innerHTML = `
+                            <div class="fun-settle-who">
+                                <span class="mini-bubble ${f.color}">${f.avatar}</span>
+                                <span>${f.name.split(' ')[0]}</span>
+                            </div>
+                            <span class="fun-arrow-badge free-tag">✈️ Excluded (₨ 0)</span>
+                            <div class="fun-settle-to">
+                                <span>Didn't Eat / Away</span>
+                            </div>
+                        `;
+                    }
                     settlementFlowList.appendChild(row);
                 }
             });
         }
 
+        // Toggle all eaters button
+        if (toggleAllEatersBtn) {
+            toggleAllEatersBtn.addEventListener('click', () => {
+                const allSelected = friendsData.every(f => f.ate);
+                if (allSelected) {
+                    friendsData.forEach(f => { f.ate = (f.id === currentPayerId); });
+                    toggleAllEatersBtn.textContent = "Select All";
+                } else {
+                    friendsData.forEach(f => { f.ate = true; });
+                    toggleAllEatersBtn.textContent = "Only Payer";
+                }
+                updateFunSplitter();
+            });
+        }
+
+        // Category pills switcher
+        document.querySelectorAll('.category-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                selectedCategoryEmoji = pill.dataset.emoji;
+                selectedCategoryTitle = `${selectedCategoryEmoji} ${pill.dataset.title}`;
+                updateEmoji();
+            });
+        });
+
+        // Event listeners
         billInput.addEventListener('input', updateFunSplitter);
-        friendsSlider.addEventListener('input', updateFunSplitter);
 
         document.querySelectorAll('.curr-pill').forEach(pill => {
             pill.addEventListener('click', () => {
@@ -909,35 +938,6 @@
                 currSymbol.textContent = currentCurrency;
                 resultCurr.textContent = currentCurrency;
                 updateFunSplitter();
-            });
-        });
-
-        // Copy Note for WhatsApp
-        copySummaryBtn.addEventListener('click', () => {
-            const bill = parseFloat(billInput.value) || 0;
-            const count = parseInt(friendsSlider.value, 10) || 4;
-            const activeFriends = friendsData.slice(0, count);
-            const payer = activeFriends.find(f => f.id === currentPayerId) || activeFriends[0];
-            const share = count > 0 ? (bill / count).toFixed(0) : '0';
-
-            let msg = `✨ *Hisabify Quick Split*\n`;
-            msg += `💰 Total Bill: ${currentCurrency} ${Number(bill).toLocaleString()}\n`;
-            msg += `👤 Paid by: ${payer.name.split(' ')[0]}\n`;
-            msg += `👥 Equal share (${count} friends): *${currentCurrency} ${Number(share).toLocaleString()} each*\n\n`;
-            activeFriends.forEach(f => {
-                if (f.id !== payer.id) {
-                    msg += `• ${f.name.split(' ')[0]} ➔ ${currentCurrency} ${Number(share).toLocaleString()} to ${payer.name.split(' ')[0]}\n`;
-                }
-            });
-            msg += `\n🚀 Split cleanly on Hisabify: https://hisabify.aadarshapandit.com.np`;
-
-            navigator.clipboard.writeText(msg).then(() => {
-                copyBtnText.textContent = "✓ Copied to Clipboard!";
-                copyToast.classList.add('show');
-                setTimeout(() => {
-                    copyBtnText.textContent = "Copy Note for WhatsApp";
-                    copyToast.classList.remove('show');
-                }, 3000);
             });
         });
 
@@ -999,6 +999,35 @@
                 navMenu.classList.remove('open');
             });
         });
+
+        // Scroll Reveal Animation
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(element => {
+            revealObserver.observe(element);
+        });
+
+        // Slideshow Animation
+        const slides = document.querySelectorAll('.phone-screen-img .slide');
+        if (slides.length > 0) {
+            let currentSlide = 0;
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 3000);
+        }
     </script>
 </body>
 </html>

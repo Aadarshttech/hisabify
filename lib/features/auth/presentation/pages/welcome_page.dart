@@ -68,7 +68,7 @@ class WelcomePage extends StatelessWidget {
 
                     // App Title
                     const Text(
-                      'Hisab Milau',
+                      'Hisabify',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Fredoka',
