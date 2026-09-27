@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hisabify — Shared Expenses, Made Easy</title>
-    <meta name="description" content="Track, split and settle shared flat & group expenses with zero awkwardness. Built for roommates, friends, and travelers in Nepal, India, and worldwide.">
+    <meta name="description" content="Track, split and settle shared flat & group expenses with zero awkwardness. Built for roommates, friends, and travelers in Nepal and worldwide.">
     
     <!-- Google Fonts: Fredoka for matching app brand aesthetic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,14 +17,7 @@
 </head>
 <body>
 
-    <!-- Top Announcement Bar -->
-    <div class="top-announcement">
-        <div class="announcement-content">
-            <span class="announcement-badge">✨ NEW</span>
-            <span>Hisabify Web App is live! Track and settle group expenses anywhere.</span>
-            <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener" class="announcement-link">Open Web App →</a>
-        </div>
-    </div>
+
 
     <!-- Sticky Floating Navigation -->
     <nav class="navbar" id="topNav">
@@ -35,18 +28,17 @@
             </a>
 
             <div class="nav-menu" id="navMenu">
-                <a href="#home" class="nav-link active">Home</a>
                 <a href="#calculator" class="nav-link">Live Splitter</a>
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#analytics" class="nav-link">Analytics</a>
+                <a href="#rooms" class="nav-link">Rooms</a>
+                <a href="#web-app" class="nav-link">Web App</a>
                 <a href="#how-it-works" class="nav-link">How It Works</a>
-                <a href="#download" class="nav-link">Mobile App</a>
-                <a href="#developer" class="nav-link">About Creator</a>
+                <a href="#developer" class="nav-link">Creator</a>
             </div>
 
             <div class="nav-actions">
                 <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-primary-pill" target="_blank" rel="noopener">
-                    Launch App <span class="arrow-icon">→</span>
+                    <span>Launch App</span>
+                    <span class="arrow-icon">→</span>
                 </a>
                 <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
                     <span></span><span></span><span></span>
@@ -77,11 +69,20 @@
 
                 <div class="hero-cta-group">
                     <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-cta-primary" target="_blank" rel="noopener">
-                        <span>Get Started Free</span>
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
+                        <span class="btn-hero-icon-wrap">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#F97316" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                        </span>
+                        <span class="btn-cta-text">Launch Web App</span>
+                        <span class="btn-hero-arrow-wrap">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </span>
                     </a>
                     <a href="#calculator" class="btn-cta-secondary">
                         <span class="calc-icon">⚡</span>
@@ -270,7 +271,20 @@
 
                             <div class="fun-actions-row">
                                 <a href="https://app.hisabify.aadarshapandit.com.np" class="btn-fun-launch" target="_blank" rel="noopener" title="Launch Hisabify web app">
-                                    Open Web App →
+                                    <span class="btn-fun-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#F97316" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                        </svg>
+                                    </span>
+                                    <span>Launch Web App</span>
+                                    <span class="btn-fun-arrow">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
                                 </a>
                             </div>
                         </div>
@@ -375,6 +389,61 @@
                     </div>
                 </div>
 
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WEB APP & DESKTOP MULTI-DEVICE SHOWCASE SECTION -->
+    <section class="web-showcase-section" id="web-app">
+        <div class="section-container">
+            
+            <div class="web-hero-showcase-grid reveal-on-scroll">
+                <!-- Left: Typography & Actions matching photo -->
+                <div class="web-hero-text">
+                    <div class="web-icon-badge">
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+
+                    <h2 class="web-hero-title">
+                        Any Device, Any Browser.<br>
+                        <span class="web-title-accent">Zero Friction.</span>
+                    </h2>
+
+                    <p class="web-hero-desc">
+                        No downloads, no app store hurdles. Access your entire flat ledger directly from your laptop, Mac, iPad, or Chromebook with lightning-fast real-time sync.
+                    </p>
+
+                    <div class="web-hero-actions">
+                        <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener" class="btn-web-launch">
+                            <span class="btn-web-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                </svg>
+                            </span>
+                            <span class="btn-web-text">Launch Web App</span>
+                            <span class="btn-web-arrow">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: High-Res 3D Multi-Device Artwork -->
+                <div class="web-hero-visual">
+                    <div class="devices-artwork-frame">
+                        <img src="assets/web_devices_showcase.png" alt="Hisabify across laptop, tablet, mobile and web browser" class="web-devices-img">
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -595,67 +664,55 @@
     <!-- Available Soon on Play Store / App Store Section -->
     <section class="download-section" id="download">
         <div class="section-container">
-            <div class="download-card">
-                <div class="download-content">
-                    <span class="launch-pill">
-                        <span class="pulse-dot"></span> ALWAYS WITH YOU
-                    </span>
-                    <h2>Take Hisabify In Your Pocket</h2>
-                    <p class="download-desc">
-                        Use the fully featured web application right now, or sign up to get early access to our upcoming native Android & iOS mobile apps.
-                    </p>
+            <div class="download-content">
+                <span class="launch-pill">
+                    <span class="pulse-dot"></span> ALWAYS WITH YOU
+                </span>
+                <h2>Take Hisabify In Your Pocket</h2>
+                <p class="download-desc">
+                    Use the fully featured web application right now, or sign up to get early access to our upcoming native Android & iOS mobile apps.
+                </p>
 
-                    <!-- Store Badges Grid -->
-                    <div class="store-badges-grid">
-                        <a href="https://app.hisabify.aadarshapandit.com.np" class="store-badge-card web-ready-badge" target="_blank" rel="noopener">
-                            <div class="badge-status-tag live-tag">LIVE NOW</div>
-                            <div class="badge-inner">
-                                <div class="web-icon">🌐</div>
-                                <div class="badge-text">
-                                    <span class="subtext">INSTANT ACCESS</span>
-                                    <span class="maintext">Launch Web App →</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <div class="store-badge-card coming-soon-badge">
-                            <div class="badge-status-tag">COMING SOON</div>
-                            <div class="badge-inner">
-                                <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
-                                    <path d="M3.6 1.8c-.3.3-.4.8-.4 1.4v17.6c0 .6.1 1.1.4 1.4l.1.1 9.8-9.8v-.2L3.7 1.7l-.1.1z" fill="#4285F4"/>
-                                    <path d="M16.8 15.5l-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-3.9 2.2-.1-.1z" fill="#FBBC05"/>
-                                    <path d="M13.5 12.2L3.6 22.1c.4.4 1 .4 1.7 0l11.5-6.6-3.3-3.3z" fill="#EA4335"/>
-                                    <path d="M13.5 11.8l3.3-3.3L5.3 1.9c-.7-.4-1.3-.4-1.7 0l9.9 9.9z" fill="#34A853"/>
-                                </svg>
-                                <div class="badge-text">
-                                    <span class="subtext">GET IT ON</span>
-                                    <span class="maintext">Google Play</span>
-                                </div>
-                            </div>
+                <!-- Store Badges Grid -->
+                <div class="store-badges-grid">
+                    <a href="https://app.hisabify.aadarshapandit.com.np" class="store-badge-card web-ready-badge" target="_blank" rel="noopener">
+                        <div class="badge-card-top">
+                            <span class="subtext">INSTANT ACCESS</span>
+                            <span class="badge-status-tag live-tag">LIVE NOW</span>
                         </div>
+                        <div class="badge-card-main">
+                            <div class="web-icon">🌐</div>
+                            <span class="maintext">Launch Web App →</span>
+                        </div>
+                    </a>
 
-                        <div class="store-badge-card coming-soon-badge">
-                            <div class="badge-status-tag">COMING SOON</div>
-                            <div class="badge-inner">
-                                <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
-                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.78 1.06-1.85.94-2.93-.93.04-2.03.63-2.68 1.41-.58.68-1.09 1.77-.95 2.83 1.03.08 2.07-.55 2.69-1.31z"/>
-                                </svg>
-                                <div class="badge-text">
-                                    <span class="subtext">Download on the</span>
-                                    <span class="maintext">App Store</span>
-                                </div>
-                            </div>
+                    <div class="store-badge-card coming-soon-badge">
+                        <div class="badge-card-top">
+                            <span class="subtext">GET IT ON</span>
+                            <span class="badge-status-tag">COMING SOON</span>
+                        </div>
+                        <div class="badge-card-main">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                                <path d="M3.6 1.8c-.3.3-.4.8-.4 1.4v17.6c0 .6.1 1.1.4 1.4l.1.1 9.8-9.8v-.2L3.7 1.7l-.1.1z" fill="#4285F4"/>
+                                <path d="M16.8 15.5l-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-3.9 2.2-.1-.1z" fill="#FBBC05"/>
+                                <path d="M13.5 12.2L3.6 22.1c.4.4 1 .4 1.7 0l11.5-6.6-3.3-3.3z" fill="#EA4335"/>
+                                <path d="M13.5 11.8l3.3-3.3L5.3 1.9c-.7-.4-1.3-.4-1.7 0l9.9 9.9z" fill="#34A853"/>
+                            </svg>
+                            <span class="maintext">Google Play</span>
                         </div>
                     </div>
 
-                    <div class="notify-box">
-                        <form id="notifyForm" class="notify-form" onsubmit="event.preventDefault(); document.getElementById('notifyMsg').style.display='block'; this.reset();">
-                            <input type="email" placeholder="Enter email for mobile app beta invite..." required class="notify-input">
-                            <button type="submit" class="notify-btn">Notify Me</button>
-                        </form>
-                        <p id="notifyMsg" class="notify-success" style="display:none;">
-                            🎉 You're on the VIP list! We will notify you the moment Hisabify launches on the App Store & Google Play.
-                        </p>
+                    <div class="store-badge-card coming-soon-badge">
+                        <div class="badge-card-top">
+                            <span class="subtext">DOWNLOAD ON</span>
+                            <span class="badge-status-tag">COMING SOON</span>
+                        </div>
+                        <div class="badge-card-main">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.78 1.06-1.85.94-2.93-.93.04-2.03.63-2.68 1.41-.58.68-1.09 1.77-.95 2.83 1.03.08 2.07-.55 2.69-1.31z"/>
+                            </svg>
+                            <span class="maintext">App Store</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -674,7 +731,7 @@
             <div class="developer-card">
                 <div class="developer-avatar-wrapper">
                     <div class="avatar-ring">
-                        <img src="assets/firefly_logo.png" alt="Aadarsh Pandit" class="developer-avatar">
+                        <img src="assets/dpavatar.png" alt="Aadarsh Pandit" class="developer-avatar">
                     </div>
                     <div class="status-indicator">
                         <span class="status-dot"></span> Building in Public
@@ -685,38 +742,55 @@
                     <div class="dev-header">
                         <div>
                             <h3 class="dev-name">Aadarsh Pandit</h3>
-                            <p class="dev-role">AI & Full-Stack Developer • BTech AI, Kathmandu University 🇳🇵</p>
+                            <p class="dev-role">AI & Full-Stack Developer 🇳🇵</p>
                         </div>
                         <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener" class="dev-portfolio-link">
                             Portfolio ↗
                         </a>
                     </div>
 
-                    <blockquote class="dev-quote">
-                        "I am an <strong>AI & Full-Stack Developer</strong> building end-to-end ML pipelines and production-grade web applications (BTech AI @ Kathmandu University). I build apps like <strong>Hisabify</strong> for fun to eliminate the everyday friction of shared flat expenses across Nepal, India, and beyond."
-                    </blockquote>
-
-                    <div class="tech-stack-row">
-                        <span class="tech-chip">AI & ML Pipelines</span>
-                        <span class="tech-chip">Python / PyTorch</span>
-                        <span class="tech-chip">Full-Stack Web</span>
-                        <span class="tech-chip">Flutter & Dart</span>
-                        <span class="tech-chip">Cloud Firestore</span>
-                        <span class="tech-chip">Vercel</span>
+                    <!-- Polished Bio Card -->
+                    <div class="dev-bio-card">
+                        <div class="dev-quote-icon">“</div>
+                        <p class="dev-bio-text">
+                            I am an <strong>AI & Full-Stack Developer</strong> building end-to-end ML pipelines and production-grade web applications. I build apps like <strong>Hisabify</strong> for fun to eliminate the everyday friction of shared flat expenses across Nepal and beyond.
+                        </p>
                     </div>
 
+                    <!-- Tech Stack Row -->
+                    <div class="dev-tech-wrapper">
+                        <span class="dev-sub-label">CORE STACK & EXPERTISE</span>
+                        <div class="tech-stack-row">
+                            <span class="tech-chip"><span class="chip-icon">🤖</span> AI & ML Pipelines</span>
+                            <span class="tech-chip"><span class="chip-icon">🐍</span> Python / PyTorch</span>
+                            <span class="tech-chip"><span class="chip-icon">🌐</span> Full-Stack Web</span>
+                            <span class="tech-chip"><span class="chip-icon">📱</span> Flutter & Dart</span>
+                            <span class="tech-chip"><span class="chip-icon">🔥</span> Cloud Firestore</span>
+                            <span class="tech-chip"><span class="chip-icon">▲</span> Vercel</span>
+                        </div>
+                    </div>
+
+                    <!-- Social Actions -->
                     <div class="dev-socials">
                         <a href="https://github.com/aadarshapandit" target="_blank" rel="noopener" class="social-btn">
-                            GitHub
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                            <span>GitHub</span>
                         </a>
                         <a href="https://linkedin.com/in/aadarshapandit" target="_blank" rel="noopener" class="social-btn">
-                            LinkedIn
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                            <span>LinkedIn</span>
                         </a>
                         <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener" class="social-btn">
-                            Website
-                        </a>
-                        <a href="mailto:contact@aadarshapandit.com.np" class="social-btn highlight">
-                            Say Hello 👋
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <span>Website</span>
                         </a>
                     </div>
                 </div>
@@ -727,44 +801,93 @@
     <!-- Footer -->
     <footer class="footer-section">
         <div class="footer-container">
-            <div class="footer-brand">
-                <div class="brand-logo">
+            <!-- Brand Column -->
+            <div class="footer-brand-col">
+                <a href="#" class="brand-logo footer-logo">
                     <img src="assets/firefly_logo.png" alt="Hisabify Logo" class="brand-icon">
                     <span class="brand-name">Hisabify</span>
-                </div>
+                </a>
                 <p class="footer-tagline">
-                    Simple • Fair • Together. Your modern companion for shared flat finances and group expenses across Nepal, India, and the world.
+                    Smart, transparent expense management and fair debt settlements for roommates, flats, and travel groups.
                 </p>
+                <div class="footer-status-pill">
+                    <span class="pulse-dot"></span>
+                    <span>Web Beta 1.0 • All Systems Active</span>
+                </div>
+                <div class="footer-social-row">
+                    <a href="https://github.com/aadarshapandit" target="_blank" rel="noopener" class="footer-social-btn" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com/in/aadarshapandit" target="_blank" rel="noopener" class="footer-social-btn" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Portfolio">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </a>
+                </div>
             </div>
 
+            <!-- Product Column -->
             <div class="footer-links-col">
-                <h4>Navigation</h4>
-                <a href="#home">Home</a>
-                <a href="#calculator">Live Splitter</a>
-                <a href="#features">Features</a>
-                <a href="#analytics">Analytics</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#developer">Meet Creator</a>
+                <span class="footer-col-title">PRODUCT</span>
+                <a href="#calculator" class="footer-link">Live Splitter</a>
+                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener" class="footer-link highlighted">
+                    Web App <span class="footer-tag-mini">Live</span>
+                </a>
+                <a href="#rooms" class="footer-link">Room Codes & Spaces</a>
+                <a href="#analytics" class="footer-link">Spending Analytics</a>
+                <a href="#download" class="footer-link">Mobile Apps</a>
             </div>
 
+            <!-- Features & Experience Column -->
             <div class="footer-links-col">
-                <h4>Live Web App</h4>
-                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener">Launch App</a>
-                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener">Sign In / Register</a>
-                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener">Create Flat</a>
-                <a href="https://app.hisabify.aadarshapandit.com.np" target="_blank" rel="noopener">Join Flat</a>
+                <span class="footer-col-title">EXPERIENCE</span>
+                <a href="#how-it-works" class="footer-link">How It Works</a>
+                <a href="#home" class="footer-link">Debt Simplification</a>
+                <a href="#calculator" class="footer-link">Who Ate / Away Feature</a>
+                <a href="#developer" class="footer-link">About Creator</a>
             </div>
 
+            <!-- Creator & Connect Column -->
             <div class="footer-links-col">
-                <h4>Connect</h4>
-                <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener">Aadarsh's Website</a>
-                <a href="https://github.com/aadarshapandit" target="_blank" rel="noopener">GitHub</a>
-                <a href="https://linkedin.com/in/aadarshapandit" target="_blank" rel="noopener">LinkedIn</a>
+                <span class="footer-col-title">CREATOR</span>
+                <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener" class="footer-link">
+                    Aadarsh Pandit ↗
+                </a>
+                <a href="https://github.com/aadarshapandit" target="_blank" rel="noopener" class="footer-link">
+                    GitHub Profile ↗
+                </a>
+                <a href="https://linkedin.com/in/aadarshapandit" target="_blank" rel="noopener" class="footer-link">
+                    LinkedIn Profile ↗
+                </a>
+                <a href="mailto:aadarshapandit@gmail.com" class="footer-link">
+                    aadarshapandit@gmail.com
+                </a>
             </div>
         </div>
 
+        <!-- Bottom Bar -->
         <div class="footer-bottom">
-            <p>© 2026 Hisabify. Crafted with ❤️ by <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener">Aadarsh Pandit</a>. All rights reserved.</p>
+            <div class="footer-bottom-inner">
+                <p class="footer-copyright">
+                    © 2026 Hisabify. Built by <a href="https://aadarshapandit.com.np" target="_blank" rel="noopener">Aadarsh Pandit</a>. All rights reserved.
+                </p>
+                <div class="footer-bottom-links">
+                    <span class="footer-sub-link">Instant Web App</span>
+                    <span class="footer-dot">•</span>
+                    <span class="footer-sub-link">Clean Expense Splitting</span>
+                    <span class="footer-dot">•</span>
+                    <a href="#home" class="footer-sub-link back-to-top">Back to top ↑</a>
+                </div>
+            </div>
         </div>
     </footer>
 
