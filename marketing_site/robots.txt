@@ -1,0 +1,11 @@
+# Hisabify — robots.txt
+# https://hisabify.aadarshapandit.com.np
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://hisabify.aadarshapandit.com.np/sitemap.xml
+
+# Crawl-delay (be polite)
+Crawl-delay: 1
