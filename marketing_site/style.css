@@ -1084,6 +1084,12 @@ body {
     transform: translateY(-8px) scale(1.02);
 }
 
+.dashboard-character-img {
+    max-width: 480px; /* Make it significantly larger than the default 380px */
+    width: 130%; /* allow it to grow beyond the 100% of the parent if needed, or just let max-width and margins handle it */
+    margin-left: -15%; /* pull it left slightly so it centers better when enlarged */
+}
+
 .showcase-visual {
     flex: 1;
     display: flex;
