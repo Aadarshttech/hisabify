@@ -1268,27 +1268,43 @@ body {
     transform: translateY(-8px) scale(1.02);
 }
 
+.dashboard-art-stage {
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .dashboard-character-img {
-    max-width: 480px; /* Make it significantly larger than the default 380px */
-    width: 130%; /* allow it to grow beyond the 100% of the parent if needed, or just let max-width and margins handle it */
-    margin-left: -15%; /* pull it left slightly so it centers better when enlarged */
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 20px 35px rgba(15, 23, 42, 0.12));
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dashboard-art-stage:hover .dashboard-character-img {
+    transform: translateY(-8px) scale(1.02);
 }
 
 .showcase-visual {
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 900px) {
     .showcase-arena {
-        gap: 5rem;
-        margin: 3.5rem auto 4rem;
+        gap: 3.5rem;
+        margin: 2.5rem auto 3rem;
     }
     .showcase-block, .showcase-block.reverse {
         flex-direction: column;
         text-align: center;
-        gap: 3.5rem;
+        gap: 2.5rem;
     }
     .showcase-text { 
         max-width: 100%; 
@@ -1300,6 +1316,12 @@ body {
         justify-content: center;
         max-width: 320px;
         margin-top: 1.5rem;
+    }
+    .dashboard-art-stage {
+        max-width: 100%;
+    }
+    .dashboard-character-img {
+        max-width: 340px;
     }
 }
 
