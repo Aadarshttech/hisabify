@@ -2657,16 +2657,113 @@ body {
     }
 
     .hero-section {
-        padding: 2.8rem 1rem 3.5rem;
+        padding: 2rem 1rem 2.2rem;
+    }
+
+    .hero-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-badge {
+        font-size: 0.74rem;
+        padding: 0.32rem 0.9rem;
+        margin-bottom: 0.9rem;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
     }
 
     .hero-title {
-        font-size: clamp(2.1rem, 7.5vw, 3.2rem);
+        font-size: clamp(2.2rem, 7.5vw, 3rem);
         letter-spacing: -0.8px;
+        line-height: 1.14;
+        margin-bottom: 0.85rem;
     }
 
     .hero-description {
-        font-size: 1.05rem;
+        font-size: 0.98rem;
+        line-height: 1.55;
+        max-width: 440px;
+        margin: 0 auto 1.4rem;
+        color: #475569;
+    }
+
+    .hero-cta-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto 1.3rem;
+    }
+
+    .btn-cta-primary {
+        flex: 1.15;
+        justify-content: center;
+        padding: 0.82rem 1.15rem;
+        font-size: 0.92rem;
+        border-radius: var(--radius-pill);
+        white-space: nowrap;
+    }
+
+    .btn-cta-secondary {
+        flex: 0.95;
+        justify-content: center;
+        padding: 0.82rem 1rem;
+        font-size: 0.9rem;
+        border-radius: var(--radius-pill);
+        white-space: nowrap;
+    }
+
+    .hero-social-proof {
+        padding: 0.45rem 1rem;
+        gap: 0.75rem;
+        border-radius: var(--radius-pill);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+        margin: 0 auto 1.5rem;
+    }
+
+    .avatars-img {
+        height: 28px;
+    }
+
+    .social-proof-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .stars-row {
+        display: flex;
+        align-items: center;
+        font-size: 0.78rem;
+    }
+
+    .social-proof-text {
+        font-size: 0.78rem;
+        color: #64748B;
+        margin: 0;
+    }
+
+    .hero-graphic-stage {
+        width: 100%;
+        max-width: 440px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .hero-graphic-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 15px 35px rgba(15, 23, 42, 0.1));
     }
 
     .features-bar-section {
@@ -2912,40 +3009,98 @@ body {
     }
 
     .hero-section {
-        padding: 2.2rem 0.85rem 3rem;
+        padding: 1.6rem 1rem 1.8rem;
     }
 
     .hero-badge {
-        font-size: 0.74rem;
-        padding: 0.35rem 0.8rem;
+        font-size: 0.72rem;
+        padding: 0.28rem 0.85rem;
+        margin-bottom: 0.75rem;
+        letter-spacing: 0.08em;
     }
 
     .hero-title {
-        font-size: clamp(1.9rem, 8.5vw, 2.6rem);
+        font-size: clamp(2rem, 8vw, 2.6rem);
         letter-spacing: -0.6px;
+        line-height: 1.13;
+        margin-bottom: 0.75rem;
     }
 
     .hero-description {
-        font-size: 0.98rem;
-        line-height: 1.55;
+        font-size: 0.93rem;
+        line-height: 1.52;
+        max-width: 380px;
+        margin: 0 auto 1.1rem;
+        color: #475569;
     }
 
+    /* Keep CTAs side-by-side even on small phones */
     .hero-cta-group {
-        flex-direction: column;
+        flex-direction: row;
         width: 100%;
-        gap: 0.75rem;
+        gap: 0.6rem;
+        justify-content: center;
+        margin-bottom: 1rem;
     }
 
-    .btn-cta-primary,
-    .btn-cta-secondary {
-        width: 100%;
+    .btn-cta-primary {
+        flex: 1.1;
         justify-content: center;
-        padding: 0.92rem 1.4rem;
-        font-size: 0.98rem;
+        padding: 0.76rem 0.9rem;
+        font-size: 0.87rem;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .btn-cta-secondary {
+        flex: 0.9;
+        justify-content: center;
+        padding: 0.76rem 0.8rem;
+        font-size: 0.86rem;
+        gap: 0.4rem;
+        white-space: nowrap;
+    }
+
+    /* Compact single-line social proof pill */
+    .hero-social-proof {
+        flex-direction: row;
+        align-items: center;
+        padding: 0.38rem 0.85rem;
+        gap: 0.55rem;
+        border-radius: var(--radius-pill);
+        max-width: 100%;
+        margin: 0 auto 1.25rem;
+    }
+
+    .avatars-img {
+        height: 24px;
+    }
+
+    .social-proof-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.35rem;
+        flex-wrap: nowrap;
+    }
+
+    .social-proof-text {
+        font-size: 0.72rem;
+        margin: 0;
     }
 
     .hero-graphic-stage {
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
         padding: 0;
+    }
+
+    .hero-graphic-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 12px 28px rgba(15, 23, 42, 0.1));
     }
 
     .fun-split-card {
@@ -3113,8 +3268,52 @@ body {
         display: none;
     }
 
+    .hero-section {
+        padding: 1.2rem 0.85rem 1.5rem;
+    }
+
+    .hero-badge {
+        font-size: 0.68rem;
+        padding: 0.25rem 0.7rem;
+    }
+
     .hero-title {
-        font-size: 1.75rem;
+        font-size: 1.8rem;
+        letter-spacing: -0.4px;
+    }
+
+    .hero-description {
+        font-size: 0.88rem;
+    }
+
+    /* Maintain side-by-side pills at 360px */
+    .hero-cta-group {
+        gap: 0.5rem;
+    }
+
+    .btn-cta-primary {
+        padding: 0.72rem 0.75rem;
+        font-size: 0.83rem;
+        gap: 0.4rem;
+    }
+
+    .btn-cta-secondary {
+        padding: 0.72rem 0.65rem;
+        font-size: 0.82rem;
+        gap: 0.35rem;
+    }
+
+    /* Hide icon in secondary at this size to save space */
+    .btn-cta-secondary .calc-icon {
+        display: none;
+    }
+
+    .hero-social-proof {
+        padding: 0.3rem 0.7rem;
+    }
+
+    .hero-graphic-stage {
+        max-width: 320px;
     }
 
     .fun-split-card {
