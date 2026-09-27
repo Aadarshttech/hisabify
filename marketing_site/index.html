@@ -293,9 +293,36 @@
                         </p>
                     </div>
                 </div>
+                <!-- MOBILE-ONLY: App Phone Mockup (hidden on desktop) -->
+                <div class="hero-mobile-visual" aria-hidden="true">
+                    <div class="hero-mobile-phone-wrap">
+                        <!-- Floating stat chips -->
+                        <div class="hero-chip hero-chip--split">
+                            <span class="hero-chip-icon">✅</span>
+                            <span class="hero-chip-text">Split settled!</span>
+                        </div>
+                        <div class="hero-chip hero-chip--save">
+                            <span class="hero-chip-icon">💸</span>
+                            <span class="hero-chip-text">Saved ₨ 3,200</span>
+                        </div>
+                        <div class="hero-chip hero-chip--fair">
+                            <span class="hero-chip-icon">⚖️</span>
+                            <span class="hero-chip-text">Fair share</span>
+                        </div>
+                        <!-- Phone mockup with live app slides -->
+                        <div class="hero-phone-mockup">
+                            <div class="hero-phone-notch"></div>
+                            <div class="hero-phone-screen-img">
+                                <img src="assets/slide1.jpeg" class="hero-slide active" alt="Hisabify expense dashboard">
+                                <img src="assets/slide2.jpeg" class="hero-slide" alt="Hisabify split types">
+                                <img src="assets/slide3.jpeg" class="hero-slide" alt="Hisabify room management">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Right Hero Visual (Borderless Graphic) -->
+            <!-- Right Hero Visual (Borderless Graphic) — desktop only -->
             <div class="hero-right">
                 <div class="hero-graphic-stage">
                     <img src="assets/hero_graphics.png" alt="Hisabify expense splitting app interface showing roommates splitting shared bills and tracking group expenses" class="hero-graphic-img">
@@ -551,15 +578,23 @@
                 </div>
 
                 <!-- Showcase Block 2: Dashboard -->
-                <div class="showcase-block reverse reveal-on-scroll">
+                <div class="showcase-block reveal-on-scroll">
+                    <div class="showcase-visual">
+                        <div class="css-phone-mockup">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen-img">
+                                <img src="assets/slide1.jpeg" class="slide active" alt="Hisabify app dashboard showing real-time expense balances and settlements">
+                                <img src="assets/slide2.jpeg" class="slide" alt="Hisabify expense tracking features including split types and categories">
+                                <img src="assets/slide3.jpeg" class="slide" alt="Hisabify settings and room management interface">
+                            </div>
+                        </div>
+                    </div>
                     <div class="showcase-text">
                         <div class="icon-badge"><span class="material-symbols-rounded">monitoring</span></div>
                         <h3>Real-Time Dashboard</h3>
                         <p>Track balances, settle debts, and manage expenses seamlessly, exactly as you do in the Hisabify app.</p>
-                    </div>
-                    <div class="showcase-visual">
-                        <div class="dashboard-art-stage">
-                            <img src="assets/dashboard_character.png" alt="Hisabify real-time expense dashboard with balance tracking and settlement visualization" class="dashboard-character-img">
+                        <div class="onboarding-graphics-wrap">
+                            <img src="assets/dashboard_character.png" alt="Hisabify real-time expense dashboard with balance tracking and settlement visualization" class="onboarding-character-img dashboard-character-img">
                         </div>
                     </div>
                 </div>
@@ -1410,7 +1445,7 @@
             revealObserver.observe(element);
         });
 
-        // Slideshow Animation
+        // Slideshow Animation — Real-Time Dashboard section
         const slides = document.querySelectorAll('.phone-screen-img .slide');
         if (slides.length > 0) {
             let currentSlide = 0;
@@ -1418,6 +1453,17 @@
                 slides[currentSlide].classList.remove('active');
                 currentSlide = (currentSlide + 1) % slides.length;
                 slides[currentSlide].classList.add('active');
+            }, 3000);
+        }
+
+        // Hero Mobile Phone Slideshow (same images, separate instance)
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        if (heroSlides.length > 0) {
+            let heroCurrentSlide = 0;
+            setInterval(() => {
+                heroSlides[heroCurrentSlide].classList.remove('active');
+                heroCurrentSlide = (heroCurrentSlide + 1) % heroSlides.length;
+                heroSlides[heroCurrentSlide].classList.add('active');
             }, 3000);
         }
     </script>
