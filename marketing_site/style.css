@@ -1268,43 +1268,27 @@ body {
     transform: translateY(-8px) scale(1.02);
 }
 
-.dashboard-art-stage {
-    width: 100%;
-    max-width: 520px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .dashboard-character-img {
-    width: 100%;
-    max-width: 440px;
-    height: auto;
-    display: block;
-    filter: drop-shadow(0 20px 35px rgba(15, 23, 42, 0.12));
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.dashboard-art-stage:hover .dashboard-character-img {
-    transform: translateY(-8px) scale(1.02);
+    max-width: 480px; /* Make it significantly larger than the default 380px */
+    width: 130%; /* allow it to grow beyond the 100% of the parent if needed, or just let max-width and margins handle it */
+    margin-left: -15%; /* pull it left slightly so it centers better when enlarged */
 }
 
 .showcase-visual {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 @media (max-width: 900px) {
     .showcase-arena {
-        gap: 3.5rem;
+        gap: 3rem;
         margin: 2.5rem auto 3rem;
     }
     .showcase-block, .showcase-block.reverse {
         flex-direction: column;
         text-align: center;
-        gap: 2.5rem;
+        gap: 2rem;
     }
     .showcase-text { 
         max-width: 100%; 
@@ -1312,16 +1296,21 @@ body {
         flex-direction: column;
         align-items: center;
     }
+    .showcase-text h3 {
+        font-size: 1.85rem;
+    }
+    .showcase-text p {
+        font-size: 1rem;
+    }
     .onboarding-graphics-wrap {
         justify-content: center;
         max-width: 320px;
-        margin-top: 1.5rem;
-    }
-    .dashboard-art-stage {
-        max-width: 100%;
+        margin-top: 1.2rem;
     }
     .dashboard-character-img {
-        max-width: 340px;
+        max-width: 100%;
+        width: 100%;
+        margin-left: 0;
     }
 }
 
@@ -2786,18 +2775,40 @@ body {
         gap: 1rem;
     }
 
-    /* Native Phone Mockup */
+    /* Showcase & Mockup Mobile Sizing */
+    .showcase-arena {
+        gap: 2.5rem;
+        margin: 2rem auto 2.5rem;
+    }
+
+    .showcase-block {
+        gap: 1.5rem;
+    }
+
+    .css-phone-mockup {
+        width: 290px;
+        height: 570px;
+        transform: none;
+        margin: 0.5rem auto 1rem;
+        max-width: 100%;
+        border-width: 10px;
+        border-radius: 38px;
+    }
+
+    .phone-notch {
+        width: 100px;
+        height: 24px;
+    }
+
+    .phone-screen {
+        padding: 2rem 0.9rem 0.9rem;
+    }
+
     .native-onboarding-arena {
         flex-direction: column;
         margin: 1.5rem auto;
         min-height: auto;
         align-items: center;
-    }
-
-    .css-phone-mockup {
-        transform: scale(0.9);
-        margin: 1rem auto 1.5rem;
-        max-width: 100%;
     }
 
     .float-el {
@@ -2995,10 +3006,61 @@ body {
         font-size: 1.35rem;
     }
 
+    .showcase-arena {
+        gap: 1.8rem;
+        margin: 1.2rem auto 1.8rem;
+    }
+
+    .showcase-block {
+        gap: 1.2rem;
+    }
+
+    .showcase-text h3 {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .showcase-text p {
+        font-size: 0.92rem;
+        line-height: 1.5;
+    }
+
+    .showcase-text .icon-badge {
+        width: 46px;
+        height: 46px;
+        margin-bottom: 0.85rem;
+    }
+
+    .showcase-text .icon-badge span {
+        font-size: 1.4rem;
+    }
+
+    .onboarding-graphics-wrap {
+        margin-top: 1rem;
+    }
+
     .css-phone-mockup {
-        transform: scale(0.82);
-        margin: -1.5rem auto 0;
-        transform-origin: top center;
+        width: 265px;
+        height: 515px;
+        transform: none;
+        margin: 0.25rem auto 0.5rem;
+        border-width: 8px;
+        border-radius: 32px;
+    }
+
+    .phone-notch {
+        width: 88px;
+        height: 20px;
+    }
+
+    .phone-screen {
+        padding: 1.75rem 0.75rem 0.75rem;
+    }
+
+    .dashboard-character-img {
+        max-width: 280px;
+        width: 100%;
+        margin-left: 0;
     }
 
     .web-showcase-section {
