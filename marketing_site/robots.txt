@@ -3,9 +3,20 @@
 
 User-agent: *
 Allow: /
+Disallow: /assets/bg.png
+Disallow: /assets/hero_art_faded.png
 
-# Sitemap
+# Specific crawler directives
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# Sitemaps
 Sitemap: https://hisabify.aadarshapandit.com.np/sitemap.xml
 
-# Crawl-delay (be polite)
-Crawl-delay: 1
+# Related web app
+# App: https://app.hisabify.aadarshapandit.com.np/
