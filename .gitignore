@@ -62,6 +62,10 @@ ios/Flutter/flutter_export_environment.sh
 .firebase/
 firebase-debug.log*
 firestore-debug.log*
+*firebase_options.dart
+!*firebase_options.example.dart
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
 
 # AI tools & IDE cache
 .claude/
