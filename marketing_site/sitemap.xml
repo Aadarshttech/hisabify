@@ -7,7 +7,7 @@
     <!-- Hisabify Marketing / Landing Page — highest priority -->
     <url>
         <loc>https://hisabify.aadarshapandit.com.np/</loc>
-        <lastmod>2026-09-28</lastmod>
+        <lastmod>2026-10-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -15,31 +15,9 @@
     <!-- Hisabify Web App (cross-domain crawl hint) -->
     <url>
         <loc>https://app.hisabify.aadarshapandit.com.np/</loc>
-        <lastmod>2026-09-28</lastmod>
+        <lastmod>2026-10-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
-    </url>
-
-    <!-- Landing page anchor sections (helps Google understand page structure) -->
-    <url>
-        <loc>https://hisabify.aadarshapandit.com.np/#calculator</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://hisabify.aadarshapandit.com.np/#how-it-works</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <url>
-        <loc>https://hisabify.aadarshapandit.com.np/#faq</loc>
-        <lastmod>2026-09-28</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
     </url>
 
 </urlset>

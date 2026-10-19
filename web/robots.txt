@@ -1,4 +1,20 @@
+# Hisabify — robots.txt
+# https://app.hisabify.aadarshapandit.com.np
+
 User-agent: *
 Allow: /
+Disallow: /flutter_service_worker.js
+Disallow: /assets/packages/
+Disallow: /assets/shaders/
 
-Sitemap: https://hisab.aadarshapandit.com.np/sitemap.xml
+# Googlebot — no restrictions
+User-agent: Googlebot
+Allow: /
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# Sitemaps
+Sitemap: https://app.hisabify.aadarshapandit.com.np/sitemap.xml
