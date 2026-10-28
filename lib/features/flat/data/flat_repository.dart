@@ -246,6 +246,8 @@ class FlatRepository {
   /// Admin creates a new flat. Returns the generated flat code.
   Future<String> createFlat({
     required String flatName,
+    String roomType = 'flat',
+    String roomIcon = '🏠',
     required String adminUid,
     required String adminEmail,
     required String adminDisplayName,
@@ -257,6 +259,8 @@ class FlatRepository {
     // 1. Create the flat document
     batch.set(_firestore.collection('flats').doc(code), {
       'name': flatName.trim(),
+      'roomType': roomType,
+      'icon': roomIcon,
       'createdBy': adminUid,
       'adminEmail': adminEmail.toLowerCase().trim(),
       'adminName': adminDisplayName.trim(),
@@ -298,11 +302,13 @@ class FlatRepository {
     await saveLocalProfile(flatId: code, role: 'admin', flatName: flatName.trim());
 
     // 4. Add room to user's rooms array for multi-room support
-    RoomRepository().addRoomToUser(
+    await RoomRepository().addRoomToUser(
       uid: adminUid,
       flatId: code,
       flatName: flatName.trim(),
       role: 'admin',
+      roomType: roomType,
+      icon: roomIcon,
     );
 
     return code;
@@ -348,6 +354,8 @@ class FlatRepository {
     }
 
     final flatName = flatDoc.data()?['name'] as String? ?? code;
+    final roomType = flatDoc.data()?['roomType'] as String? ?? 'flat';
+    final roomIcon = flatDoc.data()?['icon'] as String? ?? '🏠';
     
     // Check if the user is already the admin/creator of this flat
     final createdBy = flatDoc.data()?['createdBy'] as String?;
@@ -435,11 +443,13 @@ class FlatRepository {
     );
 
     // 3. Add room to user's rooms array for multi-room support
-    RoomRepository().addRoomToUser(
+    await RoomRepository().addRoomToUser(
       uid: userUid,
       flatId: code,
       flatName: flatName,
       role: joinRole,
+      roomType: roomType,
+      icon: roomIcon,
     );
 
     return flatName;
@@ -528,24 +538,22 @@ class FlatRepository {
         }
       } catch (_) {}
 
-      // Remove room from user's rooms array
-      RoomRepository().removeRoomFromUser(uid: uid, flatId: flatId);
+      // Remove the membership and atomically select another available room.
+      await RoomRepository().removeRoomFromUser(uid: uid, flatId: flatId);
     }
 
-    // 2. Clear user document
-    try {
-      await _firestore.collection('users').doc(uid).update({
-        'flatId': FieldValue.delete(),
-        'flatName': FieldValue.delete(),
-      });
-    } catch (_) {}
-
-    // 3. Clear local cache
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove(_keyFlatId);
-      await prefs.remove(_keyFlatName);
-    } catch (_) {}
+    // 2. Keep the local active-room cache aligned with the remaining rooms.
+    final remainingRooms = await RoomRepository().getUserRooms(uid);
+    if (remainingRooms.isNotEmpty) {
+      final nextRoom = remainingRooms.first;
+      await saveLocalProfile(
+        flatId: nextRoom.flatId,
+        role: nextRoom.role,
+        flatName: nextRoom.flatName,
+      );
+    } else {
+      await clearLocalProfile();
+    }
   }
 
   /// Transfer admin role to another flatmate and leave the flat
@@ -611,12 +619,37 @@ class FlatRepository {
 
     await batch.commit().timeout(const Duration(seconds: 12));
 
-    // Clear old admin local preferences
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove(_keyFlatId);
-      await prefs.remove(_keyFlatName);
-    } catch (_) {}
+    // Keep per-room roles in sync; the global profile role only describes the
+    // currently active room and must not overwrite another room's role.
+    if (newAdmin.uid != null && newAdmin.uid!.isNotEmpty) {
+      final transferredFlat = await flatRef.get();
+      final transferredData = transferredFlat.data() ?? {};
+      await RoomRepository().addRoomToUser(
+        uid: newAdmin.uid!,
+        flatId: flatId,
+        flatName: (transferredData['name'] as String?) ?? flatId,
+        role: 'admin',
+        roomType: (transferredData['roomType'] as String?) ?? 'flat',
+        icon: (transferredData['icon'] as String?) ?? '🏠',
+      );
+    }
+    await RoomRepository().removeRoomFromUser(
+      uid: oldAdminUid,
+      flatId: flatId,
+    );
+
+    // Preserve another selected room on this device, if one exists.
+    final oldAdminRooms = await RoomRepository().getUserRooms(oldAdminUid);
+    if (oldAdminRooms.isEmpty) {
+      await clearLocalProfile();
+    } else {
+      final nextRoom = oldAdminRooms.first;
+      await saveLocalProfile(
+        flatId: nextRoom.flatId,
+        role: nextRoom.role,
+        flatName: nextRoom.flatName,
+      );
+    }
   }
 
   /// Stream the user profile for real-time updates

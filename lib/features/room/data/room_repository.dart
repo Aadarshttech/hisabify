@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,12 +8,16 @@ class UserRoom {
   final String flatId;
   final String flatName;
   final String role; // 'admin' or 'user'
+  final String roomType;
+  final String icon;
   final DateTime? joinedAt;
 
   const UserRoom({
     required this.flatId,
     required this.flatName,
     required this.role,
+    this.roomType = 'flat',
+    this.icon = '🏠',
     this.joinedAt,
   });
 
@@ -24,6 +30,8 @@ class UserRoom {
       flatId: (map['flatId'] as String?) ?? '',
       flatName: (map['flatName'] as String?) ?? '',
       role: (map['role'] as String?) ?? 'user',
+      roomType: (map['roomType'] as String?) ?? 'flat',
+      icon: (map['icon'] as String?) ?? '🏠',
       joinedAt: joined,
     );
   }
@@ -33,7 +41,11 @@ class UserRoom {
       'flatId': flatId,
       'flatName': flatName,
       'role': role,
-      'joinedAt': joinedAt != null ? Timestamp.fromDate(joinedAt!) : FieldValue.serverTimestamp(),
+      'roomType': roomType,
+      'icon': icon,
+      // Firestore server timestamps cannot be used inside array elements.
+      // Use a concrete timestamp so this map is safe to persist in `rooms`.
+      'joinedAt': Timestamp.fromDate(joinedAt ?? DateTime.now()),
     };
   }
 
@@ -53,6 +65,43 @@ class RoomRepository {
   static const String _keyRole = 'cached_user_role';
   static const String _keyFlatName = 'cached_flat_name';
 
+  List<UserRoom> _roomsFromData(Map<String, dynamic> data) {
+    final byFlatId = <String, UserRoom>{};
+    final rawRooms = data['rooms'];
+    if (rawRooms is List) {
+      for (final rawRoom in rawRooms) {
+        if (rawRoom is! Map) continue;
+        final room = UserRoom.fromMap(Map<String, dynamic>.from(rawRoom));
+        final flatId = room.flatId.toUpperCase().trim();
+        if (flatId.isEmpty) continue;
+        // Keep one canonical entry per room. The last entry is the freshest
+        // when repairing documents created by earlier app versions.
+        byFlatId[flatId] = UserRoom(
+          flatId: flatId,
+          flatName: room.flatName.trim().isEmpty ? 'Room $flatId' : room.flatName.trim(),
+          role: room.role == 'admin' ? 'admin' : 'user',
+          roomType: room.roomType,
+          icon: room.icon,
+          joinedAt: room.joinedAt,
+        );
+      }
+    }
+
+    final legacyFlatId = (data['flatId'] as String? ?? '').toUpperCase().trim();
+    if (legacyFlatId.isNotEmpty && !byFlatId.containsKey(legacyFlatId)) {
+      byFlatId[legacyFlatId] = UserRoom(
+        flatId: legacyFlatId,
+        flatName: (data['flatName'] as String?)?.trim().isNotEmpty == true
+            ? (data['flatName'] as String).trim()
+            : 'Room $legacyFlatId',
+        role: data['role'] == 'admin' ? 'admin' : 'user',
+        roomType: (data['roomType'] as String?) ?? 'flat',
+        icon: (data['icon'] as String?) ?? '🏠',
+      );
+    }
+    return byFlatId.values.toList();
+  }
+
   // ──────────────────────────────────────────────
   // Fetch Rooms
   // ──────────────────────────────────────────────
@@ -69,35 +118,15 @@ class RoomRepository {
 
       if (!doc.exists) return [];
 
-      final data = doc.data() ?? {};
-      final roomsList = data['rooms'] as List<dynamic>?;
-
-      if (roomsList != null && roomsList.isNotEmpty) {
-        return roomsList
-            .map((r) => UserRoom.fromMap(Map<String, dynamic>.from(r as Map)))
-            .where((r) => r.flatId.isNotEmpty)
-            .toList();
+      final rooms = _roomsFromData(doc.data() ?? {});
+      // Repair legacy/duplicate entries without delaying sign-in.
+      if (rooms.isNotEmpty) {
+        unawaited(_firestore.collection('users').doc(uid).set(
+          {'rooms': rooms.map((room) => room.toMap()).toList()},
+          SetOptions(merge: true),
+        ));
       }
-
-      // Backward compat: user has legacy single flatId but no rooms array
-      final legacyFlatId = data['flatId'] as String?;
-      final legacyFlatName = data['flatName'] as String?;
-      final legacyRole = data['role'] as String?;
-
-      if (legacyFlatId != null && legacyFlatId.isNotEmpty) {
-        final room = UserRoom(
-          flatId: legacyFlatId,
-          flatName: legacyFlatName ?? 'Room $legacyFlatId',
-          role: legacyRole ?? 'user',
-        );
-        // Self-heal: write rooms array to Firestore so next time it's there
-        _firestore.collection('users').doc(uid).set({
-          'rooms': [room.toMap()],
-        }, SetOptions(merge: true)).catchError((_) {});
-        return [room];
-      }
-
-      return [];
+      return rooms;
     } catch (_) {
       return [];
     }
@@ -112,32 +141,7 @@ class RoomRepository {
         .map((doc) {
       if (!doc.exists) return <UserRoom>[];
 
-      final data = doc.data() ?? {};
-      final roomsList = data['rooms'] as List<dynamic>?;
-
-      if (roomsList != null && roomsList.isNotEmpty) {
-        return roomsList
-            .map((r) => UserRoom.fromMap(Map<String, dynamic>.from(r as Map)))
-            .where((r) => r.flatId.isNotEmpty)
-            .toList();
-      }
-
-      // Backward compat fallback
-      final legacyFlatId = data['flatId'] as String?;
-      final legacyFlatName = data['flatName'] as String?;
-      final legacyRole = data['role'] as String?;
-
-      if (legacyFlatId != null && legacyFlatId.isNotEmpty) {
-        return [
-          UserRoom(
-            flatId: legacyFlatId,
-            flatName: legacyFlatName ?? 'Room $legacyFlatId',
-            role: legacyRole ?? 'user',
-          ),
-        ];
-      }
-
-      return <UserRoom>[];
+      return _roomsFromData(doc.data() ?? {});
     });
   }
 
@@ -153,20 +157,32 @@ class RoomRepository {
     required String flatName,
     required String role,
   }) async {
-    // 1. Update Firestore legacy active room fields
-    try {
-      await _firestore.collection('users').doc(uid).set({
-        'flatId': flatId,
-        'flatName': flatName,
-        'role': role,
-      }, SetOptions(merge: true)).timeout(const Duration(seconds: 5));
-    } catch (_) {}
+    final normalizedFlatId = flatId.toUpperCase().trim();
+    final normalizedRole = role == 'admin' ? 'admin' : 'user';
+    final userRef = _firestore.collection('users').doc(uid);
+
+    // Do not allow stale picker cards to select a room that was left on
+    // another device. This also serializes concurrent add/switch operations.
+    await _firestore.runTransaction((transaction) async {
+      final snapshot = await transaction.get(userRef);
+      final rooms = _roomsFromData(snapshot.data() ?? {});
+      final isMember = rooms.any((room) => room.flatId == normalizedFlatId);
+      if (!isMember) {
+        throw StateError('This room is no longer available to your account.');
+      }
+      transaction.set(userRef, {
+        'flatId': normalizedFlatId,
+        'flatName': flatName.trim(),
+        'role': normalizedRole,
+        'rooms': rooms.map((room) => room.toMap()).toList(),
+      }, SetOptions(merge: true));
+    }).timeout(const Duration(seconds: 10));
 
     // 2. Update local cache
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_keyFlatId, flatId.trim());
-      await prefs.setString(_keyRole, role.trim());
+      await prefs.setString(_keyFlatId, normalizedFlatId);
+      await prefs.setString(_keyRole, normalizedRole);
       await prefs.setString(_keyFlatName, flatName.trim());
     } catch (_) {}
   }
@@ -181,48 +197,30 @@ class RoomRepository {
     required String flatId,
     required String flatName,
     required String role,
+    String roomType = 'flat',
+    String icon = '🏠',
   }) async {
-    try {
-      final docRef = _firestore.collection('users').doc(uid);
-      final doc = await docRef.get().timeout(const Duration(seconds: 5));
-
-      List<Map<String, dynamic>> rooms = [];
-      if (doc.exists) {
-        final data = doc.data() ?? {};
-        final existing = data['rooms'] as List<dynamic>?;
-        if (existing != null) {
-          rooms = existing
-              .map((r) => Map<String, dynamic>.from(r as Map))
-              .toList();
-        }
-      }
-
-      // Check if room already exists in the array
-      final alreadyExists = rooms.any((r) => r['flatId'] == flatId);
-      if (alreadyExists) {
-        // Update role/name in case they changed
-        rooms = rooms.map((r) {
-          if (r['flatId'] == flatId) {
-            return {
-              ...r,
-              'flatName': flatName,
-              'role': role,
-            };
-          }
-          return r;
-        }).toList();
-      } else {
-        rooms.add(UserRoom(
-          flatId: flatId,
-          flatName: flatName,
-          role: role,
-        ).toMap());
-      }
-
-      await docRef.set({
-        'rooms': rooms,
-      }, SetOptions(merge: true)).timeout(const Duration(seconds: 5));
-    } catch (_) {}
+    final normalizedFlatId = flatId.toUpperCase().trim();
+    if (normalizedFlatId.isEmpty) throw ArgumentError.value(flatId, 'flatId');
+    final docRef = _firestore.collection('users').doc(uid);
+    await _firestore.runTransaction((transaction) async {
+      final snapshot = await transaction.get(docRef);
+      final rooms = _roomsFromData(snapshot.data() ?? {});
+      final updatedRoom = UserRoom(
+        flatId: normalizedFlatId,
+        flatName: flatName.trim().isEmpty ? 'Room $normalizedFlatId' : flatName.trim(),
+        role: role == 'admin' ? 'admin' : 'user',
+        roomType: roomType,
+        icon: icon,
+      );
+      final updatedRooms = <String, UserRoom>{
+        for (final room in rooms) room.flatId: room,
+        normalizedFlatId: updatedRoom,
+      }.values.toList();
+      transaction.set(docRef, {
+        'rooms': updatedRooms.map((room) => room.toMap()).toList(),
+      }, SetOptions(merge: true));
+    }).timeout(const Duration(seconds: 10));
   }
 
   /// Remove a room from the user's rooms array.
@@ -230,25 +228,26 @@ class RoomRepository {
     required String uid,
     required String flatId,
   }) async {
-    try {
-      final docRef = _firestore.collection('users').doc(uid);
-      final doc = await docRef.get().timeout(const Duration(seconds: 5));
-
-      if (!doc.exists) return;
-
-      final data = doc.data() ?? {};
-      final existing = data['rooms'] as List<dynamic>?;
-      if (existing == null || existing.isEmpty) return;
-
-      final rooms = existing
-          .map((r) => Map<String, dynamic>.from(r as Map))
-          .where((r) => r['flatId'] != flatId)
+    final normalizedFlatId = flatId.toUpperCase().trim();
+    final docRef = _firestore.collection('users').doc(uid);
+    await _firestore.runTransaction((transaction) async {
+      final snapshot = await transaction.get(docRef);
+      final rooms = _roomsFromData(snapshot.data() ?? {})
+          .where((room) => room.flatId != normalizedFlatId)
           .toList();
-
-      await docRef.set({
-        'rooms': rooms,
-      }, SetOptions(merge: true)).timeout(const Duration(seconds: 5));
-    } catch (_) {}
+      final activeRoom = rooms.isEmpty ? null : rooms.first;
+      transaction.set(docRef, {
+        'rooms': rooms.map((room) => room.toMap()).toList(),
+        if (activeRoom != null) ...{
+          'flatId': activeRoom.flatId,
+          'flatName': activeRoom.flatName,
+          'role': activeRoom.role,
+        } else ...{
+          'flatId': FieldValue.delete(),
+          'flatName': FieldValue.delete(),
+        },
+      }, SetOptions(merge: true));
+    }).timeout(const Duration(seconds: 10));
   }
 
   /// Get the room name for a given flatId (from the flat document).

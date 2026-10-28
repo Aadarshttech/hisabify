@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flatsplit/features/room/data/room_repository.dart';
 import 'expense_model.dart';
 
 class ExpenseRepository {
@@ -412,17 +413,15 @@ class ExpenseRepository {
     // 1. Delete member document from flat
     await _membersRef.doc(memberId).delete().catchError((_) {});
 
-    // 2. If UID is known, clear flatId & flatName from users/{uid}
+    // Remove this room only. A member can belong to other rooms, so deleting
+    // their global active-room fields would strand those memberships.
+    final affectedUids = <String>{};
     if (uid != null && uid.isNotEmpty) {
-      try {
-        await _firestore.collection('users').doc(uid).update({
-          'flatId': FieldValue.delete(),
-          'flatName': FieldValue.delete(),
-        });
-      } catch (_) {}
+      affectedUids.add(uid);
     }
 
-    // 3. If email is known, find and clear matching user docs
+    // Find the account by normalized email too, which covers older member
+    // records that predate the stored Firebase UID.
     if (email != null && email.isNotEmpty) {
       final cleanEmail = email.toLowerCase().trim();
       try {
@@ -435,11 +434,17 @@ class ExpenseRepository {
             .get()
             .timeout(const Duration(seconds: 4));
         for (var doc in usersQuery.docs) {
-          await doc.reference.update({
-            'flatId': FieldValue.delete(),
-            'flatName': FieldValue.delete(),
-          }).catchError((_) {});
+          affectedUids.add(doc.id);
         }
+      } catch (_) {}
+    }
+
+    for (final accountUid in affectedUids) {
+      try {
+        await RoomRepository().removeRoomFromUser(
+          uid: accountUid,
+          flatId: flatId,
+        );
       } catch (_) {}
     }
   }

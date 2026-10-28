@@ -70,32 +70,40 @@ class _RoomPickerPageState extends State<RoomPickerPage>
     setState(() => _isLoading = true);
 
     final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
+    if (user == null) {
+      if (mounted) setState(() => _isLoading = false);
+      return;
+    }
 
-    // Switch active room
-    await _roomRepo.switchRoom(
-      uid: user.uid,
-      flatId: room.flatId,
-      flatName: room.flatName,
-      role: room.role,
-    );
+    try {
+      await _roomRepo.switchRoom(
+        uid: user.uid,
+        flatId: room.flatId,
+        flatName: room.flatName,
+        role: room.role,
+      );
+      await _flatRepo.saveLocalProfile(
+        flatId: room.flatId,
+        role: room.role,
+        flatName: room.flatName,
+      );
 
-    // Also save to flat repo local cache
-    await _flatRepo.saveLocalProfile(
-      flatId: room.flatId,
-      role: room.role,
-      flatName: room.flatName,
-    );
-
-    if (mounted) {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (_) => HomePage(
-            flatId: room.flatId,
-            isAdmin: room.role == 'admin',
+      if (mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (_) => HomePage(
+              flatId: room.flatId,
+              isAdmin: room.role == 'admin',
+            ),
           ),
-        ),
-        (route) => false,
+          (route) => false,
+        );
+      }
+    } catch (error) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Could not switch rooms: $error')),
       );
     }
   }
@@ -329,7 +337,7 @@ class _RoomPickerPageState extends State<RoomPickerPage>
 
   Widget _buildRoomCard(UserRoom room, int index) {
     final gradient = _roomGradients[index % _roomGradients.length];
-    final emoji = _roomEmojis[index % _roomEmojis.length];
+    final emoji = room.icon.isEmpty ? _roomEmojis[index % _roomEmojis.length] : room.icon;
     final isAdmin = room.role == 'admin';
 
     return GestureDetector(

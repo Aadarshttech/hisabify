@@ -12,6 +12,7 @@ import 'features/flat/presentation/pages/create_flat_page.dart';
 import 'features/flat/presentation/pages/join_flat_page.dart';
 import 'features/flat/data/flat_repository.dart';
 import 'features/room/presentation/pages/room_picker_page.dart';
+import 'features/room/data/room_repository.dart';
 import 'core/firebase/firebase_options.dart';
 import 'core/theme/app_theme.dart';
 
@@ -95,6 +96,7 @@ class AuthGate extends StatefulWidget {
 
 class _AuthGateState extends State<AuthGate> {
   final _flatRepo = FlatRepository();
+  final _roomRepo = RoomRepository();
   StreamSubscription<User?>? _authSubscription;
   StreamSubscription<DocumentSnapshot>? _profileSubscription;
 
@@ -143,9 +145,9 @@ class _AuthGateState extends State<AuthGate> {
   }
 
   Future<void> _loadProfileForUser(String uid) async {
-    // 1. FAST PATH: Check local cache first for instant zero-latency UI
+    // Keep the cached role for presentation only. Room routing waits for the
+    // authoritative membership document so no room is hidden at sign-in.
     final local = await _flatRepo.getLocalProfile();
-    final cachedFlatId = local['flatId'];
     final cachedRole = local['role'];
     final userEmail = _currentUser?.email?.toLowerCase().trim() ?? '';
     final isMasterAdmin = userEmail == 'aadarshapandit17@gmail.com' ||
@@ -161,11 +163,9 @@ class _AuthGateState extends State<AuthGate> {
           _role = 'user';
         }
 
-        if (cachedFlatId != null && cachedFlatId.isNotEmpty) {
-          _flatId = cachedFlatId;
-          _isLoading = false;
-          _profileLoaded = true;
-        }
+        // The cached room is only a convenience after a selection. Do not
+        // route from it: the server-side membership list is authoritative and
+        // returning users must always see every room they can enter.
       });
     }
 
@@ -191,10 +191,20 @@ class _AuthGateState extends State<AuthGate> {
           if (!isMasterAdmin && docRole != null && docRole.isNotEmpty) {
             role = docRole;
           }
-          final roomsList = data['rooms'] as List<dynamic>?;
-          if (roomsList != null && roomsList.isNotEmpty) {
-            roomCount = roomsList.length;
-          }
+        }
+
+        // This normalizes legacy profiles and removes duplicate entries before
+        // deciding whether to show the room chooser.
+        final rooms = await _roomRepo.getUserRooms(uid);
+        roomCount = rooms.length;
+        if (rooms.isNotEmpty) {
+          final activeRoom = rooms.firstWhere(
+            (room) => room.flatId == flatId,
+            orElse: () => rooms.first,
+          );
+          flatId = activeRoom.flatId;
+          flatName = activeRoom.flatName;
+          role = activeRoom.role;
         }
 
         // Auto-discover if user created a flat or has admin privileges
@@ -301,8 +311,9 @@ class _AuthGateState extends State<AuthGate> {
       return const _LoadingScreen();
     }
 
-    // 1. If user belongs to multiple rooms -> Netflix-style Room Picker!
-    if (_roomCount > 1) {
+    // A signed-in member always picks a room. This prevents the cached active
+    // room from hiding newly joined rooms after a later sign-in.
+    if (_roomCount > 0) {
       return RoomPickerPage(isAdmin: _role == 'admin');
     }
 
@@ -311,12 +322,7 @@ class _AuthGateState extends State<AuthGate> {
       return HomePage(flatId: _flatId!, isAdmin: _role == 'admin');
     }
 
-    // 3. If user has 1 room in rooms array but flatId unselected -> RoomPickerPage
-    if (_roomCount == 1) {
-      return RoomPickerPage(isAdmin: _role == 'admin');
-    }
-
-    // 4. No flat yet:
+    // 3. No flat yet:
     // Admin without a flat -> Create Flat screen directly
     if (_role == 'admin') {
       return const CreateFlatPage();

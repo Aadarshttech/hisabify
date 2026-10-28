@@ -21,6 +21,7 @@ class _CreateFlatPageState extends State<CreateFlatPage>
   bool _isCreating = false;
   String? _createdCode;
   String? _errorMessage;
+  _RoomPurpose _purpose = _RoomPurpose.flat;
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
 
@@ -63,6 +64,8 @@ class _CreateFlatPageState extends State<CreateFlatPage>
       final user = FirebaseAuth.instance.currentUser!;
       final code = await _flatRepo.createFlat(
         flatName: _flatNameController.text.trim(),
+        roomType: _purpose.id,
+        roomIcon: _purpose.icon,
         adminUid: user.uid,
         adminEmail: user.email ?? '',
         adminDisplayName: user.displayName ?? user.email?.split('@').first ?? 'Admin',
@@ -174,7 +177,7 @@ class _CreateFlatPageState extends State<CreateFlatPage>
 
         // Title
         const Text(
-          'Create Your Flat',
+          'Create a Room',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: 'Fredoka',
@@ -186,7 +189,7 @@ class _CreateFlatPageState extends State<CreateFlatPage>
         ),
         const SizedBox(height: 6),
         const Text(
-          'Give your flat a name and share\nthe code with your flatmates',
+          'Choose what this room is for, then share\nthe code with your group',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: 'Fredoka',
@@ -219,7 +222,7 @@ class _CreateFlatPageState extends State<CreateFlatPage>
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text(
-                  'Flat Name',
+                  'What is this room for?',
                   style: TextStyle(
                     fontFamily: 'Fredoka',
                     fontSize: 22,
@@ -227,7 +230,33 @@ class _CreateFlatPageState extends State<CreateFlatPage>
                     color: forestGreen,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _RoomPurpose.values.map((purpose) {
+                    final selected = _purpose == purpose;
+                    return ChoiceChip(
+                      selected: selected,
+                      onSelected: _isCreating ? null : (_) => setState(() => _purpose = purpose),
+                      avatar: Text(purpose.icon),
+                      label: Text(purpose.label),
+                      selectedColor: goldAccent.withValues(alpha: 0.35),
+                      side: BorderSide(color: selected ? forestGreen : fieldBorder),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  '${_purpose.label} name',
+                  style: const TextStyle(
+                    fontFamily: 'Fredoka',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: forestGreen,
+                  ),
+                ),
+                const SizedBox(height: 10),
 
                 TextFormField(
                   controller: _flatNameController,
@@ -238,7 +267,7 @@ class _CreateFlatPageState extends State<CreateFlatPage>
                     fontSize: 15,
                   ),
                   decoration: InputDecoration(
-                    hintText: 'e.g., B-Tech AI Flat',
+                    hintText: _purpose.nameHint,
                     hintStyle: TextStyle(
                       fontFamily: 'Fredoka',
                       color: forestGreen.withValues(alpha: 0.55),
@@ -270,7 +299,7 @@ class _CreateFlatPageState extends State<CreateFlatPage>
                   textInputAction: TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Please give your flat a name';
+                      return 'Please give this room a name';
                     }
                     return null;
                   },
@@ -333,7 +362,7 @@ class _CreateFlatPageState extends State<CreateFlatPage>
                             ),
                           )
                         : const Text(
-                            'Create Flat',
+                            'Create Room',
                             style: TextStyle(
                               fontFamily: 'Fredoka',
                               fontSize: 17,
@@ -581,6 +610,18 @@ class _CreateFlatPageState extends State<CreateFlatPage>
       ],
     );
   }
+}
+
+enum _RoomPurpose {
+  flat('flat', '🏠', 'Flat', 'e.g., B-Tech AI Flat'),
+  travel('travel', '✈️', 'Travel', 'e.g., Pokhara Trip'),
+  other('other', '✨', 'Other', 'e.g., Friday Dinner Group');
+
+  const _RoomPurpose(this.id, this.icon, this.label, this.nameHint);
+  final String id;
+  final String icon;
+  final String label;
+  final String nameHint;
 }
 
 class _CreateFlatBgPainter extends CustomPainter {
