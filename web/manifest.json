@@ -1,13 +1,17 @@
 {
-    "name": "Hisabify",
+    "name": "Hisabify | Roommate Expense Splitter & Bill Tracker",
     "short_name": "Hisabify",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#FBBF24",
     "theme_color": "#1E293B",
-    "description": "Hisabify - Shared expense management made effortless.",
+    "description": "Free expense splitting app for roommates, flatmates, and travel groups. Track shared bills, split rent and groceries fairly, and settle debts with smart debt minimization.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
+    "categories": ["finance", "productivity", "utilities"],
+    "lang": "en",
+    "dir": "ltr",
+    "scope": "/",
     "icons": [
         {
             "src": "icons/Icon-192.png",

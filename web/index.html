@@ -21,22 +21,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <!-- Primary SEO Meta Tags -->
-  <title>Hisabify — Smart Flat & Shared Expense Tracker</title>
-  <meta name="title" content="Hisabify — Smart Flat & Shared Expense Tracker">
-  <meta name="description" content="Effortlessly manage shared flat expenses, split bills with roommates, track balances, and settle debts in real-time. Free, secure, and intuitive.">
-  <meta name="keywords" content="hisabify, flat expense tracker, shared expense manager, splitwise alternative, roommate bill splitter, group expenses, nepal expense tracker, flatmate debt settlement">
-  <meta name="author" content="Aadarsha Pandit">
+  <title>Hisabify | Free Roommate Expense Splitter & Flat Bill Tracker</title>
+  <meta name="title" content="Hisabify | Free Roommate Expense Splitter & Flat Bill Tracker">
+  <meta name="description" content="Hisabify is a free expense splitting app for roommates & flatmates. Track shared bills, split rent & groceries fairly, settle debts instantly with smart debt minimization. No downloads — works on any browser. Built in Nepal 🇳🇵.">
+  <meta name="keywords" content="hisabify, flat expense tracker, shared expense manager, splitwise alternative, roommate bill splitter, group expenses, nepal expense tracker, flatmate debt settlement, split rent with roommates, grocery bill splitter, travel expense splitter, who ate feature, debt simplification app, shared living expenses, flat expense calculator, split bills online free, group expense tracker nepal, roommate expense app, bill splitting app, settle debts roommates, shared flat finances, hisab kitab app">
+  <meta name="author" content="Aadarsh Pandit">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="https://hisab.aadarshapandit.com.np/">
+  <meta name="googlebot" content="index, follow">
+  <link rel="canonical" href="https://app.hisabify.aadarshapandit.com.np/">
+
+  <!-- Geo & Language Targeting -->
+  <meta name="geo.region" content="NP">
+  <meta name="geo.placename" content="Kathmandu, Nepal">
+  <meta name="language" content="English">
+  <meta http-equiv="content-language" content="en">
+  <link rel="alternate" hreflang="en" href="https://app.hisabify.aadarshapandit.com.np/">
+  <link rel="alternate" hreflang="x-default" href="https://app.hisabify.aadarshapandit.com.np/">
 
   <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hisab.aadarshapandit.com.np/">
+  <meta property="og:url" content="https://app.hisabify.aadarshapandit.com.np/">
   <meta property="og:site_name" content="Hisabify">
-  <meta property="og:title" content="Hisabify — Smart Flat & Shared Expense Tracker">
+  <meta property="og:title" content="Hisabify | Smart Flat & Shared Expense Tracker">
   <meta property="og:description" content="Effortlessly manage shared flat expenses, split bills with roommates, track balances, and settle debts in real-time. Free, secure, and intuitive.">
-  <meta property="og:image" content="https://hisab.aadarshapandit.com.np/icons/Icon-512.png">
-  <meta property="og:image:secure_url" content="https://hisab.aadarshapandit.com.np/icons/Icon-512.png">
+  <meta property="og:image" content="https://app.hisabify.aadarshapandit.com.np/icons/Icon-512.png">
+  <meta property="og:image:secure_url" content="https://app.hisabify.aadarshapandit.com.np/icons/Icon-512.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="512">
   <meta property="og:image:height" content="512">
@@ -44,10 +53,10 @@
 
   <!-- Twitter / X -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://hisab.aadarshapandit.com.np/">
-  <meta property="twitter:title" content="Hisabify — Smart Flat & Shared Expense Tracker">
+  <meta property="twitter:url" content="https://app.hisabify.aadarshapandit.com.np/">
+  <meta property="twitter:title" content="Hisabify | Smart Flat & Shared Expense Tracker">
   <meta property="twitter:description" content="Effortlessly manage shared flat expenses, split bills with roommates, track balances, and settle debts in real-time.">
-  <meta property="twitter:image" content="https://hisab.aadarshapandit.com.np/icons/Icon-512.png">
+  <meta property="twitter:image" content="https://app.hisabify.aadarshapandit.com.np/icons/Icon-512.png">
 
   <!-- Theme & iOS Meta Tags -->
   <meta name="theme-color" content="#FBBF24">
@@ -71,27 +80,158 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Hisabify",
-    "url": "https://hisab.aadarshapandit.com.np/",
-    "description": "Effortlessly manage shared flat expenses, split bills with roommates, track balances, and settle debts in real-time.",
-    "applicationCategory": "FinanceApplication",
-    "operatingSystem": "All",
-    "browserRequirements": "Requires JavaScript. Requires HTML5.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "Aadarsha Pandit",
-      "url": "https://aadarshapandit.com.np"
-    }
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Hisabify",
+        "alternateName": ["Hisabify App", "Hisab App", "Hisab Kitab App"],
+        "url": "https://app.hisabify.aadarshapandit.com.np/",
+        "description": "Free real-time expense splitting app for roommates, flatmates, and travel groups. Track shared bills, split rent and groceries fairly, and settle debts with smart debt minimization.",
+        "applicationCategory": "FinanceApplication",
+        "applicationSubCategory": "Expense Tracker",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "inLanguage": "en",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "ratingCount": "3",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Aadarsh Pandit",
+          "url": "https://aadarshapandit.com.np",
+          "sameAs": [
+            "https://github.com/aadarshapandit",
+            "https://linkedin.com/in/aadarshapandit"
+          ]
+        },
+        "screenshot": "https://app.hisabify.aadarshapandit.com.np/icons/Icon-512.png",
+        "featureList": "Fair group expense splitting, Who ate / who was away feature, Debt simplification algorithm, 6-character room codes, Real-time balance tracking, Visual spending analytics, Category-wise expense breakdown"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Hisabify?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hisabify is a free, real-time expense splitting web app for roommates, flatmates, and travel groups. Track shared bills, split them fairly, and settle debts with zero awkward money conversations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Hisabify free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Hisabify is 100% free. All features including expense tracking, fair splitting, debt simplification, room codes, and spending analytics are available at no cost."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Hisabify split expenses fairly?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hisabify lets you split expenses equally, by custom shares, or by percentage. The unique Who Ate / Who Was Away feature automatically excludes absent roommates so they pay zero."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to download an app?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Hisabify works directly in your browser on any device. No downloads or installations required. Native Android and iOS apps are coming soon."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Hisabify App",
+            "item": "https://app.hisabify.aadarshapandit.com.np/"
+          }
+        ]
+      }
+    ]
   }
   </script>
 </head>
 <body>
+  <!-- SEO: Noscript fallback — gives search engine crawlers real content to index
+       since Flutter renders everything via JavaScript which crawlers may not execute -->
+  <noscript>
+    <header>
+      <h1>Hisabify | Free Roommate Expense Splitter & Flat Bill Tracker</h1>
+      <p>Split bills fairly with roommates, flatmates, and travel groups. Track shared expenses, settle debts instantly, and eliminate awkward money conversations.</p>
+    </header>
+    <main>
+      <section>
+        <h2>Why Hisabify?</h2>
+        <p>Hisabify is a <strong>free, real-time expense splitting web app</strong> built for people who share living spaces. Whether you're splitting rent in Kathmandu, dividing groceries with flatmates, or tracking travel expenses on a Pokhara road trip — Hisabify calculates the exact fair share so nobody overpays.</p>
+      </section>
+      <section>
+        <h2>Key Features</h2>
+        <ul>
+          <li><strong>Fair Group Splits:</strong> Split equally, by shares, or custom percentages</li>
+          <li><strong>Who Ate / Who Was Away:</strong> Exclude absent roommates automatically — they pay ₨ 0</li>
+          <li><strong>Debt Simplification:</strong> Reduces 10 messy cross-debts into 2 clean settlements</li>
+          <li><strong>6-Character Room Codes:</strong> Share a code, roommates join instantly — no email invites needed</li>
+          <li><strong>Real-Time Balance Tracking:</strong> Always know who owes what without spreadsheets</li>
+          <li><strong>Visual Spending Analytics:</strong> Category-wise breakdown of your shared expenses</li>
+          <li><strong>No Downloads Required:</strong> Works in any browser on any device</li>
+        </ul>
+      </section>
+      <section>
+        <h2>How Hisabify Works</h2>
+        <ol>
+          <li><strong>Create Your Flat or Group</strong> — Set up a space and get a unique 6-character join code</li>
+          <li><strong>Add Expenses On The Go</strong> — Log who paid, select who shared, choose split type</li>
+          <li><strong>Settle In One Tap</strong> — Hisabify calculates minimal payments needed</li>
+        </ol>
+      </section>
+      <section>
+        <h2>Frequently Asked Questions</h2>
+        <h3>What is Hisabify?</h3>
+        <p>Hisabify is a free, real-time expense splitting web app for roommates, flatmates, and travel groups.</p>
+        <h3>Is Hisabify free?</h3>
+        <p>Yes, Hisabify is 100% free with no hidden charges, premium tiers, or ads.</p>
+        <h3>How does the "Who Ate" feature work?</h3>
+        <p>Toggle which roommates participated in an expense. Anyone marked as Away pays ₨ 0, and the rest split fairly.</p>
+        <h3>Do I need to download an app?</h3>
+        <p>No. Hisabify works directly in your browser. Native Android and iOS apps are coming soon.</p>
+        <h3>How do I add roommates?</h3>
+        <p>Create a flat and share the unique 6-character room code. Roommates enter the code and join instantly.</p>
+      </section>
+      <section>
+        <h2>Perfect For</h2>
+        <ul>
+          <li>Roommates sharing a flat or apartment</li>
+          <li>Travel groups splitting trip expenses</li>
+          <li>Friends splitting dinner or grocery bills</li>
+          <li>College students managing shared hostel costs</li>
+          <li>Couples tracking shared household finances</li>
+        </ul>
+      </section>
+      <footer>
+        <p>© 2026 Hisabify. Built by <a href="https://aadarshapandit.com.np">Aadarsh Pandit</a> in Nepal 🇳🇵.</p>
+        <p><a href="https://hisabify.aadarshapandit.com.np/">Visit Hisabify Landing Page</a></p>
+      </footer>
+    </main>
+  </noscript>
+
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader

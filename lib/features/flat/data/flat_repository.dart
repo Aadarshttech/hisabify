@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flatsplit/features/expenses/data/expense_model.dart';
+import 'package:flatsplit/features/room/data/room_repository.dart';
 
 class UserFlatDiscovery {
   final String? flatId;
@@ -295,6 +296,15 @@ class FlatRepository {
       throw Exception('Network timeout. Please check your connection and try again.');
     });
     await saveLocalProfile(flatId: code, role: 'admin', flatName: flatName.trim());
+
+    // 4. Add room to user's rooms array for multi-room support
+    RoomRepository().addRoomToUser(
+      uid: adminUid,
+      flatId: code,
+      flatName: flatName.trim(),
+      role: 'admin',
+    );
+
     return code;
   }
 
@@ -367,9 +377,14 @@ class FlatRepository {
           final mName = (data['name'] as String?)?.toLowerCase().trim();
           final mUid = data['uid'] as String?;
 
-          if ((cleanEmail.isNotEmpty && mEmail == cleanEmail) ||
-              (mUid != null && mUid == userUid) ||
-              (cleanName.isNotEmpty && mName == cleanName)) {
+          // Explicit identity matches
+          final isSameUid = mUid != null && mUid.isNotEmpty && mUid == userUid;
+          final isSameEmail = cleanEmail.isNotEmpty && mEmail != null && mEmail == cleanEmail;
+          // Only match by name if the document is an unassigned placeholder (no UID and no email assigned)
+          final isUnassignedPlaceholder = (mUid == null || mUid.isEmpty) && (mEmail == null || mEmail.isEmpty);
+          final isNameMatchOnPlaceholder = isUnassignedPlaceholder && cleanName.isNotEmpty && mName == cleanName;
+
+          if (isSameUid || isSameEmail || isNameMatchOnPlaceholder) {
             targetMemberRef = doc.reference;
             break;
           }
@@ -412,11 +427,21 @@ class FlatRepository {
       throw Exception('Network timeout. Please check your connection and try again.');
     });
 
+    final joinRole = isOwnFlat ? 'admin' : 'user';
     await saveLocalProfile(
       flatId: code,
-      role: isOwnFlat ? 'admin' : 'user',
+      role: joinRole,
       flatName: flatName,
     );
+
+    // 3. Add room to user's rooms array for multi-room support
+    RoomRepository().addRoomToUser(
+      uid: userUid,
+      flatId: code,
+      flatName: flatName,
+      role: joinRole,
+    );
+
     return flatName;
   }
 
@@ -466,10 +491,12 @@ class FlatRepository {
     if (flatId != null && flatId.isNotEmpty) {
       try {
         final membersCol = _firestore.collection('flats').doc(flatId.trim()).collection('members');
+        bool deletedAny = false;
         // Delete by uid
         final uidDocs = await membersCol.where('uid', isEqualTo: uid).get();
         for (var doc in uidDocs.docs) {
           await doc.reference.delete();
+          deletedAny = true;
         }
         // Delete by email
         if (email != null && email.isNotEmpty) {
@@ -477,20 +504,32 @@ class FlatRepository {
           final emailDocs = await membersCol.where('email', isEqualTo: cleanEmail).get();
           for (var doc in emailDocs.docs) {
             await doc.reference.delete();
+            deletedAny = true;
           }
           final emailDocId = cleanEmail.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
           try {
             await membersCol.doc(emailDocId).delete();
+            deletedAny = true;
           } catch (_) {}
         }
-        // Delete by name
-        if (memberName != null && memberName.isNotEmpty) {
+        // Only if no document matched by UID or Email, fall back to deleting an unassigned placeholder by name
+        if (!deletedAny && memberName != null && memberName.isNotEmpty) {
           final nameDocs = await membersCol.where('name', isEqualTo: memberName.trim()).get();
           for (var doc in nameDocs.docs) {
-            await doc.reference.delete();
+            final data = doc.data();
+            final docUid = data['uid'] as String?;
+            final docEmail = data['email'] as String?;
+            // ONLY delete if it doesn't belong to another registered user!
+            if ((docUid == null || docUid.isEmpty) && (docEmail == null || docEmail.isEmpty)) {
+              await doc.reference.delete();
+              break;
+            }
           }
         }
       } catch (_) {}
+
+      // Remove room from user's rooms array
+      RoomRepository().removeRoomFromUser(uid: uid, flatId: flatId);
     }
 
     // 2. Clear user document

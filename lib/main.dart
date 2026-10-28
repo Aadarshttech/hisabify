@@ -11,6 +11,7 @@ import 'features/home/presentation/pages/home_page.dart';
 import 'features/flat/presentation/pages/create_flat_page.dart';
 import 'features/flat/presentation/pages/join_flat_page.dart';
 import 'features/flat/data/flat_repository.dart';
+import 'features/room/presentation/pages/room_picker_page.dart';
 import 'core/firebase/firebase_options.dart';
 import 'core/theme/app_theme.dart';
 
@@ -102,6 +103,7 @@ class _AuthGateState extends State<AuthGate> {
   String? _flatId;
   String? _role;
   bool _profileLoaded = false;
+  int _roomCount = 0; // Track how many rooms the user belongs to
 
   @override
   void initState() {
@@ -134,6 +136,7 @@ class _AuthGateState extends State<AuthGate> {
           _role = null;
           _isLoading = false;
           _profileLoaded = false;
+          _roomCount = 0;
         });
       }
     });
@@ -178,6 +181,7 @@ class _AuthGateState extends State<AuthGate> {
         String? flatId;
         String? flatName;
         String role = isMasterAdmin ? 'admin' : (_role ?? 'user');
+        int roomCount = 0;
 
         if (doc.exists) {
           final data = doc.data() ?? {};
@@ -186,6 +190,10 @@ class _AuthGateState extends State<AuthGate> {
           final docRole = data['role'] as String?;
           if (!isMasterAdmin && docRole != null && docRole.isNotEmpty) {
             role = docRole;
+          }
+          final roomsList = data['rooms'] as List<dynamic>?;
+          if (roomsList != null && roomsList.isNotEmpty) {
+            roomCount = roomsList.length;
           }
         }
 
@@ -207,6 +215,10 @@ class _AuthGateState extends State<AuthGate> {
           role = 'admin';
         }
 
+        if (roomCount == 0 && flatId != null && flatId.isNotEmpty) {
+          roomCount = 1;
+        }
+
         // Self-heal: save discovered flatId, flatName & role back to users/{uid} in Firestore
         FirebaseFirestore.instance.collection('users').doc(uid).set({
           if (flatId != null && flatId.isNotEmpty) 'flatId': flatId,
@@ -224,6 +236,7 @@ class _AuthGateState extends State<AuthGate> {
         setState(() {
           _flatId = flatId;
           _role = role;
+          _roomCount = roomCount;
           _isLoading = false;
           _profileLoaded = true;
         });
@@ -250,8 +263,10 @@ class _AuthGateState extends State<AuthGate> {
         final flatId = data['flatId'] as String?;
         final flatName = data['flatName'] as String?;
         String streamRole = isMasterAdmin ? 'admin' : (data['role'] as String? ?? _role ?? 'user');
+        final roomsList = data['rooms'] as List<dynamic>?;
+        final count = roomsList?.length ?? (flatId != null && flatId.isNotEmpty ? 1 : 0);
 
-        if (flatId != _flatId || streamRole != _role) {
+        if (flatId != _flatId || streamRole != _role || count != _roomCount) {
           if (flatId != null && flatId.isNotEmpty) {
             _flatRepo.saveLocalProfile(flatId: flatId, role: streamRole, flatName: flatName);
           } else {
@@ -260,6 +275,7 @@ class _AuthGateState extends State<AuthGate> {
           setState(() {
             _flatId = flatId;
             _role = streamRole;
+            _roomCount = count;
             _isLoading = false;
             _profileLoaded = true;
           });
@@ -285,12 +301,22 @@ class _AuthGateState extends State<AuthGate> {
       return const _LoadingScreen();
     }
 
-    // 1. If user already has a flat (or discovered existing flat) -> App Dashboard!
+    // 1. If user belongs to multiple rooms -> Netflix-style Room Picker!
+    if (_roomCount > 1) {
+      return RoomPickerPage(isAdmin: _role == 'admin');
+    }
+
+    // 2. If user already has an active flat -> App Dashboard!
     if (_flatId != null && _flatId!.isNotEmpty) {
       return HomePage(flatId: _flatId!, isAdmin: _role == 'admin');
     }
 
-    // 2. No flat yet:
+    // 3. If user has 1 room in rooms array but flatId unselected -> RoomPickerPage
+    if (_roomCount == 1) {
+      return RoomPickerPage(isAdmin: _role == 'admin');
+    }
+
+    // 4. No flat yet:
     // Admin without a flat -> Create Flat screen directly
     if (_role == 'admin') {
       return const CreateFlatPage();

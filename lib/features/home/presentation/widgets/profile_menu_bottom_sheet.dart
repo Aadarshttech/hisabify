@@ -4,6 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flatsplit/core/theme/app_theme.dart';
 import 'package:flatsplit/features/expenses/data/expense_model.dart';
 import 'package:flatsplit/features/flat/data/flat_repository.dart';
+import 'package:flatsplit/features/room/presentation/pages/room_picker_page.dart';
+import 'package:flatsplit/features/flat/presentation/pages/create_flat_page.dart';
+import 'package:flatsplit/features/flat/presentation/pages/join_flat_page.dart';
 import 'package:flatsplit/features/home/presentation/pages/admin_page.dart';
 import 'package:flatsplit/main.dart';
 
@@ -392,6 +395,171 @@ class _ProfileMenuBottomSheetState extends State<ProfileMenuBottomSheet> {
     }
   }
 
+  void _showJoinCreateModal() {
+    Navigator.pop(context); // Close profile bottom sheet
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (ctx) => Container(
+        decoration: const BoxDecoration(
+          color: AppTheme.surface,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 36,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppTheme.border,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 18),
+            const Text(
+              'Add Another Room',
+              style: TextStyle(
+                fontFamily: 'Fredoka',
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.darkerText,
+              ),
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              'Create a separate room for trips, events, or flatmates, or join with an invite code.',
+              style: TextStyle(
+                fontSize: 12.5,
+                color: AppTheme.lightText,
+                height: 1.4,
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Option 1: Create
+            InkWell(
+              borderRadius: BorderRadius.circular(14),
+              onTap: () {
+                Navigator.pop(ctx);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const CreateFlatPage()),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF164E3D).withValues(alpha: 0.05),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: const Color(0xFF164E3D).withValues(alpha: 0.2)),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF164E3D),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(Icons.add_business_rounded, color: Colors.white, size: 22),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Create a New Room',
+                            style: TextStyle(
+                              fontFamily: 'Fredoka',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF164E3D),
+                            ),
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            'Start a new room as Admin and get an invite code',
+                            style: TextStyle(fontSize: 11.5, color: AppTheme.lightText),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.chevron_right_rounded, color: Color(0xFF164E3D)),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // Option 2: Join
+            InkWell(
+              borderRadius: BorderRadius.circular(14),
+              onTap: () {
+                Navigator.pop(ctx);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const JoinFlatPage()),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF2563EB).withValues(alpha: 0.05),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: const Color(0xFF2563EB).withValues(alpha: 0.2)),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF2563EB),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(Icons.group_add_rounded, color: Colors.white, size: 22),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Join an Existing Room',
+                            style: TextStyle(
+                              fontFamily: 'Fredoka',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF2563EB),
+                            ),
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            'Enter a 6-character room code from your friends',
+                            style: TextStyle(fontSize: 11.5, color: AppTheme.lightText),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.chevron_right_rounded, color: Color(0xFF2563EB)),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final String initial = widget.displayName.trim().isNotEmpty
@@ -749,6 +917,32 @@ class _ProfileMenuBottomSheetState extends State<ProfileMenuBottomSheet> {
               ),
               const SizedBox(height: 8),
             ],
+
+            // 3b. Switch Room
+            _buildActionTile(
+              icon: Icons.swap_horiz_rounded,
+              title: 'Switch Room',
+              subtitle: 'Go back to room selection screen',
+              iconColor: const Color(0xFF2563EB),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (_) => const RoomPickerPage()),
+                  (route) => false,
+                );
+              },
+            ),
+            const SizedBox(height: 8),
+
+            // 3c. Join / Create New Room
+            _buildActionTile(
+              icon: Icons.add_home_rounded,
+              title: 'Join / Create New Room',
+              subtitle: 'Add a new room to your account',
+              iconColor: const Color(0xFF059669),
+              onTap: _showJoinCreateModal,
+            ),
+            const SizedBox(height: 8),
 
             // 4. Leave Room
             _buildActionTile(

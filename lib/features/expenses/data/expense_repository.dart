@@ -157,36 +157,22 @@ class ExpenseRepository {
         for (int i = 0; i < mergedList.length; i++) {
           final m = mergedList[i];
           // Check UID
-          if (raw.uid != null && m.uid != null && raw.uid == m.uid) {
+          if (raw.uid != null && raw.uid!.isNotEmpty && m.uid != null && m.uid!.isNotEmpty && raw.uid == m.uid) {
             matchIdx = i;
             break;
           }
           // Check Email
-          if (raw.email != null && m.email != null && raw.email == m.email) {
+          if (raw.email != null && raw.email!.isNotEmpty && m.email != null && m.email!.isNotEmpty && raw.email!.toLowerCase().trim() == m.email!.toLowerCase().trim()) {
             matchIdx = i;
             break;
           }
-          // Check Name (case-insensitive)
-          if (raw.name.toLowerCase().trim() == m.name.toLowerCase().trim()) {
+          // Check unassigned placeholder (no UID and no email) with matching name
+          final rawIsUnassigned = (raw.uid == null || raw.uid!.isEmpty) && (raw.email == null || raw.email!.isEmpty);
+          final mIsUnassigned = (m.uid == null || m.uid!.isEmpty) && (m.email == null || m.email!.isEmpty);
+          if ((rawIsUnassigned || mIsUnassigned) &&
+              raw.name.toLowerCase().trim() == m.name.toLowerCase().trim()) {
             matchIdx = i;
             break;
-          }
-          // Check Email prefix vs Name (exact normalized match only)
-          if (raw.email != null) {
-            final pref = raw.email!.split('@').first.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '').toLowerCase();
-            final mClean = m.name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '').toLowerCase();
-            if (pref.isNotEmpty && mClean.isNotEmpty && pref == mClean) {
-              matchIdx = i;
-              break;
-            }
-          }
-          if (m.email != null) {
-            final pref = m.email!.split('@').first.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '').toLowerCase();
-            final rawClean = raw.name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '').toLowerCase();
-            if (pref.isNotEmpty && rawClean.isNotEmpty && pref == rawClean) {
-              matchIdx = i;
-              break;
-            }
           }
         }
 
@@ -263,21 +249,13 @@ class ExpenseRepository {
           break;
         }
 
-        // 4. Name match (case-insensitive)
+        // 4. Name match ONLY IF this document is an unassigned placeholder
+        // If it already belongs to another registered user (has different UID or Email), DO NOT claim it!
+        final isDocUnassigned = (mUid == null || mUid.isEmpty) && (mEmail == null || mEmail.isEmpty);
         final cleanDefault = defaultName.toLowerCase().trim();
-        if (cleanDefault.isNotEmpty && mName == cleanDefault) {
+        if (isDocUnassigned && cleanDefault.isNotEmpty && mName == cleanDefault) {
           matchedDoc = doc;
           break;
-        }
-
-        // 5. Email prefix match with name
-        if (cleanEmail != null && mName.isNotEmpty) {
-          final emailUser = cleanEmail.split('@').first.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '');
-          final nameClean = mName.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '');
-          if (emailUser.isNotEmpty && (nameClean == emailUser || emailUser.contains(nameClean) || nameClean.contains(emailUser))) {
-            matchedDoc = doc;
-            break;
-          }
         }
       }
 
@@ -302,7 +280,9 @@ class ExpenseRepository {
         // No existing member found (e.g. deleted), recreate with correct role!
         final docId = (cleanEmail != null && cleanEmail.isNotEmpty)
             ? cleanEmail.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')
-            : defaultName.trim().toLowerCase().replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+            : (uid != null && uid.isNotEmpty
+                ? uid
+                : '${defaultName.trim().toLowerCase().replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')}_${DateTime.now().millisecondsSinceEpoch}');
 
         final Map<String, dynamic> docData = {
           'name': defaultName.trim().isNotEmpty ? defaultName.trim() : (cleanEmail?.split('@').first ?? (shouldBeAdmin ? 'Admin' : 'Flatmate')),
@@ -341,7 +321,9 @@ class ExpenseRepository {
 
     final docId = (cleanEmail != null && cleanEmail.isNotEmpty)
         ? cleanEmail.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')
-        : name.trim().toLowerCase().replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+        : (uid != null && uid.isNotEmpty
+            ? uid
+            : '${name.trim().toLowerCase().replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')}_${DateTime.now().millisecondsSinceEpoch}');
 
     try {
       final Map<String, dynamic> docData = {
