@@ -995,9 +995,7 @@ class _AdminPageState extends State<AdminPage> {
                 (currentUid != null && member.uid != null && currentUid == member.uid) ||
                 (currentEmail != null && member.id.toLowerCase() == currentEmail.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_'));
 
-            final isMemberAdmin = member.role.toLowerCase() == 'admin' ||
-                member.email?.toLowerCase().trim() == 'aadarshapandit17@gmail.com' ||
-                member.email?.toLowerCase().trim() == 'aadarshapandit@gmail.com';
+            final isMemberAdmin = member.role.toLowerCase() == 'admin';
 
             return Container(
               margin: const EdgeInsets.only(bottom: 8),

@@ -179,15 +179,8 @@ class ExpenseRepository {
 
         if (matchIdx >= 0) {
           final existing = mergedList[matchIdx];
-          final existingEmail = existing.email?.toLowerCase().trim() ?? '';
-          final rawEmail = raw.email?.toLowerCase().trim() ?? '';
-          final isMasterAdmin = existingEmail == 'aadarshapandit17@gmail.com' ||
-              existingEmail == 'aadarshapandit@gmail.com' ||
-              rawEmail == 'aadarshapandit17@gmail.com' ||
-              rawEmail == 'aadarshapandit@gmail.com';
           final isAnyAdmin = existing.role.toLowerCase() == 'admin' ||
-              raw.role.toLowerCase() == 'admin' ||
-              isMasterAdmin;
+              raw.role.toLowerCase() == 'admin';
           final email = raw.email ?? existing.email;
           mergedList[matchIdx] = Flatmate(
             id: existing.id,
@@ -216,9 +209,10 @@ class ExpenseRepository {
     final cleanEmail = email?.toLowerCase().trim();
     if (defaultName.trim().isEmpty && (cleanEmail == null || cleanEmail.isEmpty)) return;
 
-    final isMasterAdmin = cleanEmail == 'aadarshapandit17@gmail.com' ||
-        cleanEmail == 'aadarshapandit@gmail.com';
-    final shouldBeAdmin = asAdmin || isMasterAdmin;
+    // The caller can only request an admin member when the current room role
+    // was established by membership/ownership checks. Never elevate based on
+    // a hard-coded email in the app bundle.
+    final shouldBeAdmin = asAdmin;
     final roleToSet = shouldBeAdmin ? 'Admin' : 'Flatmate';
 
     try {
@@ -599,53 +593,78 @@ class ExpenseRepository {
     required List<String> splitAmong,
     String? notes,
   }) async {
-    try {
-      await _expensesRef.add({
-        'title': title.trim(),
-        'amount': amount,
-        'paidById': paidByName.toLowerCase().replaceAll(' ', '_'),
-        'paidByName': paidByName.trim(),
-        'date': Timestamp.now(),
-        'category': category,
-        'splitAmong': splitAmong,
-        'notes': notes,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
-    } catch (_) {}
+    final cleanTitle = title.trim();
+    final cleanPayer = paidByName.trim();
+    if (cleanTitle.isEmpty || cleanTitle.length > 120) {
+      throw ArgumentError.value(title, 'title', 'Enter an expense name up to 120 characters.');
+    }
+    if (!amount.isFinite || amount <= 0) {
+      throw ArgumentError.value(amount, 'amount', 'Amount must be a finite positive number.');
+    }
+    if (cleanPayer.isEmpty || splitAmong.isEmpty) {
+      throw ArgumentError('Choose a payer and at least one person to split with.');
+    }
+
+    await _expensesRef.add({
+      'title': cleanTitle,
+      'amount': amount,
+      'paidById': cleanPayer.toLowerCase().replaceAll(' ', '_'),
+      'paidByName': cleanPayer,
+      'date': Timestamp.now(),
+      'category': category,
+      'splitAmong': splitAmong,
+      'notes': notes,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
   }
 
   // Soft-delete single expense so it remains visible in the Activity Feed audit trail
   Future<void> deleteExpense(String expenseId, {String? deletedByName}) async {
-    _expensesRef.doc(expenseId).update({
+    if (expenseId.trim().isEmpty) {
+      throw ArgumentError.value(expenseId, 'expenseId');
+    }
+    await _expensesRef.doc(expenseId).update({
       'isDeleted': true,
       'deletedAt': FieldValue.serverTimestamp(),
       if (deletedByName != null && deletedByName.isNotEmpty)
         'deletedByName': deletedByName,
-    }).catchError((_) {});
+    });
   }
 
   // Restore a previously deleted expense back into active roomie balances
   Future<void> restoreExpense(String expenseId) async {
-    _expensesRef.doc(expenseId).update({
+    if (expenseId.trim().isEmpty) {
+      throw ArgumentError.value(expenseId, 'expenseId');
+    }
+    await _expensesRef.doc(expenseId).update({
       'isDeleted': false,
       'deletedAt': FieldValue.delete(),
       'deletedByName': FieldValue.delete(),
-    }).catchError((_) {});
+    });
   }
 
   // Update split members for an existing expense
   Future<void> updateExpenseSplit(String expenseId, List<String> newSplitAmong) async {
-    try {
-      await _expensesRef.doc(expenseId).update({
-        'splitAmong': newSplitAmong,
-        'updatedAt': FieldValue.serverTimestamp(),
-      });
-    } catch (_) {}
+    final split = newSplitAmong
+        .map((name) => name.trim())
+        .where((name) => name.isNotEmpty)
+        .toSet()
+        .toList();
+    if (expenseId.trim().isEmpty || split.isEmpty || split.length > 50) {
+      throw ArgumentError('Choose between 1 and 50 unique members.');
+    }
+    await _expensesRef.doc(expenseId).update({
+      'splitAmong': split,
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
   }
 
   // Permanently purge an expense document from Firestore (Admin tool)
   Future<void> permanentlyDeleteExpense(String expenseId) async {
-    _expensesRef.doc(expenseId).delete().catchError((_) {});
+    if (expenseId.trim().isEmpty) {
+      throw ArgumentError.value(expenseId, 'expenseId');
+    }
+    await _expensesRef.doc(expenseId).delete();
   }
 
   // Record a settlement payment
@@ -655,21 +674,34 @@ class ExpenseRepository {
     required double amount,
     String? note,
   }) async {
-    try {
-      await _settlementsRef.add({
-        'fromPerson': fromPerson.trim(),
-        'toPerson': toPerson.trim(),
-        'amount': amount,
-        'date': Timestamp.now(),
-        'note': note,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
-    } catch (_) {}
+    final from = fromPerson.trim();
+    final to = toPerson.trim();
+    final cleanNote = note?.trim();
+    if (from.isEmpty || to.isEmpty || from.toLowerCase() == to.toLowerCase()) {
+      throw ArgumentError('Choose two different members.');
+    }
+    if (!amount.isFinite || amount <= 0 || amount > 100000000) {
+      throw ArgumentError.value(amount, 'amount', 'Amount must be a realistic positive number.');
+    }
+    if (cleanNote != null && cleanNote.length > 500) {
+      throw ArgumentError.value(note, 'note', 'Note must be 500 characters or fewer.');
+    }
+    await _settlementsRef.add({
+      'fromPerson': from,
+      'toPerson': to,
+      'amount': amount,
+      'date': Timestamp.now(),
+      if (cleanNote != null && cleanNote.isNotEmpty) 'note': cleanNote,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
   }
 
   // Permanently delete a single settlement
   Future<void> deleteSettlement(String settlementId) async {
-    _settlementsRef.doc(settlementId).delete().catchError((_) {});
+    if (settlementId.trim().isEmpty) {
+      throw ArgumentError.value(settlementId, 'settlementId');
+    }
+    await _settlementsRef.doc(settlementId).delete();
   }
 
   Future<void> _batchedDelete(List<DocumentSnapshot> docs) async {

@@ -57,7 +57,6 @@ class _HomePageState extends State<HomePage> {
     // Auto-register user as flatmate member in background (non-blocking)
     final user = FirebaseAuth.instance.currentUser;
     final email = user?.email?.toLowerCase().trim() ?? '';
-    final isMaster = email == 'aadarshapandit17@gmail.com' || email == 'aadarshapandit@gmail.com';
     if (email.isNotEmpty) {
       final name = user?.displayName ??
           (email.isNotEmpty ? email.split('@').first : 'Flatmate');
@@ -65,7 +64,7 @@ class _HomePageState extends State<HomePage> {
         name,
         email: email,
         uid: user?.uid,
-        asAdmin: widget.isAdmin == true || isMaster,
+        asAdmin: widget.isAdmin == true,
       );
     }
   }
@@ -186,8 +185,6 @@ class _HomePageState extends State<HomePage> {
                     // 1. The flat's creator (createdBy == user.uid)
                     // 2. The flat's designated adminEmail
                     // 3. Listed in this flat's members with role == 'Admin'
-                    final bool isMasterAdmin = userEmail == 'aadarshapandit17@gmail.com' ||
-                        userEmail == 'aadarshapandit@gmail.com';
                     final bool isCreator = user != null && flatCreatedBy != null && user.uid == flatCreatedBy;
                     final bool isEmailAdmin = userEmail != null && flatAdminEmail != null && userEmail == flatAdminEmail;
                     final bool isMemberAdmin = flatmates.any((m) {
@@ -197,7 +194,6 @@ class _HomePageState extends State<HomePage> {
                     });
 
                     final bool isUserAdmin = widget.isAdmin == true ||
-                        isMasterAdmin ||
                         isCreator ||
                         isEmailAdmin ||
                         isMemberAdmin;

@@ -12,12 +12,63 @@ class UserFlatDiscovery {
   const UserFlatDiscovery({this.flatId, required this.role, this.flatName});
 }
 
+class _FlatCodeCollision implements Exception {
+  const _FlatCodeCollision();
+}
+
 class FlatRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   static const String _keyFlatId = 'cached_flat_id';
   static const String _keyRole = 'cached_user_role';
   static const String _keyFlatName = 'cached_flat_name';
+
+  List<Map<String, dynamic>> _roomsWithNewEntry({
+    required Map<String, dynamic>? profile,
+    required String flatId,
+    required String flatName,
+    required String role,
+    required String roomType,
+    required String icon,
+  }) {
+    final rooms = <Map<String, dynamic>>[];
+    final rawRooms = profile?['rooms'];
+    if (rawRooms is List) {
+      for (final rawRoom in rawRooms) {
+        if (rawRoom is! Map) continue;
+        final room = Map<String, dynamic>.from(rawRoom);
+        final roomFlatId = (room['flatId'] as String? ?? '').toUpperCase().trim();
+        if (roomFlatId.isNotEmpty && roomFlatId != flatId) rooms.add(room);
+      }
+    }
+    // Preserve accounts created before multi-room support, where the only
+    // membership was stored in the legacy active-flat fields.
+    final legacyFlatId = (profile?['flatId'] as String? ?? '').toUpperCase().trim();
+    final hasLegacyRoom = rooms.any(
+      (room) => (room['flatId'] as String? ?? '').toUpperCase().trim() == legacyFlatId,
+    );
+    if (legacyFlatId.isNotEmpty && legacyFlatId != flatId && !hasLegacyRoom) {
+      rooms.add({
+        'flatId': legacyFlatId,
+        'flatName': (profile?['flatName'] as String?)?.trim().isNotEmpty == true
+            ? (profile?['flatName'] as String).trim()
+            : 'Room $legacyFlatId',
+        'role': profile?['role'] == 'admin' ? 'admin' : 'user',
+        'roomType': 'flat',
+        'icon': '🏠',
+        'joinedAt': Timestamp.now(),
+      });
+    }
+    rooms.add({
+      'flatId': flatId,
+      'flatName': flatName,
+      'role': role,
+      'roomType': roomType,
+      'icon': icon,
+      'joinedAt': Timestamp.now(),
+    });
+    return rooms;
+  }
 
   /// Cache flat ID, role, and flat name locally for instant zero-latency startup
   Future<void> saveLocalProfile({required String flatId, required String role, String? flatName}) async {
@@ -82,8 +133,7 @@ class FlatRepository {
         final adminEmail = flatDoc.data()?['adminEmail'] as String?;
         final flatName = flatDoc.data()?['name'] as String?;
 
-        final bool isMasterAdmin = cleanEmail == 'aadarshapandit17@gmail.com' || cleanEmail == 'aadarshapandit@gmail.com';
-        if (isMasterAdmin || createdBy == uid || (adminEmail != null && cleanEmail.isNotEmpty && adminEmail.toLowerCase() == cleanEmail)) {
+        if (createdBy == uid || (adminEmail != null && cleanEmail.isNotEmpty && adminEmail.toLowerCase() == cleanEmail)) {
           return UserFlatDiscovery(flatId: targetFlatId, role: 'admin', flatName: flatName);
         }
 
@@ -252,66 +302,72 @@ class FlatRepository {
     required String adminEmail,
     required String adminDisplayName,
   }) async {
-    final code = generateFlatCode();
+    final cleanName = flatName.trim();
+    if (cleanName.isEmpty || cleanName.length > 80) {
+      throw ArgumentError.value(flatName, 'flatName', 'Use a room name up to 80 characters.');
+    }
 
-    final batch = _firestore.batch();
+    // A transaction reserves the code and creates every owner-side record in
+    // one commit, so a rare code collision cannot overwrite another room or
+    // leave the new room absent from its creator's picker.
+    for (var attempt = 0; attempt < 8; attempt++) {
+      final code = generateFlatCode();
+      final flatRef = _firestore.collection('flats').doc(code);
+      final userRef = _firestore.collection('users').doc(adminUid);
+      final cleanEmail = adminEmail.toLowerCase().trim();
+      final adminDocId = cleanEmail.isNotEmpty
+          ? cleanEmail.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')
+          : adminUid;
 
-    // 1. Create the flat document
-    batch.set(_firestore.collection('flats').doc(code), {
-      'name': flatName.trim(),
-      'roomType': roomType,
-      'icon': roomIcon,
-      'createdBy': adminUid,
-      'adminEmail': adminEmail.toLowerCase().trim(),
-      'adminName': adminDisplayName.trim(),
-      'createdAt': FieldValue.serverTimestamp(),
-    });
+      try {
+        await _firestore.runTransaction((transaction) async {
+          final flatSnapshot = await transaction.get(flatRef);
+          if (flatSnapshot.exists) throw const _FlatCodeCollision();
+          final profileSnapshot = await transaction.get(userRef);
+          final rooms = _roomsWithNewEntry(
+            profile: profileSnapshot.data(),
+            flatId: code,
+            flatName: cleanName,
+            role: 'admin',
+            roomType: roomType,
+            icon: roomIcon,
+          );
 
-    // 2. Add admin as first member of the flat
-    final adminDocId = adminEmail.isNotEmpty
-        ? adminEmail.toLowerCase().trim().replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')
-        : adminUid;
-    batch.set(
-      _firestore.collection('flats').doc(code).collection('members').doc(adminDocId),
-      {
-        'name': adminDisplayName.trim(),
-        'email': adminEmail.toLowerCase().trim(),
-        'uid': adminUid,
-        'role': 'Admin',
-        'createdAt': FieldValue.serverTimestamp(),
-      },
-    );
+          transaction.set(flatRef, {
+            'name': cleanName,
+            'roomType': roomType,
+            'icon': roomIcon,
+            'createdBy': adminUid,
+            'adminEmail': cleanEmail,
+            'adminName': adminDisplayName.trim(),
+            'createdAt': FieldValue.serverTimestamp(),
+          });
+          transaction.set(flatRef.collection('members').doc(adminDocId), {
+            'name': adminDisplayName.trim(),
+            'email': cleanEmail,
+            'uid': adminUid,
+            'role': 'Admin',
+            'createdAt': FieldValue.serverTimestamp(),
+          });
+          transaction.set(userRef, {
+            'email': cleanEmail,
+            'displayName': adminDisplayName.trim(),
+            'role': 'admin',
+            'flatId': code,
+            'flatName': cleanName,
+            'joinedAt': FieldValue.serverTimestamp(),
+            'rooms': rooms,
+          }, SetOptions(merge: true));
+        }).timeout(const Duration(seconds: 15));
 
-    // 3. Write/update the user profile
-    batch.set(
-      _firestore.collection('users').doc(adminUid),
-      {
-        'email': adminEmail.toLowerCase().trim(),
-        'displayName': adminDisplayName.trim(),
-        'role': 'admin',
-        'flatId': code,
-        'flatName': flatName.trim(),
-        'joinedAt': FieldValue.serverTimestamp(),
-      },
-      SetOptions(merge: true),
-    );
+        await saveLocalProfile(flatId: code, role: 'admin', flatName: cleanName);
+        return code;
+      } on _FlatCodeCollision {
+        // Generate a fresh code and retry; the existing room remains untouched.
+      }
+    }
 
-    await batch.commit().timeout(const Duration(seconds: 15), onTimeout: () {
-      throw Exception('Network timeout. Please check your connection and try again.');
-    });
-    await saveLocalProfile(flatId: code, role: 'admin', flatName: flatName.trim());
-
-    // 4. Add room to user's rooms array for multi-room support
-    await RoomRepository().addRoomToUser(
-      uid: adminUid,
-      flatId: code,
-      flatName: flatName.trim(),
-      role: 'admin',
-      roomType: roomType,
-      icon: roomIcon,
-    );
-
-    return code;
+    throw Exception('Could not reserve a unique room code. Please try again.');
   }
 
   // ──────────────────────────────────────────────

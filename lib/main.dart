@@ -150,14 +150,10 @@ class _AuthGateState extends State<AuthGate> {
     final local = await _flatRepo.getLocalProfile();
     final cachedRole = local['role'];
     final userEmail = _currentUser?.email?.toLowerCase().trim() ?? '';
-    final isMasterAdmin = userEmail == 'aadarshapandit17@gmail.com' ||
-        userEmail == 'aadarshapandit@gmail.com';
 
     if (mounted) {
       setState(() {
-        if (isMasterAdmin) {
-          _role = 'admin';
-        } else if (cachedRole != null && cachedRole.isNotEmpty) {
+        if (cachedRole != null && cachedRole.isNotEmpty) {
           _role = cachedRole;
         } else {
           _role = 'user';
@@ -180,7 +176,7 @@ class _AuthGateState extends State<AuthGate> {
       if (mounted) {
         String? flatId;
         String? flatName;
-        String role = isMasterAdmin ? 'admin' : (_role ?? 'user');
+        String role = _role ?? 'user';
         int roomCount = 0;
 
         if (doc.exists) {
@@ -188,7 +184,7 @@ class _AuthGateState extends State<AuthGate> {
           flatId = data['flatId'] as String?;
           flatName = data['flatName'] as String?;
           final docRole = data['role'] as String?;
-          if (!isMasterAdmin && docRole != null && docRole.isNotEmpty) {
+          if (docRole != null && docRole.isNotEmpty) {
             role = docRole;
           }
         }
@@ -217,11 +213,11 @@ class _AuthGateState extends State<AuthGate> {
 
         if (discovery.flatId != null && discovery.flatId!.isNotEmpty) {
           flatId = discovery.flatId;
-          role = isMasterAdmin ? 'admin' : discovery.role;
+          role = discovery.role;
           if (discovery.flatName != null && discovery.flatName!.isNotEmpty) {
             flatName = discovery.flatName;
           }
-        } else if (discovery.role == 'admin' || isMasterAdmin) {
+        } else if (discovery.role == 'admin') {
           role = 'admin';
         }
 
@@ -272,7 +268,7 @@ class _AuthGateState extends State<AuthGate> {
         final data = doc.data() ?? {};
         final flatId = data['flatId'] as String?;
         final flatName = data['flatName'] as String?;
-        String streamRole = isMasterAdmin ? 'admin' : (data['role'] as String? ?? _role ?? 'user');
+        String streamRole = data['role'] as String? ?? _role ?? 'user';
         final roomsList = data['rooms'] as List<dynamic>?;
         final count = roomsList?.length ?? (flatId != null && flatId.isNotEmpty ? 1 : 0);
 
@@ -314,7 +310,10 @@ class _AuthGateState extends State<AuthGate> {
     // A signed-in member always picks a room. This prevents the cached active
     // room from hiding newly joined rooms after a later sign-in.
     if (_roomCount > 0) {
-      return RoomPickerPage(isAdmin: _role == 'admin');
+      return RoomPickerPage(
+        isAdmin: _role == 'admin',
+        currentFlatId: _flatId,
+      );
     }
 
     // 2. If user already has an active flat -> App Dashboard!

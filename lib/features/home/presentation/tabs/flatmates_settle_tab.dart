@@ -476,9 +476,7 @@ class FlatmatesSettleTab extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 6),
-                          if (f.role.toLowerCase() == 'admin' ||
-                              f.email?.toLowerCase().trim() == 'aadarshapandit17@gmail.com' ||
-                              f.email?.toLowerCase().trim() == 'aadarshapandit@gmail.com')
+                          if (f.role.toLowerCase() == 'admin')
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
                               decoration: BoxDecoration(

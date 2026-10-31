@@ -58,6 +58,17 @@ class UserRoom {
   int get hashCode => flatId.hashCode;
 }
 
+/// Represents the real-time rooms state for a user, including their active room ID.
+class UserRoomsState {
+  final List<UserRoom> rooms;
+  final String? activeFlatId;
+
+  const UserRoomsState({
+    required this.rooms,
+    this.activeFlatId,
+  });
+}
+
 class RoomRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -130,6 +141,24 @@ class RoomRepository {
     } catch (_) {
       return [];
     }
+  }
+
+  /// Stream of all rooms the user belongs to along with their active flatId.
+  Stream<UserRoomsState> getUserRoomsStateStream(String uid) {
+    return _firestore
+        .collection('users')
+        .doc(uid)
+        .snapshots()
+        .map((doc) {
+      if (!doc.exists) return const UserRoomsState(rooms: [], activeFlatId: null);
+
+      final data = doc.data() ?? {};
+      final activeId = (data['flatId'] as String?)?.toUpperCase().trim();
+      return UserRoomsState(
+        rooms: _roomsFromData(data),
+        activeFlatId: activeId != null && activeId.isNotEmpty ? activeId : null,
+      );
+    });
   }
 
   /// Stream of all rooms the user belongs to (real-time).

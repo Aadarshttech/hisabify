@@ -927,7 +927,7 @@ class _ProfileMenuBottomSheetState extends State<ProfileMenuBottomSheet> {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => const RoomPickerPage()),
+                  MaterialPageRoute(builder: (_) => RoomPickerPage(currentFlatId: widget.flatId)),
                   (route) => false,
                 );
               },

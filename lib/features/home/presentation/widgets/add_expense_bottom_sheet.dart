@@ -6,7 +6,13 @@ import 'package:flatsplit/features/expenses/data/expense_model.dart';
 class AddExpenseBottomSheet extends StatefulWidget {
   final String currentUserName;
   final List<Flatmate> flatmates;
-  final Function(String title, double amount, String category, String paidByName, List<String> splitAmong) onExpenseAdded;
+  final Future<void> Function(
+    String title,
+    double amount,
+    String category,
+    String paidByName,
+    List<String> splitAmong,
+  ) onExpenseAdded;
 
   const AddExpenseBottomSheet({
     super.key,
@@ -27,6 +33,7 @@ class _AddExpenseBottomSheetState extends State<AddExpenseBottomSheet> {
   late String _selectedPaidBy;
   late Set<String> _selectedSplitAmong;
   bool _showOtherPayers = false;
+  bool _isSubmitting = false;
 
   final List<Map<String, dynamic>> _categories = [
     {'name': 'Groceries', 'icon': Icons.shopping_bag_outlined},
@@ -79,11 +86,12 @@ class _AddExpenseBottomSheetState extends State<AddExpenseBottomSheet> {
     return double.tryParse(clean);
   }
 
-  void _submit() {
+  Future<void> _submit() async {
+    if (_isSubmitting) return;
     if (!_formKey.currentState!.validate()) return;
 
     final double? amount = _parseAmount(_amountController.text);
-    if (amount == null || amount <= 0) {
+    if (amount == null || !amount.isFinite || amount <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter a valid amount')),
       );
@@ -100,14 +108,26 @@ class _AddExpenseBottomSheetState extends State<AddExpenseBottomSheet> {
       return;
     }
 
-    widget.onExpenseAdded(
-      _titleController.text.trim(),
-      amount,
-      _selectedCategory,
-      _selectedPaidBy,
-      _selectedSplitAmong.toList(),
-    );
-    Navigator.of(context).pop();
+    setState(() => _isSubmitting = true);
+    try {
+      await widget.onExpenseAdded(
+        _titleController.text.trim(),
+        amount,
+        _selectedCategory,
+        _selectedPaidBy,
+        _selectedSplitAmong.toList(),
+      );
+      if (mounted) Navigator.of(context).pop();
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _isSubmitting = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Could not save this expense. Check your connection and try again.'),
+          backgroundColor: AppTheme.negative,
+        ),
+      );
+    }
   }
 
   @override
@@ -117,7 +137,8 @@ class _AddExpenseBottomSheetState extends State<AddExpenseBottomSheet> {
         : [Flatmate(id: 'me', name: widget.currentUserName)];
     final int totalFlatmates = memberList.length;
     final int splitCount = _selectedSplitAmong.length;
-    final double enteredAmount = _parseAmount(_amountController.text) ?? 0.0;
+    final double parsedAmount = _parseAmount(_amountController.text) ?? 0.0;
+    final double enteredAmount = parsedAmount.isFinite ? parsedAmount : 0.0;
     final double perPersonShare = (enteredAmount > 0 && splitCount > 0)
         ? enteredAmount / splitCount
         : 0.0;
@@ -261,7 +282,7 @@ class _AddExpenseBottomSheetState extends State<AddExpenseBottomSheet> {
                     return 'Please enter amount';
                   }
                   final parsed = _parseAmount(value);
-                  if (parsed == null || parsed <= 0) {
+                  if (parsed == null || !parsed.isFinite || parsed <= 0) {
                     return 'Enter a valid amount';
                   }
                   return null;
@@ -787,7 +808,7 @@ class _AddExpenseBottomSheetState extends State<AddExpenseBottomSheet> {
 
               // Submit
               ElevatedButton(
-                onPressed: splitCount > 0 ? _submit : null,
+                onPressed: splitCount > 0 && !_isSubmitting ? _submit : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.primary,
                   foregroundColor: Colors.white,
@@ -799,21 +820,30 @@ class _AddExpenseBottomSheetState extends State<AddExpenseBottomSheet> {
                   ),
                   elevation: 0,
                 ),
-                child: Text(
-                  splitCount == 0
-                      ? 'Select who shares this expense'
-                      : (splitCount == totalFlatmates
-                          ? (perPersonShare > 0
-                              ? 'Add Expense • Split among all $splitCount (${CurrencyUtils.formatCurrency(perPersonShare)}/ea)'
-                              : 'Add Expense • Split among all $splitCount')
-                          : (perPersonShare > 0
-                              ? 'Add Expense • Split among $splitCount (${CurrencyUtils.formatCurrency(perPersonShare)}/ea)'
-                              : 'Add Expense • Split among $splitCount')),
-                  style: const TextStyle(
-                    fontSize: 14.5,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: _isSubmitting
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : Text(
+                        splitCount == 0
+                            ? 'Select who shares this expense'
+                            : (splitCount == totalFlatmates
+                                ? (perPersonShare > 0
+                                    ? 'Add Expense • Split among all $splitCount (${CurrencyUtils.formatCurrency(perPersonShare)}/ea)'
+                                    : 'Add Expense • Split among all $splitCount')
+                                : (perPersonShare > 0
+                                    ? 'Add Expense • Split among $splitCount (${CurrencyUtils.formatCurrency(perPersonShare)}/ea)'
+                                    : 'Add Expense • Split among $splitCount')),
+                        style: const TextStyle(
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
               ),
             ],
           ),
