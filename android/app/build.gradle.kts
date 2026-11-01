@@ -19,7 +19,7 @@ val hasReleaseSigning = listOf("storeFile", "storePassword", "keyAlias", "keyPas
     .all { key -> !keystoreProperties.getProperty(key).isNullOrBlank() }
 
 android {
-    namespace = "com.flatsplit.flatsplit"
+    namespace = "aadarshapandit.hisabify"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -29,7 +29,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.flatsplit.flatsplit"
+        applicationId = "aadarshapandit.hisabify"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -55,6 +55,8 @@ android {
 
     buildTypes {
         release {
+            isMinifyEnabled = false
+            isShrinkResources = false
             if (hasReleaseSigning) {
                 signingConfig = signingConfigs.getByName("release")
             }
@@ -71,3 +73,4 @@ kotlin {
 flutter {
     source = "../.."
 }
+
